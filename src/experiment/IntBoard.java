@@ -1,3 +1,6 @@
+//	Carl Schader
+//	Josh Halinan
+
 package experiment;
 
 import java.util.*;

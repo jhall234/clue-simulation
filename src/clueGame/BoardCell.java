@@ -1,7 +1,7 @@
 //	Carl Schader
 //	Josh Hallinan
 
-package experiment;
+package clueGame;
 
 import java.util.*;
 
