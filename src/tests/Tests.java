@@ -20,12 +20,14 @@ class Tests {
 	
 	private static Board board = Board.getInstance();
 	
+//	Setup and initialize the board
 	@BeforeClass
 	public static void setUp() {
 		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");		
 		board.initialize();
 	}
 	
+//	tests the boards legend
 	@Test
 	void testLegend() {
 		HashMap<Character, String> legend = board.getLegend();
@@ -38,12 +40,14 @@ class Tests {
 		assertEquals("Walkway", legend.get('W'));
 	}
 	
+//	tests the boards dimensions
 	@Test
 	void testBoardDimensions() {
 		assertEquals(NUM_ROWS, board.getNumRows());
 		assertEquals(NUM_COLUMNS, board.getNumColumns());
 	}
 	
+//	tests door directionality for several different doors and cells which aren't doors
 	@Test
 	void testDoorDirections() {
 		BoardCell room = board.getCell(2, 4);
@@ -58,17 +62,18 @@ class Tests {
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.DOWN, room.getDoorDirection());
 		
-		room = board.getCell(3, 8);
+		room = board.getCell(18, 11);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.LEFT, room.getDoorDirection());
 		
-		room = board.getCell(4, 6);
+		room = board.getCell(19, 21);
 		assertFalse(room.isDoorway());
 		
 		room = board.getCell(4, 2);
 		assertFalse(room.isDoorway());
 	}
 	
+//	tests the number of doors
 	@Test
 	void testNumberDoors() {
 		int num_doors = 0;
@@ -82,6 +87,7 @@ class Tests {
 		assertEquals(NUM_DOORS, num_doors);
 	}
 	
+//	tests some cells initials
 	@Test
 	void testCellInitials() {
 		BoardCell room = board.getCell(0, 0);

@@ -15,6 +15,9 @@ public class Board {
 	private String roomConfigFile;
 	private static Board theInstance = new Board();
 
+	/**
+	 * Constructor
+	 */
 	private Board() {
 		this.numRows = 50;
 		this.numColumns = 50;
@@ -31,7 +34,10 @@ public class Board {
 		}
 		this.calcAdjacencies();
 	}
-
+	
+	/**
+	 * assigns the adjacent cell sets
+	 */
 	public void calcAdjacencies() {
 		for (int row=0; row<numRows; row++) {
 			for (int column=0; column<numColumns; column++) {
@@ -53,10 +59,20 @@ public class Board {
 		}
 	}
 
+	/**
+	 * getter for the adjacent set for a specific cell
+	 * @param cell
+	 * @return cell.adjacencies
+	 */
 	public HashSet<BoardCell> getAdjList(BoardCell cell) {
 		return board[cell.getRow()][cell.getColumn()].getAdjacencies();
 	}
 
+	/**
+	 * public method to call to assign the targets given a path length and cell
+	 * @param startCell
+	 * @param pathLength
+	 */
 	public void calcTargets(BoardCell startCell, int pathLength) {
 		this.visited.clear();
 		this.targets.clear();
@@ -64,6 +80,11 @@ public class Board {
 		this.findAllTargets(startCell, pathLength);
 	}
 
+	/**
+	 * recursive function used inside calcTargets
+	 * @param startCell
+	 * @param pathLength
+	 */
 	private void findAllTargets(BoardCell startCell, int pathLength) {
 		for (BoardCell cell : this.getAdjList(startCell)) {
 			if (this.visited.contains(cell)) {
@@ -82,46 +103,90 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * initialize the Board
+	 */
 	public void initialize() {
 		
 	}
 	
+	/**
+	 * loads room config
+	 */
 	public void loadRoomConfig() {
 		
 	}
 	
+	/**
+	 * loads board config
+	 */
 	public void loadBoardConfig() {
 		
 	}
 	
+	/**
+	 * Allows user to input config file names
+	 * @param boardLayout
+	 * @param legend
+	 */
 	public void setConfigFiles(String boardLayout, String legend) {
 		
 	}
-
+	
+	/**
+	 * gets the list of targets
+	 * @return targets
+	 */
 	public HashSet<BoardCell> getTargets() {
 		return this.targets;
 	}
 
+	/**
+	 * gets a particular cell
+	 * @param row
+	 * @param column
+	 * @return board[row][column]
+	 */
 	public BoardCell getCell(int row, int column) {
 		return this.board[row][column];
 	}
 	
+	/**
+	 * gets the entire board of cells
+	 * @return board
+	 */
 	public BoardCell[][] getBoard() {
 		return this.board;
 	}
 	
+	/**
+	 * gets the singleton board
+	 * @return theInstance
+	 */
 	public static Board getInstance() {
 		return theInstance;
 	}
 	
+	/**
+	 * gets the legend map
+	 * @return legend
+	 */
 	public HashMap<Character, String> getLegend() {
 		return this.legend;
 	}
 	
+	/**
+	 * gets the number of rows
+	 * @return numRows
+	 */
 	public int getNumRows() {
 		return this.numRows;
 	}
 	
+	/**
+	 * gets the number of columns numColumns
+	 * @return numColumns
+	 */
 	public int getNumColumns() {
 		return this.numColumns;
 	}
