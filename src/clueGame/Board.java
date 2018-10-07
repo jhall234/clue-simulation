@@ -1,3 +1,8 @@
+/**
+ * @author Carl Schader
+ * @author Josh Hallinan
+ */
+
 package clueGame;
 
 import java.util.*;

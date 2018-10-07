@@ -1,5 +1,7 @@
-//	Carl Schader
-//	Josh Hallinan
+/**
+ * @author Carl Schader
+ * @author Josh Hallinan
+ */
 
 package clueGame;
 

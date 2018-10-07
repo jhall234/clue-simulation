@@ -1,3 +1,8 @@
+/**
+ * @author Carl Schader
+ * @author Josh Hallinan
+ */
+
 package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -101,6 +106,9 @@ class Tests {
 		
 		room = board.getCell(22, 19);
 		assertEquals(Character.valueOf('K'), room.getInitial());
+		
+		room = board.getCell(2, 19);
+		assertEquals(Character.valueOf('O'), room.getInitial());
 	}
 
 }

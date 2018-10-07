@@ -1,0 +1,22 @@
+/**
+ * @author Carl Schader
+ * @author Josh Hallinan
+ */
+
+*Cell Selection for Testing Doorway functionality*
+The Movie Theater has two doors which open RIGHT, the Game Room has a door that
+opens UP, the Art Room has a door that opens DOWN and the Dining Room has a door 
+that open LEFT. We chose a random walkway piece (4,6) to test to make sure that 
+it does not identify as a doorway. We also chose a random room piece that was in 
+room Sauna (19,21) to make sure that it does not identify as a doorway. We made 
+sure to chose pieces from different rooms and part of the board to make sure that
+all areas of the board were read in correctly with respect to doorway functionality.
+
+*Cell Selection for Testing Correct Initials*
+Cell (0,0) is a non-doorway cell in Movie Theater
+Cell (8,23) is a walkway cell 
+Cell (14,16) is a closet cell 
+Cell (22,19) is a Kitchen cell
+Cell (2,19) is a Observatory cell that is a doorway
+We chose at least one cell that was a walkway, regular room object, doorway room object
+and a closet object to make sure that all types of cells were tested for the correct initial.
