@@ -2,14 +2,12 @@ package clueGame;
 
 import java.util.*;
 
-import experiment.BoardCell;
-
 public class Board {
 	private BoardCell[][] board;
 	private HashSet<BoardCell> targets;
 	private HashSet<BoardCell> visited;
-	private int numRows = 4;
-	private int numColumns = 4;
+	private int numRows;
+	private int numColumns;
 	
 	public static final int MAX_BOARD_SIZE = 50; 
 	private HashMap<Character, String> legend;
@@ -18,9 +16,14 @@ public class Board {
 	private static Board theInstance = new Board();
 
 	private Board() {
+		this.numRows = 50;
+		this.numColumns = 50;
+		this.legend = new HashMap<Character, String>();
+		
 		this.board = new BoardCell[numRows][numColumns];
 		this.targets = new HashSet<BoardCell>();
 		this.visited = new HashSet<BoardCell>();
+		
 		for (int row=0; row<numRows; row++) {
 			for (int column=0; column<numColumns; column++) {
 				this.board[row][column] = new BoardCell(row, column);
@@ -109,5 +112,17 @@ public class Board {
 	
 	public static Board getInstance() {
 		return theInstance;
+	}
+	
+	public HashMap<Character, String> getLegend() {
+		return this.legend;
+	}
+	
+	public int getNumRows() {
+		return this.numRows;
+	}
+	
+	public int getNumColumns() {
+		return this.numColumns;
 	}
 }
