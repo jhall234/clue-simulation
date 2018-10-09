@@ -1,0 +1,13 @@
+M, Movie Theater, Card
+G, Game Room, Card
+P, Swimming Pool, Card
+S, Sauna, Card
+O, Observatory, Card
+K, Kitchen, Card
+D, Dining Room, Card
+L, Library, Card
+A, Art Gallery, Card
+X, Closet, Other
+W, Walkway, Other
+
+

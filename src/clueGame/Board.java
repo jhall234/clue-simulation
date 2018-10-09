@@ -5,6 +5,8 @@
 
 package clueGame;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
 
 public class Board {
@@ -16,16 +18,16 @@ public class Board {
 	
 	public static final int MAX_BOARD_SIZE = 50; 
 	private HashMap<Character, String> legend;
-	private String boardConfigFile;
-	private String roomConfigFile;
-	private static Board theInstance = new Board();
+	private String boardConfigFile;	// Board Layout .csv?
+	private String roomConfigFile;	// Legend file?
+	private static Board theInstance = new Board(23,24);
 
 	/**
 	 * Constructor
 	 */
-	private Board() {
-		this.numRows = 50;
-		this.numColumns = 50;
+	private Board(int numRows, int numCols) {
+		this.numRows = numRows;
+		this.numColumns = numCols;
 		this.legend = new HashMap<Character, String>();
 		
 		this.board = new BoardCell[numRows][numColumns];
@@ -112,21 +114,73 @@ public class Board {
 	 * initialize the Board
 	 */
 	public void initialize() {
-		
+		this.loadBoardConfig();
+		this.loadRoomConfig();
 	}
 	
 	/**
 	 * loads room config
 	 */
-	public void loadRoomConfig() {
-		
+	private void loadRoomConfig() {
+		String line = "";
+		String[] list;
+		try {
+			FileReader file = new FileReader(this.roomConfigFile);
+			Scanner in = new Scanner(file);
+			while (in.hasNext()) {
+				line = in.nextLine();
+				list = line.split(", ");
+				this.legend.put(list[0].charAt(0), list[1]); // value could be: list[1] + " " + list[2] to include if it's a card or other
+			}
+			in.close();
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("Legend file not found.");
+		}
 	}
 	
 	/**
 	 * loads board config
 	 */
-	public void loadBoardConfig() {
-		
+	private void loadBoardConfig() {
+		String line = "";
+		String[] list;
+		try {
+			FileReader file = new FileReader(this.boardConfigFile);
+			Scanner in = new Scanner(file);
+			int row = 0;
+			while (in.hasNext()) {
+				line = in.nextLine();
+				list = line.split(",");
+				for (int i = 0; i < list.length; i++) {
+					board[row][i].setInitial(list[i].charAt(0));
+					if (list[i].length() > 1) {
+						switch (list[i].charAt(1)) {
+						case 'U':
+							board[row][i].setDoorDirection(DoorDirection.UP);
+							break;
+						case 'D':
+							board[row][i].setDoorDirection(DoorDirection.DOWN);
+							break;
+						case 'L':
+							board[row][i].setDoorDirection(DoorDirection.LEFT);
+							break;
+						case 'R':
+							board[row][i].setDoorDirection(DoorDirection.RIGHT);
+							break;
+						}
+					}
+					else {
+						board[row][i].setDoorDirection(DoorDirection.NONE);
+					}
+				}
+				row++;
+			}
+			in.close();
+		}
+		catch (FileNotFoundException e) {
+			System.out.println("Board .csv file not found.");
+		}
 	}
 	
 	/**
@@ -134,8 +188,9 @@ public class Board {
 	 * @param boardLayout
 	 * @param legend
 	 */
-	public void setConfigFiles(String boardLayout, String legend) {
-		
+	public void setConfigFiles(String boardConfigFile, String roomConfigFile) {
+		this.boardConfigFile = boardConfigFile;
+		this.roomConfigFile = roomConfigFile;
 	}
 	
 	/**
@@ -194,5 +249,22 @@ public class Board {
 	 */
 	public int getNumColumns() {
 		return this.numColumns;
+	}
+	
+	public static void main(String[] args) {
+		Board board = Board.getInstance();
+		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");
+		board.initialize();
+		for (HashMap.Entry<Character, String> entry : board.legend.entrySet()) {
+			System.out.println(entry.getKey() + " " + entry.getValue());
+		}
+		System.out.println();
+		for (int row=0; row<board.getNumRows(); row++) {
+			for (int column=0; column<board.getNumColumns(); column++) {
+				System.out.print(board.getCell(row, column).getInitial() + " " + board.getCell(row, column).getDoorDirection() + "   ");
+			}
+			System.out.println();
+		}
+		System.out.println(board.getLegend().size());
 	}
 }

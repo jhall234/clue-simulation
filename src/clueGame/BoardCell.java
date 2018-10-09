@@ -117,6 +117,22 @@ public class BoardCell {
 	public Character getInitial() {
 		return this.initial;
 	}
+	
+	/**
+	 * getter for the cell initial
+	 * 
+	 */
+	public void setInitial(Character initial) {
+		this.initial = initial;
+	}
+	
+	/**
+	 * getter for the cell doorDirection
+	 *
+	 */
+	public void setDoorDirection(DoorDirection doorDirection) {
+		this.direction = doorDirection;
+	}
 
 	/**
 	 * setter for the row number

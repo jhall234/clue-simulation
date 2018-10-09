@@ -9,7 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import clueGame.Board;
@@ -26,9 +28,9 @@ class Tests {
 	private static Board board = Board.getInstance();
 	
 //	Setup and initialize the board
-	@BeforeClass
+	@BeforeAll
 	public static void setUp() {
-		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");		
+		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");
 		board.initialize();
 	}
 	
@@ -39,6 +41,7 @@ class Tests {
 		
 		assertEquals(LEGEND_SIZE, legend.size());
 		
+		System.out.println(legend.get('M'));
 		assertEquals("Movie Theater", legend.get('M'));
 		assertEquals("Kitchen", legend.get('K'));
 		assertEquals("Art Gallery", legend.get('A'));
