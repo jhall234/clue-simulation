@@ -7,10 +7,9 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +28,7 @@ class Tests {
 	
 //	Setup and initialize the board
 	@BeforeAll
-	public static void setUp() {
+	public static void setUp() throws FileNotFoundException {
 		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");
 		board.initialize();
 	}
