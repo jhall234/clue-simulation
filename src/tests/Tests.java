@@ -55,26 +55,26 @@ class Tests {
 //	tests door directionality for several different doors and cells which aren't doors
 	@Test
 	void testDoorDirections() {
-		BoardCell room = board.getCell(2, 4);
+		BoardCell room = board.getCellAt(2, 4);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.RIGHT, room.getDoorDirection());
 		
-		room = board.getCell(8, 5);
+		room = board.getCellAt(8, 5);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.UP, room.getDoorDirection());
 		
-		room = board.getCell(3, 12);
+		room = board.getCellAt(3, 12);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.DOWN, room.getDoorDirection());
 		
-		room = board.getCell(18, 11);
+		room = board.getCellAt(18, 11);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.LEFT, room.getDoorDirection());
 		
-		room = board.getCell(19, 21);
+		room = board.getCellAt(19, 21);
 		assertFalse(room.isDoorway());
 		
-		room = board.getCell(4, 2);
+		room = board.getCellAt(4, 2);
 		assertFalse(room.isDoorway());
 	}
 	
@@ -84,7 +84,7 @@ class Tests {
 		int num_doors = 0;
 		for (int row=0; row<board.getNumRows(); row++) {
 			for (int column=0; column<board.getNumColumns(); column++) {
-				if (board.getCell(row, column).isDoorway()) {
+				if (board.getCellAt(row, column).isDoorway()) {
 					num_doors++;
 				}
 			}
@@ -95,20 +95,20 @@ class Tests {
 //	tests some cells initials
 	@Test
 	void testCellInitials() {
-		BoardCell room = board.getCell(0, 0);
-		assertEquals(Character.valueOf('M'), room.getInitial());
+		BoardCell room = board.getCellAt(0, 0);
+		assertEquals('M', room.getInitial());
 		
-		room = board.getCell(8, 23);
-		assertEquals(Character.valueOf('W'), room.getInitial());
+		room = board.getCellAt(8, 23);
+		assertEquals('W', room.getInitial());
 		
-		room = board.getCell(14, 16);
-		assertEquals(Character.valueOf('X'), room.getInitial());
+		room = board.getCellAt(14, 16);
+		assertEquals('X', room.getInitial());
 		
-		room = board.getCell(22, 19);
-		assertEquals(Character.valueOf('K'), room.getInitial());
+		room = board.getCellAt(22, 19);
+		assertEquals('K', room.getInitial());
 		
-		room = board.getCell(2, 19);
-		assertEquals(Character.valueOf('O'), room.getInitial());
+		room = board.getCellAt(2, 19);
+		assertEquals('O', room.getInitial());
 	}
 
 }

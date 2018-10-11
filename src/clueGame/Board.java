@@ -270,7 +270,7 @@ public class Board {
 	 * @param column
 	 * @return board[row][column]
 	 */
-	public BoardCell getCell(int row, int column) {
+	public BoardCell getCellAt(int row, int column) {
 		return this.board[row][column];
 	}
 
@@ -338,7 +338,7 @@ public class Board {
 //		System.out.println();
 		for (int row=0; row<board.getNumRows(); row++) {
 			for (int column=0; column<board.getNumColumns(); column++) {
-				System.out.print(board.getCell(row, column).getInitial() + " " + board.getCell(row, column).getDoorDirection() + "   ");
+				System.out.print(board.getCellAt(row, column).getInitial() + " " + board.getCellAt(row, column).getDoorDirection() + "   ");
 			}
 			System.out.println();
 		}

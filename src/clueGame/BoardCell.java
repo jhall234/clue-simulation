@@ -114,7 +114,7 @@ public class BoardCell {
 	 * getter for the cell initial
 	 * @return initial
 	 */
-	public Character getInitial() {
+	public char getInitial() {
 		return this.initial;
 	}
 	
