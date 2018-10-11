@@ -9,5 +9,3 @@ L, Library, Card
 A, Art Gallery, Card
 X, Closet, Other
 W, Walkway, Other
-
-

@@ -13,9 +13,7 @@ import java.util.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import clueGame.Board;
-import clueGame.BoardCell;
-import clueGame.DoorDirection;
+import clueGame.*;
 
 class Tests {
 	
@@ -28,7 +26,7 @@ class Tests {
 	
 //	Setup and initialize the board
 	@BeforeAll
-	public static void setUp() throws FileNotFoundException {
+	public static void setUp() throws FileNotFoundException, BadConfigFormatException {
 		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");
 		board.initialize();
 	}
@@ -40,7 +38,7 @@ class Tests {
 		
 		assertEquals(LEGEND_SIZE, legend.size());
 		
-		System.out.println(legend.get('M'));
+		//System.out.println(legend.get('M'));
 		assertEquals("Movie Theater", legend.get('M'));
 		assertEquals("Kitchen", legend.get('K'));
 		assertEquals("Art Gallery", legend.get('A'));

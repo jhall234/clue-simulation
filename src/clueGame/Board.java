@@ -5,8 +5,7 @@
 
 package clueGame;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.*;
 
 public class Board {
@@ -20,7 +19,7 @@ public class Board {
 	private HashMap<Character, String> legend;
 	private String boardConfigFile;	// Board Layout .csv?
 	private String roomConfigFile;	// Legend file?
-	private static Board theInstance = new Board(23,24);
+	private static Board theInstance = new Board(50,50);
 
 	/**
 	 * Constructor
@@ -29,17 +28,8 @@ public class Board {
 		this.numRows = numRows;
 		this.numColumns = numCols;
 		this.legend = new HashMap<Character, String>();
-
-		this.board = new BoardCell[numRows][numColumns];
 		this.targets = new HashSet<BoardCell>();
 		this.visited = new HashSet<BoardCell>();
-
-		for (int row=0; row<numRows; row++) {
-			for (int column=0; column<numColumns; column++) {
-				this.board[row][column] = new BoardCell(row, column);
-			}
-		}
-		this.calcAdjacencies();
 	}
 
 	/**
@@ -113,7 +103,7 @@ public class Board {
 	/**
 	 * initialize the Board
 	 */
-	public void initialize() throws FileNotFoundException, BadConfigFormatException {
+	public void initialize() throws FileNotFoundException, BadConfigFormatException{
 		this.loadRoomConfig();
 		this.loadBoardConfig();
 	}
@@ -132,92 +122,101 @@ public class Board {
 			if (list.length != 3 || list[0].length() != 1) {
 				throw new BadConfigFormatException("Imporper room config file format.");
 			}
+			if (list[2].equals("Other") || list[2].equals("Card")) {} //Do nothing
+			else {
+				throw new BadConfigFormatException("All legend entries must be of type Other or Card.");
+			}
 			this.legend.put(list[0].charAt(0), list[1]); // value could be: list[1] + " " + list[2] to include if it's a card or other
 		}
 		in.close();
 	}
 
 	/**
-	 * loads board config
+	 * loads board configuration and creates the board
 	 */
 	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException {
 		String line = "";
-		String[] list;
-		FileReader file = new FileReader(this.boardConfigFile);
-		Scanner in = new Scanner(file);
+		String[] file_row;
+		ArrayList<String[]> file_array = new ArrayList<String[]>();
 		int row = 0;
 		int columns = 0;
-		while (in.hasNext()) {
-			line = in.nextLine();
-			list = line.split(",");
+				
+		FileReader file = new FileReader(this.boardConfigFile);
+		Scanner sc = new Scanner(file);
+		while (sc.hasNext()) {
+			line = sc.nextLine();
+			file_row = line.split(",");
+			file_array.add(file_row);
 			if (row == 0) {
-				columns = list.length;
+				columns = file_row.length;
 			}
-			else if (columns != list.length) {
+			row++;
+		}
+		sc.close();
+		System.out.println("Rows: " + row + "Columns: " + columns); // test to make sure it counted right 
+		// create new board with correct dimensions
+		this.numRows = row;
+		this.numColumns = columns;
+		this.board = new BoardCell[row][columns];
+		for (int i=0; i<row; i++) {
+			for (int j=0; j<columns; j++) {
+				this.board[i][j] = new BoardCell(i, j);
+			}
+		}
+		row = 0; // reset row counter
+		for (String[] list : file_array) {
+			if (columns != list.length) {
 				throw new BadConfigFormatException("Inconsitant number of columns in each row.");
-			}
-			for (int i = 0; i < list.length; i++) {
-				if (!this.legend.containsKey(list[i].charAt(0))) { // If the initial isn't in the legend. 
-					throw new BadConfigFormatException("At cell " + row + "," + i + " room initial isn't in legend.");
+			}		
+			for (int col = 0; col < list.length; col++) { // iterator for columns
+				if (!this.legend.containsKey(list[row].charAt(0))) { // If the initial isn't in the legend. 
+					throw new BadConfigFormatException("At cell " + row + "," + col+ " room initial isn't in legend.");
 				}
-				board[row][i].setInitial(list[i].charAt(0));
-				if (list[i].length() > 1) {
-					switch (list[i].charAt(1)) {
+				board[row][col].setInitial(list[col].charAt(0));
+				if (list[col].length() > 1) {
+					switch (list[col].charAt(1)) {
 					case 'U':
-						board[row][i].setDoorDirection(DoorDirection.UP);
+						board[row][col].setDoorDirection(DoorDirection.UP);
 						break;
 					case 'D':
-						board[row][i].setDoorDirection(DoorDirection.DOWN);
+						board[row][col].setDoorDirection(DoorDirection.DOWN);
 						break;
 					case 'L':
-						board[row][i].setDoorDirection(DoorDirection.LEFT);
+						board[row][col].setDoorDirection(DoorDirection.LEFT);
 						break;
 					case 'R':
-						board[row][i].setDoorDirection(DoorDirection.RIGHT);
+						board[row][col].setDoorDirection(DoorDirection.RIGHT);
 						break;
 					}
 				}
 				else {
-					board[row][i].setDoorDirection(DoorDirection.NONE);
+					board[row][col].setDoorDirection(DoorDirection.NONE);
 				}
 			}
-			row++;	
+			row++;			
 		}
-		in.close();
-	
+		this.calcAdjacencies();
 	}
 	
-	/**
-	 * loads board config
-	 */
-//	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException {
+//	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException{
 //		String line = "";
 //		String[] list;
 //		FileReader file = new FileReader(this.boardConfigFile);
-//		Scanner in2 = new Scanner(file);
+//		Scanner sc = new Scanner(file);
 //		int row = 0;
 //		int columns = 0;
-//		
-//		line = in2.nextLine();
-//		list = line.split(",");
-//		columns = list.length;
-//		int rows = 1;
-//		while(in2.hasNextLine()) {
-//			rows++;
-//		}
-//		in2.close();
-//		theInstance = new Board(rows, columns);
-//		
-//		Scanner in = new Scanner(file);
-//		while (in.hasNextLine()) {
-//			line = in.nextLine();
+//		while (sc.hasNext()) {
+//			line = sc.nextLine();
 //			list = line.split(",");
-//			if (list.length != columns) {
-//				throw new BadConfigFormatException("Number of columns not consistant in every row.");
+//			if (row == 0) {
+//				columns = list.length;
+//			}
+//			else if (columns != list.length) {
+//				throw new BadConfigFormatException("Inconsitant number of columns in each row.");
 //			}
 //			for (int i = 0; i < list.length; i++) {
 //				if (!this.legend.containsKey(list[i].charAt(0))) { // If the initial isn't in the legend. 
-//					throw new BadConfigFormatException("At cell " + row + "," + i + "room initial isn't in legend.");
+//					throw new BadConfigFormatException("At cell " + row + "," + i + " room initial isn't in legend.");
 //				}
 //				board[row][i].setInitial(list[i].charAt(0));
 //				if (list[i].length() > 1) {
@@ -242,7 +241,8 @@ public class Board {
 //			}
 //			row++;	
 //		}
-//		in.close();
+//		sc.close();
+//	
 //	}
 
 	/**
@@ -255,6 +255,7 @@ public class Board {
 		this.roomConfigFile = roomConfigFile;
 	}
 
+	
 	/**
 	 * gets the list of targets
 	 * @return targets
@@ -279,6 +280,14 @@ public class Board {
 	 */
 	public BoardCell[][] getBoard() {
 		return this.board;
+	}
+	
+	/**
+	 * sets the entire board of cells
+	 * 
+	 */
+	public void setBoard(BoardCell[][] board) {
+		this.board = board;
 	}
 
 	/**
@@ -322,16 +331,17 @@ public class Board {
 		catch (BadConfigFormatException e) {
 			System.out.println(e.toString());
 		}
+		
 //		for (HashMap.Entry<Character, String> entry : board.legend.entrySet()) {
 //			System.out.println(entry.getKey() + " " + entry.getValue());
 //		}
 //		System.out.println();
-//		for (int row=0; row<board.getNumRows(); row++) {
-//			for (int column=0; column<board.getNumColumns(); column++) {
-//				System.out.print(board.getCell(row, column).getInitial() + " " + board.getCell(row, column).getDoorDirection() + "   ");
-//			}
-//			System.out.println();
-//		}
+		for (int row=0; row<board.getNumRows(); row++) {
+			for (int column=0; column<board.getNumColumns(); column++) {
+				System.out.print(board.getCell(row, column).getInitial() + " " + board.getCell(row, column).getDoorDirection() + "   ");
+			}
+			System.out.println();
+		}
 //		System.out.println(board.getLegend().size());
 		
 //		System.out.println(board.getNumRows() + "," + board.getN);
