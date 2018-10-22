@@ -159,18 +159,18 @@ public class BoardAdjTargetTests {
 		assertTrue(testList.contains(board.getCellAt(8, 23)));
 		assertEquals(2, testList.size());
 
-		// Test only walkways adjacent
-		testList = board.getAdjList(18,6);
-		assertTrue(testList.contains(board.getCellAt(18, 5)));
-		assertTrue(testList.contains(board.getCellAt(18, 7)));
-		assertTrue(testList.contains(board.getCellAt(17, 6)));
-		assertTrue(testList.contains(board.getCellAt(19, 6)));
+		// Test only walkways adjacent								
+		testList = board.getAdjList(6, 18);
+		assertTrue(testList.contains(board.getCellAt(5, 18)));
+		assertTrue(testList.contains(board.getCellAt(7, 18)));
+		assertTrue(testList.contains(board.getCellAt(6, 17)));
+		assertTrue(testList.contains(board.getCellAt(6, 19)));
 		assertEquals(4, testList.size());
 		
-		// Test on bottom edge of board, next to 1 room piece
-		testList = board.getAdjList(10, 22);
-		assertTrue(testList.contains(board.getCellAt(9, 22)));
-		assertTrue(testList.contains(board.getCellAt(10, 21)));
+		// Test on bottom edge of board, next to 1 room piece     
+		testList = board.getAdjList(22, 10);
+		assertTrue(testList.contains(board.getCellAt(22, 9)));
+		assertTrue(testList.contains(board.getCellAt(21, 10)));
 		assertEquals(2, testList.size());
 		
 		// Test on right edge of board
@@ -181,8 +181,8 @@ public class BoardAdjTargetTests {
 		assertEquals(3, testList.size());
 
 		// Test on walkway next to  door that is not in the needed
-		// direction to enter
-		testList = board.getAdjList(7, 20);
+		// direction to enter										
+		testList = board.getAdjList(7, 20);							
 		assertTrue(testList.contains(board.getCellAt(7, 19)));
 		assertTrue(testList.contains(board.getCellAt(6, 20)));
 		assertTrue(testList.contains(board.getCellAt(8, 20)));
