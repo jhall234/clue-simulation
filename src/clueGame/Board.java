@@ -66,16 +66,25 @@ public class Board {
 	}
 
 	/**
-	 * public method to call to assign the targets given a path length and cell
-	 * @param startCell
-	 * @param pathLength
-	 */
-	public void calcTargets(BoardCell startCell, int pathLength) {
+//	 * public method to call to assign the targets given a path length and cell
+//	 * @param startCell
+//	 * @param pathLength
+//	 */
+//	public void calcTargets(BoardCell startCell, int pathLength) {
+//		this.visited.clear();
+//		this.targets.clear();
+//		this.visited.add(startCell);
+//		this.findAllTargets(startCell, pathLength);
+//	}
+	
+	public void calcTargets(int row, int column, int pathLength) {
 		this.visited.clear();
 		this.targets.clear();
-		this.visited.add(startCell);
-		this.findAllTargets(startCell, pathLength);
+		this.visited.add(board[row][column]);
+		this.findAllTargets(board[row][column], pathLength);		
 	}
+
+	
 
 	/**
 	 * recursive function used inside calcTargets
@@ -153,7 +162,7 @@ public class Board {
 			row++;
 		}
 		sc.close();
-		System.out.println("Rows: " + row + "Columns: " + columns); // test to make sure it counted right 
+		//System.out.println("Rows: " + row + "Columns: " + columns); // test to make sure it counted right 
 		// create new board with correct dimensions
 		this.numRows = row;
 		this.numColumns = columns;
@@ -322,6 +331,10 @@ public class Board {
 		return this.numColumns;
 	}
 
+	public Set<BoardCell> getAdjList(int i, int j) {
+		return board[i][j].getAdjacencies();
+	}
+	
 	public static void main(String[] args) throws FileNotFoundException {
 		Board board = Board.getInstance();
 		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");
@@ -336,14 +349,14 @@ public class Board {
 //			System.out.println(entry.getKey() + " " + entry.getValue());
 //		}
 //		System.out.println();
-		for (int row=0; row<board.getNumRows(); row++) {
-			for (int column=0; column<board.getNumColumns(); column++) {
-				System.out.print(board.getCellAt(row, column).getInitial() + " " + board.getCellAt(row, column).getDoorDirection() + "   ");
-			}
-			System.out.println();
-		}
+//		for (int row=0; row<board.getNumRows(); row++) {
+//			for (int column=0; column<board.getNumColumns(); column++) {
+//				System.out.print(board.getCellAt(row, column).getInitial() + " " + board.getCellAt(row, column).getDoorDirection() + "   ");
+//			}
+//			System.out.println();
+//		}
 //		System.out.println(board.getLegend().size());
 		
 //		System.out.println(board.getNumRows() + "," + board.getN);
-	}
+	}	
 }

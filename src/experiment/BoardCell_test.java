@@ -5,24 +5,24 @@ package experiment;
 
 import java.util.*;
 
-public class BoardCell {
+public class BoardCell_test {
 	private int row;
 	private int column;
-	private HashSet<BoardCell> adjacencies;
+	private HashSet<BoardCell_test> adjacencies;
 	
-	public BoardCell() {
+	public BoardCell_test() {
 		this.row = 0;
 		this.column = 0;
-		this.adjacencies = new HashSet<BoardCell>();
+		this.adjacencies = new HashSet<BoardCell_test>();
 	}
 	
-	public BoardCell(int row, int column) {
+	public BoardCell_test(int row, int column) {
 		this.row = row;
 		this.column = column;
-		this.adjacencies = new HashSet<BoardCell>();
+		this.adjacencies = new HashSet<BoardCell_test>();
 	}
 	
-	public HashSet<BoardCell> getAdjacencies() {
+	public HashSet<BoardCell_test> getAdjacencies() {
 		return this.adjacencies;
 	}
 	
@@ -42,7 +42,7 @@ public class BoardCell {
 		this.column = column;
 	}
 	
-	public void setAdjacency(HashSet<BoardCell> adjacencies) {
+	public void setAdjacency(HashSet<BoardCell_test> adjacencies) {
 		this.adjacencies = adjacencies;
 	}
 	

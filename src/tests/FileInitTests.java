@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import clueGame.*;
 
-class Tests {
+class FileInitTests {
 	
 	public static final int LEGEND_SIZE = 11;
 	public static final int NUM_ROWS = 23;

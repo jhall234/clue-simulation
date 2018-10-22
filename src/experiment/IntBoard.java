@@ -1,24 +1,25 @@
-//	Carl Schader
-//	Josh Halinan
+/**	 @author Carl Schader
+	 @author Josh Halinan
+**/
 
 package experiment;
 
 import java.util.*;
 
 public class IntBoard {
-	private BoardCell[][] grid;
-	private HashSet<BoardCell> targets;
-	private HashSet<BoardCell> visited;
+	private BoardCell_test[][] grid;
+	private HashSet<BoardCell_test> targets;
+	private HashSet<BoardCell_test> visited;
 	private final int ROWS = 4;
 	private final int COLUMNS = 4;
 
 	public IntBoard() {
-		this.grid = new BoardCell[ROWS][COLUMNS];
-		this.targets = new HashSet<BoardCell>();
-		this.visited = new HashSet<BoardCell>();
+		this.grid = new BoardCell_test[ROWS][COLUMNS];
+		this.targets = new HashSet<BoardCell_test>();
+		this.visited = new HashSet<BoardCell_test>();
 		for (int row=0; row<ROWS; row++) {
 			for (int column=0; column<COLUMNS; column++) {
-				this.grid[row][column] = new BoardCell(row, column);
+				this.grid[row][column] = new BoardCell_test(row, column);
 			}
 		}
 		this.calcAdjacencies();
@@ -27,7 +28,7 @@ public class IntBoard {
 	public void calcAdjacencies() {
 		for (int row=0; row<ROWS; row++) {
 			for (int column=0; column<COLUMNS; column++) {
-				HashSet<BoardCell> set = new HashSet<BoardCell>();
+				HashSet<BoardCell_test> set = new HashSet<BoardCell_test>();
 				if (row + 1 < ROWS) {
 					set.add(grid[row+1][column]);
 				}
@@ -45,19 +46,19 @@ public class IntBoard {
 		}
 	}
 
-	public HashSet<BoardCell> getAdjList(BoardCell cell) {
+	public HashSet<BoardCell_test> getAdjList(BoardCell_test cell) {
 		return grid[cell.getRow()][cell.getColumn()].getAdjacencies();
 	}
 
-	public void calcTargets(BoardCell startCell, int pathLength) {
+	public void calcTargets(BoardCell_test startCell, int pathLength) {
 		this.visited.clear();
 		this.targets.clear();
 		this.visited.add(startCell);
 		this.findAllTargets(startCell, pathLength);
 	}
 
-	private void findAllTargets(BoardCell startCell, int pathLength) {
-		for (BoardCell cell : this.getAdjList(startCell)) {
+	private void findAllTargets(BoardCell_test startCell, int pathLength) {
+		for (BoardCell_test cell : this.getAdjList(startCell)) {
 			if (this.visited.contains(cell)) {
 				continue;
 			}
@@ -74,11 +75,11 @@ public class IntBoard {
 		}
 	}
 
-	public HashSet<BoardCell> getTargets() {
+	public HashSet<BoardCell_test> getTargets() {
 		return this.targets;
 	}
 
-	public BoardCell getCell(int row, int column) {
+	public BoardCell_test getCell(int row, int column) {
 		return this.grid[row][column];
 	}
 
@@ -94,9 +95,9 @@ public class IntBoard {
 //		}
 		
 		
-		BoardCell cell = board.getCell(0, 0);
+		BoardCell_test cell = board.getCell(0, 0);
 		board.calcTargets(cell, 2);
-		for (BoardCell target : board.getTargets()) {
+		for (BoardCell_test target : board.getTargets()) {
 			System.out.println("\n" + target);
 		}
 	}
