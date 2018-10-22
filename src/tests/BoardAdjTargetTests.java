@@ -1,4 +1,7 @@
-
+/**
+ * @author Carl Schader
+ * @author Josh Hallinan
+ */
 package tests;
 
 import java.io.FileNotFoundException;
