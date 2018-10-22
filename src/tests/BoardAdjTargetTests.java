@@ -40,14 +40,18 @@ public class BoardAdjTargetTests {
 			e.toString();
 		}
 	}
-
+	
+	// Locations within rooms 
 	// Ensure that player does not move around within room
 	// Marked ORANGE on the planning spreadsheet
 	@Test
 	public void testAdjacenciesInsideRooms()
 	{
-		// Test a corner of the board
+		// Test a corner of the board, also is edge piece test
 		Set<BoardCell> testList = board.getAdjList(22, 0);
+		assertEquals(0, testList.size());
+		// Test another corner of the board, also is edge piece test
+		testList = board.getAdjList(0, 23);
 		assertEquals(0, testList.size());
 		// Test room cell which has walkway underneath
 		testList = board.getAdjList(5, 1);
@@ -152,7 +156,7 @@ public class BoardAdjTargetTests {
 		assertTrue(testList.contains(board.getCellAt(8, 23)));
 		assertEquals(2, testList.size());
 
-		// Test surrounded by 4 walkways
+		// Test only walkways adjacent
 		testList = board.getAdjList(18,6);
 		assertTrue(testList.contains(board.getCellAt(18, 5)));
 		assertTrue(testList.contains(board.getCellAt(18, 7)));
