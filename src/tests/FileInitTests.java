@@ -55,11 +55,11 @@ class FileInitTests {
 //	tests door directionality for several different doors and cells which aren't doors
 	@Test
 	void testDoorDirections() {
-		BoardCell room = board.getCellAt(2, 4);
+		BoardCell room = board.getCellAt(3, 4);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.RIGHT, room.getDoorDirection());
 		
-		room = board.getCellAt(8, 5);
+		room = board.getCellAt(16, 22);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.UP, room.getDoorDirection());
 		
