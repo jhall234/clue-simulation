@@ -1,0 +1,1 @@
+All legend entries must be of type Other or Card.

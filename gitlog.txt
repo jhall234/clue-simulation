@@ -1,0 +1,15 @@
+* Made sure new test met class requirements
+* added white squares to .xlsx for door direction test
+* Created Failing BoardAdjTargetTests
+* all working tests
+* Passed all initialization and exception tests
+* working on passing exception tests.
+* Passing Tests
+* Final commit: added a text file to explain our tests.
+* added javadoc and inline comments
+* All tests are failing yay.
+* Finished skeleton classes. Beginning JUnit tests.
+* Start of assignment 13A-1
+* all tests working
+* failing tests comlete
+* initial commit
