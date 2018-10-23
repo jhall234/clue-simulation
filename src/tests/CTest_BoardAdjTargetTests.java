@@ -283,6 +283,9 @@ public class CTest_BoardAdjTargetTests {
 	public void testTargetsIntoRoomShortcut() 
 	{
 		board.calcTargets(12, 7, 3);
+		for (BoardCell cell : board.getTargets()) {
+			System.out.println(cell.toString());
+		}
 		Set<BoardCell> targets= board.getTargets();
 		assertEquals(12, targets.size());
 		// directly up and down
