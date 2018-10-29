@@ -99,17 +99,10 @@ public class Board {
 	}
 
 	/**
-//	 * public method to call to assign the targets given a path length and cell
-//	 * @param startCell
-//	 * @param pathLength
-//	 */
-//	public void calcTargets(BoardCell startCell, int pathLength) {
-//		this.visited.clear();
-//		this.targets.clear();
-//		this.visited.add(startCell);
-//		this.findAllTargets(startCell, pathLength);
-//	}
-	
+	 * public method to call to assign the targets given a path length and cell
+	 * @param startCell
+	 * @param pathLength
+	 */
 	public void calcTargets(int row, int column, int pathLength) {
 		this.visited.clear();
 		this.targets.clear();
