@@ -1,1 +1,1 @@
-Door direction character must be U, D, L, or R
+All legend entries must be of type Other or Card.

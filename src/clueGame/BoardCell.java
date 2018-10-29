@@ -44,12 +44,7 @@ public class BoardCell {
 	 * @return boolean
 	 */
 	public boolean isWalkway() {
-		if (this.initial == 'W') {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return (this.initial == 'W');
 	}
 
 	/**
@@ -57,12 +52,7 @@ public class BoardCell {
 	 * @return boolean
 	 */
 	public boolean isRoom() {
-		if (this.initial != 'W') {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return(this.initial != 'W');
 	}
 
 	/**
@@ -70,12 +60,7 @@ public class BoardCell {
 	 * @return boolean
 	 */
 	public boolean isDoorway() {
-		if (this.direction == DoorDirection.NONE) {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return (this.direction != DoorDirection.NONE);
 	}
 
 	/**
