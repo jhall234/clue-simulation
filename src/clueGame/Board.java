@@ -185,7 +185,7 @@ public class Board {
 			row++;
 		}
 		sc.close();
-		//System.out.println("Rows: " + row + "Columns: " + columns); // test to make sure it counted right 
+		
 		// create new board with correct dimensions
 		this.numRows = row;
 		this.numColumns = columns;
@@ -230,53 +230,6 @@ public class Board {
 		this.calcAdjacencies();
 	}
 	
-//	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException{
-//		String line = "";
-//		String[] list;
-//		FileReader file = new FileReader(this.boardConfigFile);
-//		Scanner sc = new Scanner(file);
-//		int row = 0;
-//		int columns = 0;
-//		while (sc.hasNext()) {
-//			line = sc.nextLine();
-//			list = line.split(",");
-//			if (row == 0) {
-//				columns = list.length;
-//			}
-//			else if (columns != list.length) {
-//				throw new BadConfigFormatException("Inconsitant number of columns in each row.");
-//			}
-//			for (int i = 0; i < list.length; i++) {
-//				if (!this.legend.containsKey(list[i].charAt(0))) { // If the initial isn't in the legend. 
-//					throw new BadConfigFormatException("At cell " + row + "," + i + " room initial isn't in legend.");
-//				}
-//				board[row][i].setInitial(list[i].charAt(0));
-//				if (list[i].length() > 1) {
-//					switch (list[i].charAt(1)) {
-//					case 'U':
-//						board[row][i].setDoorDirection(DoorDirection.UP);
-//						break;
-//					case 'D':
-//						board[row][i].setDoorDirection(DoorDirection.DOWN);
-//						break;
-//					case 'L':
-//						board[row][i].setDoorDirection(DoorDirection.LEFT);
-//						break;
-//					case 'R':
-//						board[row][i].setDoorDirection(DoorDirection.RIGHT);
-//						break;
-//					}
-//				}
-//				else {
-//					board[row][i].setDoorDirection(DoorDirection.NONE);
-//				}
-//			}
-//			row++;	
-//		}
-//		sc.close();
-//	
-//	}
-
 	/**
 	 * Allows user to input config file names
 	 * @param boardLayout
