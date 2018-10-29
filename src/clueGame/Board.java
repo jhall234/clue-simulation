@@ -170,8 +170,6 @@ public class Board {
 	 * loads board configuration and creates the board
 	 */
 	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException {
-		String line = "";
-		String[] file_row;
 		ArrayList<String[]> file_array = new ArrayList<String[]>();
 		int row = 0;
 		int columns = 0;
@@ -179,8 +177,7 @@ public class Board {
 		FileReader file = new FileReader(this.boardConfigFile);
 		Scanner sc = new Scanner(file);
 		while (sc.hasNext()) {
-			line = sc.nextLine();
-			file_row = line.split(",");
+			String[] file_row = sc.nextLine().split(",");
 			file_array.add(file_row);
 			if (row == 0) {
 				columns = file_row.length;
