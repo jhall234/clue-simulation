@@ -151,13 +151,10 @@ public class Board {
 	 * loads room config
 	 */
 	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
-		String line = "";
-		String[] list;
 		FileReader file = new FileReader(this.roomConfigFile);
 		Scanner in = new Scanner(file);
 		while (in.hasNext()) {
-			line = in.nextLine();
-			list = line.split(", ");
+			String[] list = in.nextLine().split(", ");
 			if (list.length != 3 || list[0].length() != 1) {
 				throw new BadConfigFormatException("Imporper room config file format.");
 			}
