@@ -158,8 +158,7 @@ public class Board {
 			if (list.length != 3 || list[0].length() != 1) {
 				throw new BadConfigFormatException("Imporper room config file format.");
 			}
-			if (list[2].equals("Other") || list[2].equals("Card")) {} //Do nothing
-			else {
+			if (!(list[2].equals("Other") || list[2].equals("Card"))) {
 				throw new BadConfigFormatException("All legend entries must be of type Other or Card.");
 			}
 			this.legend.put(list[0].charAt(0), list[1]); // value could be: list[1] + " " + list[2] to include if it's a card or other
