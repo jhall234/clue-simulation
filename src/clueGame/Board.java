@@ -20,6 +20,10 @@ public class Board {
 	private String boardConfigFile;	// Board Layout .csv?
 	private String roomConfigFile;	// Legend file?
 	private static Board theInstance = new Board(50,50);
+	
+	private Solution solution;
+	private ArrayList<Card> cards;
+	private ArrayList<Player> players;
 
 	/**
 	 * Constructor
@@ -30,6 +34,10 @@ public class Board {
 		this.legend = new HashMap<Character, String>();
 		this.targets = new HashSet<BoardCell>();
 		this.visited = new HashSet<BoardCell>();
+		
+		this.solution = new Solution();
+		this.cards = new ArrayList<Card>();
+		this.players = new ArrayList<PLayer>(6);
 	}
 
 	/**
@@ -87,13 +95,16 @@ public class Board {
 		}
 	}
 
-	/**
-	 * getter for the adjacent set for a specific cell
-	 * @param cell
-	 * @return cell.adjacencies
-	 */
-	public HashSet<BoardCell> getAdjList(BoardCell cell) {
-		return board[cell.getRow()][cell.getColumn()].getAdjacencies();
+	public void selectAnswer() {
+		
+	}
+	
+	public Card handleSuggestion() {
+		
+	}
+	
+	public boolean checkAccusation(Solution Accusation) {
+		
 	}
 
 	/**
@@ -116,7 +127,7 @@ public class Board {
 	 * @param pathLength
 	 */
 	private void findAllTargets(BoardCell startCell, int pathLength) {
-		for (BoardCell cell : this.getAdjList(startCell)) {
+		for (BoardCell cell : this.getAdjList(startCell.getRow(), startCell.getColumn())) {
 			if (this.visited.contains(cell)) {
 				continue;
 			}
@@ -304,9 +315,15 @@ public class Board {
 	public int getNumColumns() {
 		return this.numColumns;
 	}
-
-	public Set<BoardCell> getAdjList(int i, int j) {
-		return board[i][j].getAdjacencies();
+	
+	/**
+	 * getter for the adjacent set for a specific cell
+	 * @param row
+	 * @param column
+	 * @return
+	 */
+	public Set<BoardCell> getAdjList(int row, int column) {
+		return board[row][column].getAdjacencies();
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
