@@ -40,29 +40,27 @@ public class Board {
 			for (int column=0; column<numColumns; column++) {
 				HashSet<BoardCell> set = new HashSet<BoardCell>();
 				//a room piece (sans doorway) will have no adjacencies
-				if (board[row][column].isDoorway()) {
-					if (board[row][column].getDoorDirection() == DoorDirection.UP) {
-						if (board[row-1][column].isWalkway()) {
-							set.add(board[row-1][column]);
-						}
-					}
-					else if (board[row][column].getDoorDirection() == DoorDirection.LEFT) {
-						if (board[row][column-1].isWalkway()) {
-							set.add(board[row][column-1]);
-						}
-					}
-					else if (board[row][column].getDoorDirection() == DoorDirection.DOWN) {
-						if (board[row+1][column].isWalkway()) {
-							set.add(board[row+1][column]);
-						}
-					}
-					else if (board[row][column].getDoorDirection() == DoorDirection.RIGHT) {
-						if (board[row][column+1].isWalkway()) {
-							set.add(board[row][column+1]);
-						}
+				if (board[row][column].getDoorDirection() == DoorDirection.UP) {
+					if (board[row-1][column].isWalkway()) {
+						set.add(board[row-1][column]);
 					}
 				}
-				if (board[row][column].isWalkway()) {
+				else if (board[row][column].getDoorDirection() == DoorDirection.LEFT) {
+					if (board[row][column-1].isWalkway()) {
+						set.add(board[row][column-1]);
+					}
+				}
+				else if (board[row][column].getDoorDirection() == DoorDirection.DOWN) {
+					if (board[row+1][column].isWalkway()) {
+						set.add(board[row+1][column]);
+					}
+				}
+				else if (board[row][column].getDoorDirection() == DoorDirection.RIGHT) {
+					if (board[row][column+1].isWalkway()) {
+						set.add(board[row][column+1]);
+					}
+				}
+				else if (board[row][column].isWalkway()) {
 					if (row + 1 < numRows) {
 						if (board[row+1][column].isWalkway() || (board[row+1][column].getDoorDirection() == DoorDirection.UP)) {
 							set.add(board[row+1][column]);
