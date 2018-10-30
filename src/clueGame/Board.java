@@ -320,19 +320,5 @@ public class Board {
 		catch (BadConfigFormatException e) {
 			System.out.println(e.toString());
 		}
-		
-//		for (HashMap.Entry<Character, String> entry : board.legend.entrySet()) {
-//			System.out.println(entry.getKey() + " " + entry.getValue());
-//		}
-//		System.out.println();
-//		for (int row=0; row<board.getNumRows(); row++) {
-//			for (int column=0; column<board.getNumColumns(); column++) {
-//				System.out.print(board.getCellAt(row, column).getInitial() + " " + board.getCellAt(row, column).getDoorDirection() + "   ");
-//			}
-//			System.out.println();
-//		}
-//		System.out.println(board.getLegend().size());
-		
-//		System.out.println(board.getNumRows() + "," + board.getN);
 	}	
 }
