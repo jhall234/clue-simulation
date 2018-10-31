@@ -364,6 +364,14 @@ public class Board {
 		return board[row][column].getAdjacencies();
 	}
 	
+	/**
+	 * returns the deck of cards available in the game
+	 * @return ArrayList of type Card 
+	 */
+	public ArrayList<Card> getDeck() {
+		return deck;
+	}
+
 	public static void main(String[] args) throws FileNotFoundException {
 		Board board = Board.getInstance();
 		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");

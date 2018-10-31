@@ -41,6 +41,6 @@ public class Card {
 	 * @return enumerated cardType 
 	 */
 	public CardType getCardType() {
-		return this.getCardType();
+		return this.cardType;
 	}
 }
