@@ -15,12 +15,13 @@ public class Board {
 	private int numRows;
 	private int numColumns;
 
-	public static final int MAX_BOARD_SIZE = 50; 
+	public static final int MAX_BOARD_SIZE = 50;
+	public static final int NUM_PLAYERS = 6;
 	private HashMap<Character, String> legend;
 	private String boardConfigFile;	// Board Layout 
-	private String roomConfigFile;	// Legend file?
-	private String weaponConfigFile;
-	private String playerConfigFile;
+	private String roomConfigFile;	// Legend file
+	private String weaponConfigFile; // Weapon file
+	private String playerConfigFile; // Player file
 	private static Board theInstance = new Board(50,50);
 	
 	private Solution solution;
@@ -38,10 +39,178 @@ public class Board {
 		this.visited = new HashSet<>();
 		
 		this.solution = new Solution();
-		this.deck= new ArrayList<>();
+		this.deck= new ArrayList<Card>();
 		this.players = new ArrayList<>(6);
 	}
+	
+	/**
+	 * Allows user to input config file names
+	 * @param boardLayout
+	 * @param legend
+	 */
+	public void setConfigFiles(String boardConfigFile, String roomConfigFile) {
+		this.boardConfigFile = boardConfigFile;
+		this.roomConfigFile = roomConfigFile;
+	}
+	
+	/**
+	 * sets the string variables for the config files
+	 * @param boardConfigFile
+	 * @param roomConfigFile
+	 * @param weaponConfigFile
+	 * @param playerConfigFile
+	 */
+	public void setConfigFiles(String boardConfigFile, String roomConfigFile, String weaponConfigFile, String playerConfigFile) {
+		this.boardConfigFile = boardConfigFile;
+		this.roomConfigFile = roomConfigFile;
+		this.weaponConfigFile = weaponConfigFile;
+		this.playerConfigFile = playerConfigFile;
+	}
+	
+	/**
+	 * initialize the Board
+	 */
+	public void initialize() throws FileNotFoundException, BadConfigFormatException{
+		this.loadRoomConfig();
+		this.loadBoardConfig();
+		this.loadPlayerConfig();
+		this.loadWeaponConfig();
+	}
 
+	/**
+	 * loads room config
+	 */
+	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
+		FileReader file = new FileReader(this.roomConfigFile);
+		Scanner in = new Scanner(file);
+		while (in.hasNext()) {
+			String[] list = in.nextLine().split(", ");
+			if (list.length != 3 || list[0].length() != 1) {
+				throw new BadConfigFormatException("Imporper room config file format.");
+			}
+			if (!(list[2].equals("Other") || list[2].equals("Card"))) {
+				throw new BadConfigFormatException("All legend entries must be of type Other or Card.");
+			}
+			this.legend.put(list[0].charAt(0), list[1]); // value could be: list[1] + " " + list[2] to include if it's a card or other
+		}
+		in.close();
+	}
+
+	/**
+	 * loads board configuration and creates the board
+	 */
+	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException {
+		ArrayList<String[]> file_array = new ArrayList<String[]>();
+		int row = 0;
+		int columns = 0;
+				
+		FileReader file = new FileReader(this.boardConfigFile);
+		Scanner sc = new Scanner(file);
+		while (sc.hasNext()) {
+			String[] file_row = sc.nextLine().split(",");
+			file_array.add(file_row);
+			if (row == 0) {
+				columns = file_row.length;
+			}
+			row++;
+		}
+		sc.close();
+		
+		// create new board with correct dimensions
+		this.numRows = row;
+		this.numColumns = columns;
+		this.board = new BoardCell[row][columns];
+		for (int i=0; i<row; i++) {
+			for (int j=0; j<columns; j++) {
+				this.board[i][j] = new BoardCell(i, j);
+			}
+		}
+		row = 0; // reset row counter
+		for (String[] list : file_array) {
+			if (columns != list.length) {
+				throw new BadConfigFormatException("Inconsitent number of columns in each row.");
+			}		
+			for (int col = 0; col < list.length; col++) { // iterator for columns
+				if (!this.legend.containsKey(list[row].charAt(0))) { // If the initial isn't in the legend. 
+					throw new BadConfigFormatException("At cell " + row + "," + col+ " room initial isn't in legend.");
+				}
+				board[row][col].setInitial(list[col].charAt(0));
+				if (list[col].length() > 1) {
+					switch (list[col].charAt(1)) {
+					case 'U':
+						board[row][col].setDoorDirection(DoorDirection.UP);
+						break;
+					case 'D':
+						board[row][col].setDoorDirection(DoorDirection.DOWN);
+						break;
+					case 'L':
+						board[row][col].setDoorDirection(DoorDirection.LEFT);
+						break;
+					case 'R':
+						board[row][col].setDoorDirection(DoorDirection.RIGHT);
+						break;
+					}
+				}
+				else {
+					board[row][col].setDoorDirection(DoorDirection.NONE);
+				}
+			}
+			row++;			
+		}
+		this.calcAdjacencies();
+	}
+	
+	/**
+	 * loads player config file and adds players and their respective cards to the board
+	 * @throws FileNotFoundException
+	 * @throws BadConfigFormatException
+	 */
+	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException {
+		FileReader file = new FileReader("CluePlayers.txt");
+		Scanner in = new Scanner(file);
+		int num_lines = 0;
+		while (in.hasNext()) {
+			if (num_lines > NUM_PLAYERS) {
+				throw new BadConfigFormatException("Too many players. Only " + NUM_PLAYERS + " allowed.");
+			}
+			String[] line = in.nextLine().split(", ");
+			if (line.length != 7) {
+				throw new BadConfigFormatException("Improper file format. Each line must contain 7 values");
+			}
+			String playerName = line[0];
+			int red = Integer.parseInt(line[1]);
+			int green = Integer.parseInt(line[2]);
+			int blue = Integer.parseInt(line[3]);
+			int row = Integer.parseInt(line[5]);
+			int column = Integer.parseInt(line[6]);
+			PlayerType playerType;
+			switch (line[4]) {
+				case "computer":
+					playerType = PlayerType.COMPUTER;
+					break;
+				case "human":
+					playerType = PlayerType.HUMAN;
+					break;
+				default:
+					throw new BadConfigFormatException("5th element of each line must be either 'computer' or 'human'");
+			}
+			Player new_player = new Player(playerName, red, green, blue, playerType, row, column);
+			players.add(new_player);
+			System.out.println("Added a player");
+			num_lines++;
+		}
+		in.close();
+	}
+	
+	/**
+	 * loads weapon config file and add weapons cards to the Board  
+	 * @throws FileNotFoundException
+	 * @throws BadConfigFormatException
+	 */
+	public void loadWeaponConfig() throws FileNotFoundException, BadConfigFormatException {
+	
+	}
+	
 	/**
 	 * assigns the adjacency cell sets
 	 */
@@ -155,148 +324,7 @@ public class Board {
 		}
 	}
 
-	/**
-	 * initialize the Board
-	 */
-	public void initialize() throws FileNotFoundException, BadConfigFormatException{
-		this.loadRoomConfig();
-		this.loadBoardConfig();
-	}
-
-	/**
-	 * loads room config
-	 */
-	public void loadRoomConfig() throws FileNotFoundException, BadConfigFormatException {
-		FileReader file = new FileReader(this.roomConfigFile);
-		Scanner in = new Scanner(file);
-		while (in.hasNext()) {
-			String[] list = in.nextLine().split(", ");
-			if (list.length != 3 || list[0].length() != 1) {
-				throw new BadConfigFormatException("Imporper room config file format.");
-			}
-			if (!(list[2].equals("Other") || list[2].equals("Card"))) {
-				throw new BadConfigFormatException("All legend entries must be of type Other or Card.");
-			}
-			this.legend.put(list[0].charAt(0), list[1]); // value could be: list[1] + " " + list[2] to include if it's a card or other
-		}
-		in.close();
-	}
-
-	/**
-	 * loads board configuration and creates the board
-	 */
-	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException {
-		ArrayList<String[]> file_array = new ArrayList<String[]>();
-		int row = 0;
-		int columns = 0;
-				
-		FileReader file = new FileReader(this.boardConfigFile);
-		Scanner sc = new Scanner(file);
-		while (sc.hasNext()) {
-			String[] file_row = sc.nextLine().split(",");
-			file_array.add(file_row);
-			if (row == 0) {
-				columns = file_row.length;
-			}
-			row++;
-		}
-		sc.close();
-		
-		// create new board with correct dimensions
-		this.numRows = row;
-		this.numColumns = columns;
-		this.board = new BoardCell[row][columns];
-		for (int i=0; i<row; i++) {
-			for (int j=0; j<columns; j++) {
-				this.board[i][j] = new BoardCell(i, j);
-			}
-		}
-		row = 0; // reset row counter
-		for (String[] list : file_array) {
-			if (columns != list.length) {
-				throw new BadConfigFormatException("Inconsitant number of columns in each row.");
-			}		
-			for (int col = 0; col < list.length; col++) { // iterator for columns
-				if (!this.legend.containsKey(list[row].charAt(0))) { // If the initial isn't in the legend. 
-					throw new BadConfigFormatException("At cell " + row + "," + col+ " room initial isn't in legend.");
-				}
-				board[row][col].setInitial(list[col].charAt(0));
-				if (list[col].length() > 1) {
-					switch (list[col].charAt(1)) {
-					case 'U':
-						board[row][col].setDoorDirection(DoorDirection.UP);
-						break;
-					case 'D':
-						board[row][col].setDoorDirection(DoorDirection.DOWN);
-						break;
-					case 'L':
-						board[row][col].setDoorDirection(DoorDirection.LEFT);
-						break;
-					case 'R':
-						board[row][col].setDoorDirection(DoorDirection.RIGHT);
-						break;
-					}
-				}
-				else {
-					board[row][col].setDoorDirection(DoorDirection.NONE);
-				}
-			}
-			row++;			
-		}
-		this.calcAdjacencies();
-	}
 	
-	/**
-	 * loads player config file and adds players and their respective cards to the board
-	 * @throws FileNotFoundException
-	 * @throws BadConfigFormatException
-	 */
-	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException {
-		FileReader file = new FileReader(this.playerConfigFile);
-		Scanner in = new Scanner(file);
-		while (in.hasNext()) {
-			Player p = new Play
-			String[] line = in.nextLine().split(", ");
-			if (line.length != 7) {
-				throw new BadConfigFormatException("Improper player config file format.");
-			}
-			
-		}
-		in.close();
-	}
-	
-	/**
-	 * loads weapon config file and add weapons cards to the Board  
-	 * @throws FileNotFoundException
-	 * @throws BadConfigFormatException
-	 */
-	public void loadWeaponConfig() throws FileNotFoundException, BadConfigFormatException {
-	
-	}
-	
-	/**
-	 * Allows user to input config file names
-	 * @param boardLayout
-	 * @param legend
-	 */
-	public void setConfigFiles(String boardConfigFile, String roomConfigFile) {
-		this.boardConfigFile = boardConfigFile;
-		this.roomConfigFile = roomConfigFile;
-	}
-	
-	/**
-	 * sets the string variables for the config files
-	 * @param boardConfigFile
-	 * @param roomConfigFile
-	 * @param weaponConfigFile
-	 * @param playerConfigFile
-	 */
-	public void setConfigFiles(String boardConfigFile, String roomConfigFile, String weaponConfigFile, String playerConfigFile) {
-		this.boardConfigFile = boardConfigFile;
-		this.roomConfigFile = roomConfigFile;
-		this.weaponConfigFile = weaponConfigFile;
-		this.playerConfigFile = playerConfigFile;
-	}
 	
 	/**
 	 * gets the list of targets
@@ -393,18 +421,26 @@ public class Board {
 	 * @return Player 
 	 */
 	public Player getPlayer(String playerName) {
+		for (Player player : players) {
+			if (player.getPlayerName().equals(playerName)) {
+				return player; 
+			}
+		}
+		//If not in array list, return a blank player
 		Player default_player = new Player();
-		return default_player;
+		return default_player;		
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
-		Board board = Board.getInstance();
-		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");
-		try {
-			board.initialize();
-		}
-		catch (BadConfigFormatException e) {
-			System.out.println(e.toString());
-		}
+//		Board board = Board.getInstance();
+//		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt", "ClueWeapons.txt", "CluePlayers.txt");
+//		try {
+//			board.initialize();
+//		}
+//		catch (BadConfigFormatException e) {
+//			System.out.println(e.toString());
+//		}
+//		Player p = board.getPlayer("Scarlett");
+//		System.out.println(p.getPlayerName());
 	}	
 }
