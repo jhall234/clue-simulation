@@ -21,7 +21,7 @@ public class BoardCell {
 	public BoardCell() {
 		this.row = 0;
 		this.column = 0;
-		this.adjacencies = new HashSet<BoardCell>();
+		this.adjacencies = new HashSet<>();
 		this.initial = 'Z';
 		this.direction = DoorDirection.NONE;
 	}

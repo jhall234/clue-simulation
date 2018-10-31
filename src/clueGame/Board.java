@@ -33,17 +33,17 @@ public class Board {
 	private Board(int numRows, int numCols) {
 		this.numRows = numRows;
 		this.numColumns = numCols;
-		this.legend = new HashMap<Character, String>();
-		this.targets = new HashSet<BoardCell>();
-		this.visited = new HashSet<BoardCell>();
+		this.legend = new HashMap<>();
+		this.targets = new HashSet<>();
+		this.visited = new HashSet<>();
 		
 		this.solution = new Solution();
-		this.deck= new ArrayList<Card>();
-		this.players = new ArrayList<Player>(6);
+		this.deck= new ArrayList<>();
+		this.players = new ArrayList<>(6);
 	}
 
 	/**
-	 * assigns the adjacent cell sets
+	 * assigns the adjacency cell sets
 	 */
 	public void calcAdjacencies() {
 		for (int row=0; row<numRows; row++) {
@@ -370,6 +370,11 @@ public class Board {
 	 */
 	public ArrayList<Card> getDeck() {
 		return deck;
+	}
+	
+	
+	public ArrayList<Player> getPlayers() {
+		return players;
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {

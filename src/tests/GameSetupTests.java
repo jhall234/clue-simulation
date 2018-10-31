@@ -22,6 +22,7 @@ class GameSetupTests {
 		fail("Not yet implemented");
 	}
 	
+	//will make sure that the deck is loaded correctly from config file
 	@Test
 	void testLoadDeck() { 
 		ArrayList<Card> deck = board.getDeck();
@@ -67,5 +68,45 @@ class GameSetupTests {
 		assertTrue(foundWeapon);
 		assertTrue(foundRoom);
 	}
-
+	
+	//make sure that cards are dealt to the players correctly
+	@Test
+	void testDealDeck() {
+		int total_cards_dealt = 0;
+		boolean duplicates_found = false;
+		int least_num_cards = 2147483647; // max value for int
+		int most_num_cards = 0;
+		ArrayList<Card> seen_cards = new ArrayList<>();
+		for (Player player : board.getPlayers()) {
+			int cards_per_player = 0;
+			for (Card card : player.getMyCards()) {
+				cards_per_player++;
+				if (!seen_cards.contains(card)) {
+					seen_cards.add(card);
+				}
+				else {
+					duplicates_found = true;
+				}				
+			}
+			if (cards_per_player < least_num_cards) {
+				least_num_cards = cards_per_player;
+			}
+			if (cards_per_player > most_num_cards) {
+				most_num_cards = cards_per_player;
+			}
+			total_cards_dealt += cards_per_player;
+		}
+		//Total number of cards dealt to the players should be total 
+		//number of cards - 3 (3 cards used for solution)
+		assertEquals(total_cards_dealt, 18);
+		
+		//Cards should be even distributed. Player with most cards 
+		//should have at most 1 more card than player with least
+		//number of cards
+		assertTrue(least_num_cards + 1 >= most_num_cards);
+		
+		//All players should have unique cards, in other words,
+		//a card should be dealt only once
+		assertFalse(duplicates_found);
+	}
 }
