@@ -196,7 +196,6 @@ public class Board {
 			}
 			Player new_player = new Player(playerName, red, green, blue, playerType, row, column);
 			players.add(new_player);
-			System.out.println("Added a player");
 			num_lines++;
 		}
 		in.close();
