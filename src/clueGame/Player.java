@@ -8,6 +8,7 @@ public class Player {
 	private int row;
 	private int column;
 	private Color color;
+	private PlayerType playerType;
 	private ArrayList<Card> myCards;
 	private ArrayList<Card> seenCards;
 	
@@ -20,12 +21,22 @@ public class Player {
 	}
 	
 	/**
-	 * Constructor will assign player a name
-	 * @param playerName String 
+	 * Constructor will initialize all variables with the given paramaters 
+	 * @param playerName name of player
+	 * @param red Red color value 
+	 * @param green Green color value
+	 * @param blue Blue color value
+	 * @param is_human either "human" or "computer"
+	 * @param row starting row of player
+	 * @param column starting column of player 
 	 */
-	public Player(String playerName) {
+	public Player(String playerName, int red, int green, int blue, PlayerType playerType, int row, int column) {
 		this();
-		this.playerName = playerName; 
+		this.playerName = playerName;
+		this.color = new Color(red, green, blue);
+		this.playerType = playerType;
+		this.row = row;
+		this.column = column;
 	}
 	
 	/**

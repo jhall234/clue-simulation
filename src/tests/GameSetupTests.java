@@ -80,7 +80,8 @@ class GameSetupTests {
 				break;
 			case WEAPON:
 				numWeapons++;
-			};
+				break;
+			}
 			if (card.getCardName().equals("Observatory")) {
 				foundRoom = true;
 			}

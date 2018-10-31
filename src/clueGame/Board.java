@@ -252,7 +252,17 @@ public class Board {
 	 * @throws BadConfigFormatException
 	 */
 	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException {
-		
+		FileReader file = new FileReader(this.playerConfigFile);
+		Scanner in = new Scanner(file);
+		while (in.hasNext()) {
+			Player p = new Play
+			String[] line = in.nextLine().split(", ");
+			if (line.length != 7) {
+				throw new BadConfigFormatException("Improper player config file format.");
+			}
+			
+		}
+		in.close();
 	}
 	
 	/**
