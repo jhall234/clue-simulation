@@ -22,7 +22,7 @@ public class Board {
 	private static Board theInstance = new Board(50,50);
 	
 	private Solution solution;
-	private ArrayList<Card> cards;
+	private ArrayList<Card> deck;
 	private ArrayList<Player> players;
 
 	/**
@@ -36,8 +36,8 @@ public class Board {
 		this.visited = new HashSet<BoardCell>();
 		
 		this.solution = new Solution();
-		this.cards = new ArrayList<Card>();
-		this.players = new ArrayList<PLayer>(6);
+		this.deck= new ArrayList<Card>();
+		this.players = new ArrayList<Player>(6);
 	}
 
 	/**
