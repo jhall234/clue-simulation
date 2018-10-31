@@ -13,6 +13,13 @@ public class Card {
 	}
 	
 	/**
+	 * Default constructor for Card
+	 */
+	public Card() {
+		
+	}
+	
+	/**
 	 * Will return true if both the name and the cardtype are equivalent
 	 * @param card
 	 * @return
