@@ -37,6 +37,31 @@ public class Player {
 		Card card = new Card();
 		return card;
 	}
+	
+	public int getRow() {
+		return row;
+	}
+
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public int getColumn() {
+		return column;
+	}
+
+	public void setColumn(int column) {
+		this.column = column;
+	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
 	/**
 	 * Getter for the list of the players own cards
 	 * @return ArrayList

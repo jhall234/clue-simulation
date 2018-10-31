@@ -1,6 +1,8 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.util.*;
 import org.junit.BeforeClass;
@@ -18,8 +20,44 @@ class GameSetupTests {
 	}
 	
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void testLoadPeople() {
+		
+		Player first = board.getPlayer("Scarlett");
+		Player third = board.getPlayer("Peacock");
+		Player last = board.getPlayer("White");
+		Player human = board.getPlayer("Green");
+		Player computer = board.getPlayer("Mustard");
+	
+		//Test that the player's names are set correctly 
+		assertEquals(first.getPlayerName(), "Scarlett");
+		assertEquals(third.getPlayerName(), "Peacock");
+		assertEquals(last.getPlayerName(), "White");
+		assertEquals(human.getPlayerName(), "Green");
+		assertEquals(computer.getPlayerName(), "Mustard");
+		
+		//Test color is set correctly
+		assertEquals(first.getColor(), new Color(196, 47, 47));
+		assertEquals(third.getColor(), new Color(51, 88, 198));
+		assertEquals(last.getColor(), new Color(255, 255, 255));
+		assertEquals(human.getColor(), new Color(20, 188, 43));
+		assertEquals(computer.getColor(), new Color(198, 169, 23));
+		
+		//Test starting location
+		assertEquals(first.getRow(), 0);
+		assertEquals(first.getColumn(), 5);
+		
+		assertEquals(third.getRow(), 15);
+		assertEquals(third.getColumn(), 23);
+		
+		assertEquals(last.getRow(), 7);
+		assertEquals(last.getColumn(), 0);
+		
+		assertEquals(human.getRow(), 22);
+		assertEquals(human.getColumn(), 20);
+		
+		assertEquals(computer.getRow(), 22);
+		assertEquals(computer.getColumn(), 10);
+		
 	}
 	
 	//will make sure that the deck is loaded correctly from config file

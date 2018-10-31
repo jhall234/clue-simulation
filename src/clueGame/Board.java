@@ -376,6 +376,16 @@ public class Board {
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
+	
+	/**
+	 * Will search list of players for a player with the passed playerName
+	 * @param playerName
+	 * @return Player 
+	 */
+	public Player getPlayer(String playerName) {
+		Player default_player = new Player();
+		return default_player;
+	}
 
 	public static void main(String[] args) throws FileNotFoundException {
 		Board board = Board.getInstance();
