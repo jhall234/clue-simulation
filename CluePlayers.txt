@@ -1,0 +1,6 @@
+Scarlett, 196, 47, 47, computer, 0, 5
+Plum, 137, 66, 244, computer, 0, 18
+Peacock, 51, 88, 198, computer, 15, 23
+Green, 20, 188, 43, human, 22, 20
+Mustard, 198, 169, 23, computer, 22, 10
+White, 255, 255, 255, computer, 7, 0
