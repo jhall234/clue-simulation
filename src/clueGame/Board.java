@@ -17,8 +17,10 @@ public class Board {
 
 	public static final int MAX_BOARD_SIZE = 50; 
 	private HashMap<Character, String> legend;
-	private String boardConfigFile;	// Board Layout .csv?
+	private String boardConfigFile;	// Board Layout 
 	private String roomConfigFile;	// Legend file?
+	private String weaponConfigFile;
+	private String playerConfigFile;
 	private static Board theInstance = new Board(50,50);
 	
 	private Solution solution;
@@ -99,12 +101,17 @@ public class Board {
 		
 	}
 	
+	/**
+	 * Will get one of the players to reveal a card to the accuser
+	 * @return Card that corresponds to the accusation
+	 */
 	public Card handleSuggestion() {
-		
+		Card default_card = new Card();
+		return default_card;
 	}
 	
 	public boolean checkAccusation(Solution Accusation) {
-		
+		return false;
 	}
 
 	/**
@@ -240,6 +247,24 @@ public class Board {
 	}
 	
 	/**
+	 * loads player config file and adds players and their respective cards to the board
+	 * @throws FileNotFoundException
+	 * @throws BadConfigFormatException
+	 */
+	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException {
+		
+	}
+	
+	/**
+	 * loads weapon config file and add weapons cards to the Board  
+	 * @throws FileNotFoundException
+	 * @throws BadConfigFormatException
+	 */
+	public void loadWeaponConfig() throws FileNotFoundException, BadConfigFormatException {
+	
+	}
+	
+	/**
 	 * Allows user to input config file names
 	 * @param boardLayout
 	 * @param legend
@@ -248,7 +273,20 @@ public class Board {
 		this.boardConfigFile = boardConfigFile;
 		this.roomConfigFile = roomConfigFile;
 	}
-
+	
+	/**
+	 * sets the string variables for the config files
+	 * @param boardConfigFile
+	 * @param roomConfigFile
+	 * @param weaponConfigFile
+	 * @param playerConfigFile
+	 */
+	public void setConfigFiles(String boardConfigFile, String roomConfigFile, String weaponConfigFile, String playerConfigFile) {
+		this.boardConfigFile = boardConfigFile;
+		this.roomConfigFile = roomConfigFile;
+		this.weaponConfigFile = weaponConfigFile;
+		this.playerConfigFile = playerConfigFile;
+	}
 	
 	/**
 	 * gets the list of targets
