@@ -181,14 +181,16 @@ public class Board {
 			switch (line[4]) {
 				case "computer":
 					playerType = PlayerType.COMPUTER;
+					players.add(new ComputerPlayer(playerName, red, green, blue, playerType, row, column));
 					break;
 				case "human":
 					playerType = PlayerType.HUMAN;
+					players.add(new HumanPlayer(playerName, red, green, blue, playerType, row, column));
 					break;
 				default:
 					throw new BadConfigFormatException("5th element of each line must be either 'computer' or 'human'");
 			}
-			players.add(new Player(playerName, red, green, blue, playerType, row, column));
+			
 			deck.add(new Card(playerName, CardType.PERSON)); //each player corresponds to a card
 			num_lines++;
 		}
