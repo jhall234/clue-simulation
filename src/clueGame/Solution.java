@@ -8,10 +8,30 @@ public class Solution {
 	public Solution() {
 		
 	}
-	
-	public Solution(String person, String room, String weapon) {
+
+	public String getPerson() {
+		return person;
+	}
+
+	public void setPerson(String person) {
 		this.person = person;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+
+	public void setRoom(String room) {
 		this.room = room;
+	}
+
+	public String getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(String weapon) {
 		this.weapon = weapon;
 	}
+	
+	
 }

@@ -75,6 +75,7 @@ public class Board {
 		this.loadBoardConfig();
 		this.loadPlayerConfig();
 		this.loadWeaponConfig();
+		this.dealCards();
 	}
 
 	/**
@@ -219,6 +220,69 @@ public class Board {
 		in.close();
 	}
 	
+	/**
+	 * Will assign randomly an even number of cards to each player. 
+	 */
+	public void dealCards() {
+		ArrayList<Card> already_seen = new ArrayList<>();
+		boolean need_room = true;
+		boolean need_person = true;
+		boolean need_weapon = true;
+		//Choose a room, player and weapon for the solution		
+		while (need_room || need_person || need_weapon) {
+			Card random_card = deck.get(new Random().nextInt(deck.size()));
+			switch (random_card.getCardType()) {
+			case ROOM:
+				if (need_room) {
+					solution.setRoom(random_card.getCardName());
+					already_seen.add(random_card);
+					need_room = false;
+				}				
+				break;
+			case PERSON:
+				if (need_person) {
+					solution.setPerson(random_card.getCardName());
+					already_seen.add(random_card);
+					need_person = false;
+				}				
+				break;
+			case WEAPON:
+				if (need_weapon) {
+						solution.setWeapon(random_card.getCardName());
+						already_seen.add(random_card);
+						need_weapon = false;						
+				}				
+				break;
+			}
+		}
+		//Assign the other cards to the players
+		int min_cards_per_player = (deck.size()-3)/players.size();
+		for (Player player : players) {
+			int cards_dealt = 0; 
+			while (cards_dealt < min_cards_per_player) {
+				Card random_card = deck.get(new Random().nextInt(deck.size()));
+				if (!already_seen.contains(random_card)) {
+					ArrayList<Card> new_list = player.getMyCards();
+					new_list.add(random_card);
+					player.setMyCards(new_list);
+					already_seen.add(random_card);
+					cards_dealt++;
+				}				
+			}			
+		}
+		//Distribute any remaining cards
+		int player_index = 0;
+		while (already_seen.size() != deck.size()) {
+			Card random_card = deck.get(new Random().nextInt(deck.size()));
+			if (!already_seen.contains(random_card)) {
+				ArrayList<Card> new_list = players.get(player_index).getMyCards();
+				new_list.add(random_card);
+				players.get(player_index).setMyCards(new_list);
+				already_seen.add(random_card);
+				player_index++;				
+			}
+		}			
+	}
 	/**
 	 * assigns the adjacency cell sets
 	 */
