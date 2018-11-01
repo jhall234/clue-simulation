@@ -1,3 +1,42 @@
+* added new PlayerConfig and WeaponsConfig files to previous tests. Entire test suite runs!
+* dealDeck tests working, Now all tests in GameSetUpTests pass
+* testLoadDeck passing all tests
+* refactoring GameSetuptests
+* removed print statement
+* Got first load people test to work!!!
+* Added paramaterized constructor to Player
+* Failing Tests for player initialization created
+* Failing tests created for dealing Cards
+* Created failing tests for loading the deck
+* more changes
+* Changes made to get ready for writing tests
+* added @beforeclass to gameSetupTests and refactored Board.java
+* Added ClueWeapons.txt config file
+* Added CluePlayers.txt config file to initialize the players
+* All stubs almost complete
+*   Merge branch 'master' of https://github.com/jhall234/ClueGame
+|\  
+| * Added Solution class
+| * Update src/clueGame/CardType.java
+| * Added Player, ComputerPlayer and Human Player classes
+* | Card stubs updated
+* | Finished Card stubs
+* | Board object and method stubs created
+|/  
+* gameSetupTests created
+* refactored calcAdjacencies() for readability
+* removed superfluous comments in main used for testing on Board.java
+* Removed all if statements from boolean functions in BoardCell.java
+* Removed functionality to print out number of rows and columns to the console. Does not add to the user experience. Also remove commented old commented out versions of functions
+* Removed unused/duplicate code in loadBoardConfig method in Board.java
+* removed empty if statement in loadRoomConfig by negating statement
+* Removed unnessecary line variable in loadRoomConfig method in Board.java
+* Removed old commented out calcTargets function in Board.java
+* all tests working still
+* all tests working
+* fixed more tests in boardadjtargettests.java
+* 6/11 tests working on BoardAdjTargetTests.java
+* added author names to BoardAdjTargetTests
 * Made sure new test met class requirements
 * added white squares to .xlsx for door direction test
 * Created Failing BoardAdjTargetTests
