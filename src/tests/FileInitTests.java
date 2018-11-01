@@ -27,7 +27,7 @@ class FileInitTests {
 //	Setup and initialize the board
 	@BeforeAll
 	public static void setUp() throws FileNotFoundException, BadConfigFormatException {
-		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");
+		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt", "ClueWeapons.txt", "CluePlayers.txt");
 		board.initialize();
 	}
 	
@@ -38,7 +38,6 @@ class FileInitTests {
 		
 		assertEquals(LEGEND_SIZE, legend.size());
 		
-		//System.out.println(legend.get('M'));
 		assertEquals("Movie Theater", legend.get('M'));
 		assertEquals("Kitchen", legend.get('K'));
 		assertEquals("Art Gallery", legend.get('A'));

@@ -42,17 +42,7 @@ public class Board {
 		this.deck= new ArrayList<Card>();
 		this.players = new ArrayList<>(6);
 	}
-	
-	/**
-	 * Allows user to input config file names
-	 * @param boardLayout
-	 * @param legend
-	 */
-	public void setConfigFiles(String boardConfigFile, String roomConfigFile) {
-		this.boardConfigFile = boardConfigFile;
-		this.roomConfigFile = roomConfigFile;
-	}
-	
+
 	/**
 	 * sets the string variables for the config files
 	 * @param boardConfigFile

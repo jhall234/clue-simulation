@@ -15,7 +15,7 @@ class GameSetupTests {
 
 	private static Board board = Board.getInstance();
 	
-//	Setup and initialize the board
+//	Setup and initialize the board, players, and cards
 	@BeforeAll
 	public static void setUp() throws FileNotFoundException, BadConfigFormatException {
 		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt", "ClueWeapons.txt", "CluePlayers.txt");
