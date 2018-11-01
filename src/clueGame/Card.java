@@ -7,9 +7,11 @@ public class Card {
 	/**
 	 * Constructor will assign the string provided as the cardName
 	 * @param cardName
+	 * @param cardType 
 	 */
-	public Card(String cardName) {
+	public Card(String cardName, CardType cardType) {
 		this.cardName = cardName;
+		this.cardType = cardType;
 	}
 	
 	/**

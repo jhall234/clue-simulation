@@ -92,6 +92,9 @@ public class Board {
 				throw new BadConfigFormatException("All legend entries must be of type Other or Card.");
 			}
 			this.legend.put(list[0].charAt(0), list[1]); // value could be: list[1] + " " + list[2] to include if it's a card or other
+			if (list[2].equals("Card")) {
+				deck.add(new Card(list[1], CardType.ROOM)); // add room card to the deck
+			}
 		}
 		in.close();
 	}
@@ -166,7 +169,7 @@ public class Board {
 	 * @throws BadConfigFormatException
 	 */
 	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException {
-		FileReader file = new FileReader("CluePlayers.txt");
+		FileReader file = new FileReader(playerConfigFile);
 		Scanner in = new Scanner(file);
 		int num_lines = 0;
 		while (in.hasNext()) {
@@ -194,8 +197,8 @@ public class Board {
 				default:
 					throw new BadConfigFormatException("5th element of each line must be either 'computer' or 'human'");
 			}
-			Player new_player = new Player(playerName, red, green, blue, playerType, row, column);
-			players.add(new_player);
+			players.add(new Player(playerName, red, green, blue, playerType, row, column));
+			deck.add(new Card(playerName, CardType.PERSON)); //each player corresponds to a card
 			num_lines++;
 		}
 		in.close();
@@ -207,7 +210,13 @@ public class Board {
 	 * @throws BadConfigFormatException
 	 */
 	public void loadWeaponConfig() throws FileNotFoundException, BadConfigFormatException {
-	
+		FileReader file = new FileReader(weaponConfigFile);
+		Scanner in = new Scanner(file);		
+		while (in.hasNext()) {
+			String weapon_name = in.nextLine();
+			deck.add(new Card(weapon_name, CardType.WEAPON));
+		}
+		in.close();
 	}
 	
 	/**

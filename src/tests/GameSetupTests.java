@@ -105,9 +105,10 @@ class GameSetupTests {
 		assertEquals(6, numWeapons);
 		
 		//chose a name of a person, room and weapon and make sure that they are in the deck
+		assertTrue(foundRoom);
 		assertTrue(foundPerson);
 		assertTrue(foundWeapon);
-		assertTrue(foundRoom);
+		
 	}
 	
 	//make sure that cards are dealt to the players correctly
