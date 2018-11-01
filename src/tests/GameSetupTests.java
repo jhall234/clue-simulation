@@ -38,27 +38,27 @@ class GameSetupTests {
 		assertEquals("Mustard", computer.getPlayerName());
 		
 		//Test color is set correctly
-		assertEquals(first.getColor(), new Color(196, 47, 47));
-		assertEquals(third.getColor(), new Color(51, 88, 198));
-		assertEquals(last.getColor(), new Color(255, 255, 255));
-		assertEquals(human.getColor(), new Color(20, 188, 43));
-		assertEquals(computer.getColor(), new Color(198, 169, 23));
+		assertEquals(new Color(196, 47, 47), first.getColor());
+		assertEquals(new Color(51, 88, 198), third.getColor());
+		assertEquals(new Color(255, 255, 255), last.getColor());
+		assertEquals(new Color(20, 188, 43), human.getColor());
+		assertEquals(new Color(198, 169, 23), computer.getColor());
 		
 		//Test starting location
-		assertEquals(first.getRow(), 0);
-		assertEquals(first.getColumn(), 5);
+		assertEquals(0, first.getRow());
+		assertEquals(5, first.getColumn());
 		
-		assertEquals(third.getRow(), 15);
-		assertEquals(third.getColumn(), 23);
+		assertEquals(15, third.getRow());
+		assertEquals(23, third.getColumn());
 		
-		assertEquals(last.getRow(), 7);
-		assertEquals(last.getColumn(), 0);
+		assertEquals(7, last.getRow());
+		assertEquals(0, last.getColumn());
 		
-		assertEquals(human.getRow(), 22);
-		assertEquals(human.getColumn(), 20);
+		assertEquals(22, human.getRow());
+		assertEquals(20, human.getColumn());
 		
-		assertEquals(computer.getRow(), 22);
-		assertEquals(computer.getColumn(), 10);
+		assertEquals(22, computer.getRow());
+		assertEquals(10, computer.getColumn());
 		
 	}
 	
@@ -97,12 +97,12 @@ class GameSetupTests {
 		
 		//test that there is the correct number of cards in the deck
 		// 9 rooms, 6 people, 6 weapons = 21 total cards
-		assertEquals(deck.size(), 21);
+		assertEquals(21, deck.size());
 		//test that there is correct # of each type of card
 		
-		assertEquals(numRooms, 9);
-		assertEquals(numPeople, 6);
-		assertEquals(numWeapons, 6);
+		assertEquals(9, numRooms);
+		assertEquals(6, numPeople);
+		assertEquals(6, numWeapons);
 		
 		//chose a name of a person, room and weapon and make sure that they are in the deck
 		assertTrue(foundPerson);
@@ -139,7 +139,7 @@ class GameSetupTests {
 		}
 		//Total number of cards dealt to the players should be total 
 		//number of cards - 3 (3 cards used for solution)
-		assertEquals(total_cards_dealt, 18);
+		assertEquals(18, total_cards_dealt);
 		
 		//Cards should be even distributed. Player with most cards 
 		//should have at most 1 more card than player with least
