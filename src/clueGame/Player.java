@@ -104,6 +104,5 @@ public class Player {
 	public void setSeenCards(ArrayList<Card> seenCards) {
 		this.seenCards = seenCards;
 	}
-
-
-}
+	
+}	
