@@ -3,6 +3,8 @@ package clueGame;
 import java.util.*;
 
 public class ComputerPlayer extends Player {
+	private BoardCell justVisitedRoom;
+	
 	public ComputerPlayer() {
 		
 	}
@@ -18,5 +20,13 @@ public class ComputerPlayer extends Player {
 	
 	public void createSuggestion() {
 		
+	}
+	
+	public void setJustVisitedRoom(BoardCell justVisitedRoom) {
+		this.justVisitedRoom = justVisitedRoom;
+	}
+	
+	public BoardCell getJustVisitedRoom() {
+		return this.justVisitedRoom;
 	}
 }
