@@ -36,8 +36,7 @@ public class Board {
 		this.numColumns = numCols;
 		this.legend = new HashMap<>();
 		this.targets = new HashSet<>();
-		this.visited = new HashSet<>();
-		
+		this.visited = new HashSet<>();	
 		this.solution = new Solution();
 		this.deck= new ArrayList<Card>();
 		this.players = new ArrayList<>(6);
@@ -219,7 +218,7 @@ public class Board {
 		ArrayList<Card> already_seen = new ArrayList<>();
 		boolean need_room = true;
 		boolean need_person = true;
-		boolean need_weapon = true;
+		boolean need_weapon = true;	
 		//Choose a room, player and weapon for the solution		
 		while (need_room || need_person || need_weapon) {
 			Card random_card = deck.get(new Random().nextInt(deck.size()));
@@ -493,6 +492,15 @@ public class Board {
 		//If not in array list, return a blank player
 		Player default_player = new Player();
 		return default_player;		
+	}
+	
+
+	public Solution getSolution() {
+		return solution;
+	}
+
+	public void setSolution(Solution solution) {
+		this.solution = solution;
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {

@@ -106,4 +106,18 @@ class GameActionTests {
 				assertTrue(cell_2_16);
 				assertTrue(cell_3_17);
 	}
+	
+	// Will test the checkAccusation method in Board
+	void checkAccustaion() {
+		
+		
+		board.setSolution(new Solution("Scarlett", "Library", "Rope"));
+		
+		assertTrue(board.checkAccusation(new Solution("Scarlett", "Library", "Rope")));
+		
+		//Test each: incorrect person, room and weapon
+		assertFalse(board.checkAccusation(new Solution("Plum", "Library", "Rope")));
+		assertFalse(board.checkAccusation(new Solution("Scarlett", "Dining Room", "Rope")));
+		assertFalse(board.checkAccusation(new Solution("Scarlett", "Library", "Candlestick")));
+	}
 }
