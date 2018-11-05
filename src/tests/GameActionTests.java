@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -14,12 +15,28 @@ import clueGame.*;
 class GameActionTests {
 	
 	private static Board board = Board.getInstance();
+	private static Card scarlettCard;
+	private static Card plumCard;
+	private static Card ropeCard;
+	private static Card dumbbellCard;
+	private static Card diningRoomCard;
+	private static Card saunaCard;
 	
 //	Setup and initialize the board, players, and cards
 	@BeforeAll
 	public static void setUp() throws FileNotFoundException, BadConfigFormatException {
 		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt", "ClueWeapons.txt", "CluePlayers.txt");
 		board.initialize();
+	}
+	
+	@BeforeClass
+	public static void createCards() {
+		scarlettCard = new Card("Scarlett", CardType.PERSON);
+		plumCard = new Card("Plum", CardType.PERSON);		
+		ropeCard = new Card("Rope", CardType.WEAPON);		
+		dumbbellCard = new Card("Dumbbell", CardType.WEAPON);		
+		diningRoomCard = new Card("Dining Room", CardType.ROOM);		
+		saunaCard = new Card("Sauna", CardType.ROOM);				
 	}
 
 	@Test
@@ -256,7 +273,7 @@ class GameActionTests {
 		assertEquals("Sauna", player.createSuggestion().getPerson());
 	}
 	
-	//Will test disproving an accusation with only one card from suggetion
+	//Will test disproving an accusation with only one card from suggestion
 	@Test
 	void disproveSuggestionOneCard() {
 		ComputerPlayer player = new ComputerPlayer();
@@ -320,5 +337,65 @@ class GameActionTests {
 					
 		// player should return null because they dont have any cards 
 		assertNull(player.disproveSuggestion(suggestion));
+	}
+	
+	@Test
+	void testHandleSuggestion() {
+		ArrayList<Card> myCards = new ArrayList<>();
+		Player player_0 = board.getPlayer("Scarlett");
+		myCards.add(scarlettCard);
+		player_0.setMyCards(myCards);
+		myCards.clear();
+		
+		board.getPlayer("Plum");
+		myCards.add(plumCard);
+		player_0.setMyCards(myCards);
+		myCards.clear();
+		
+		board.getPlayer("Peacock");
+		myCards.add(ropeCard);
+		player_0.setMyCards(myCards);
+		myCards.clear();
+		
+		board.getPlayer("Green");
+		myCards.add(dumbbellCard);
+		player_0.setMyCards(myCards);
+		myCards.clear();
+		
+		board.getPlayer("Mustard");
+		myCards.add(diningRoomCard);
+		player_0.setMyCards(myCards);
+		myCards.clear();
+		
+		board.getPlayer("White");
+		myCards.add(saunaCard);
+		player_0.setMyCards(myCards);
+		myCards.clear();
+		
+		//no one has any of the cards - return null
+		Solution noOneHasCard = new Solution("Mustard","Swimming Pool", "Lead Pipe");
+		assertNull(board.handleSuggestion(board.getPlayer("Scarlett"), noOneHasCard));
+		
+		//accuser Plum is the only one that has any parts of the solution - return null
+		Solution accuserHasCard = new Solution("Plum", "Swimming Pool", "Lead Pipe");
+		assertEquals(plumCard, board.handleSuggestion(board.getPlayer("Plum"), accuserHasCard));
+		
+		//human has card but is not accuser, return card
+		Solution humanHasCard = new Solution("Mustard", "Swimming Pool" , "Dumbbell" );
+		assertEquals(dumbbellCard, board.handleSuggestion(board.getPlayer("Plum"), humanHasCard));
+		
+		//human has card but is accuser, return null
+		Solution humanAccuserHasCard = new Solution("Mustard", "Swimming Pool", "Dumbbell");
+		assertNull(board.handleSuggestion(board.getPlayer("Green"), humanAccuserHasCard));
+		
+		//First Player is Scarlett and makes accusation, next two players can disprove
+		// make sure that first player in line (Plum) shows their card
+		Solution orderedQuery = new Solution("Plum", "Swimming Pool", "Rope");
+		assertEquals(plumCard, board.handleSuggestion(board.getPlayer("Scarlett"), orderedQuery));
+		
+		//First player (Scarlett) makes an accusation, human (Green) and other player(White) can disprove
+		// human is first in line so make sure they have to show a card
+		Solution humanAndPlayerHaveCards = new Solution("Mustard", "Sauna" ,"Dumbbell");
+		assertEquals(dumbbellCard, board.handleSuggestion(board.getPlayer("Scarlett"), humanAndPlayerHaveCards));
 	}
 }

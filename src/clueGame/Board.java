@@ -337,7 +337,7 @@ public class Board {
 	 * Will get one of the players to reveal a card to the accuser
 	 * @return Card that corresponds to the accusation
 	 */
-	public Card handleSuggestion() {
+	public Card handleSuggestion(Player suggester, Solution suggestion) {
 		Card default_card = new Card();
 		return default_card;
 	}
