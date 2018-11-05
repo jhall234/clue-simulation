@@ -18,7 +18,8 @@ public class Card {
 	 * Default constructor for Card
 	 */
 	public Card() {
-		
+		this.cardName = "";
+		this.cardType = null;
 	}
 	
 	/**

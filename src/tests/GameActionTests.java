@@ -255,4 +255,70 @@ class GameActionTests {
 		assertEquals("White", player.createSuggestion().getPerson());
 		assertEquals("Sauna", player.createSuggestion().getPerson());
 	}
+	
+	//Will test disproving an accusation with only one card from suggetion
+	@Test
+	void disproveSuggestionOneCard() {
+		ComputerPlayer player = new ComputerPlayer();
+		ArrayList<Card> myCards = new ArrayList<>();
+		Card givenCard = new Card("White", CardType.PERSON);
+		
+		// Create a solution to be passed to the ComputerPlayer
+		Solution suggestion = new Solution("White", "Game Room", "Dumbbell");
+		
+		// Give player only one card that is from the suggestion 
+		myCards.add(givenCard);
+		player.setMyCards(myCards);	
+			
+		// player should return the only card in their list of cards
+		assertEquals(givenCard, player.disproveSuggestion(suggestion));
+	}
+	
+	//Will test disproving an accusation with multiple cards from suggestion
+	@Test
+	void disproveSuggestionMultipuleCards() {
+		ComputerPlayer player = new ComputerPlayer();
+		ArrayList<Card> myCards = new ArrayList<>();
+		Card person = new Card("White", CardType.PERSON);
+		Card room = new Card("Game Room", CardType.ROOM);
+		boolean shownPerson = false;
+		boolean shownRoom = false;
+		
+		// Giving player multiple cards that are part of the suggestion
+		myCards.add(person);
+		myCards.add(room);
+		player.setMyCards(myCards);
+		
+		// Create a Solution to be passed to the ComputerPlayer
+		Solution suggestion = new Solution("White", "Game Room", "Dumbbell");
+		
+		// Run multiple times to ensure random behavior select all possible outcomes
+		for (int i = 0; i < 50; i++) {
+			Card shownCard = player.disproveSuggestion(suggestion);
+			if (shownCard.equals(person)) {
+				shownPerson = true;
+			}
+			else if (shownCard.equals(room)) {
+				shownRoom = true; 
+			}
+			else {
+				fail("Card not in player's hand was shown");
+			}
+		}
+		
+		assertTrue(shownPerson);
+		assertTrue(shownRoom);		
+	}
+	
+	//Will test disproving an accusation with no cards from suggestion
+	@Test
+	void disproveSuggestionNoCards() {
+		ComputerPlayer player = new ComputerPlayer();
+		
+		// Create a solution to be passed to the ComputerPlayer
+		Solution suggestion = new Solution("White", "Game Room", "Dumbbell");
+					
+		// player should return null because they dont have any cards 
+		assertNull(player.disproveSuggestion(suggestion));
+	}
 }
