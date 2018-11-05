@@ -22,8 +22,9 @@ public class ComputerPlayer extends Player {
 		
 	}
 	
-	public void createSuggestion() {
-		
+	public Solution createSuggestion() {
+		Solution s = new Solution();
+		return s;
 	}
 	
 	public void setJustVisitedRoom(BoardCell justVisitedRoom) {
