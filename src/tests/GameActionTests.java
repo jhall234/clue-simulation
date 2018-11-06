@@ -151,13 +151,13 @@ class GameActionTests {
 		
 		//Adding all weapons but three to seenCards list. Computer will have to choose one of 
 		// the three cards in the suggestion
-		excludedCards.add(new Card("Candlestick", CardType.WEAPON));
-		excludedCards.add(new Card("Lead Pipe", CardType.WEAPON));
-		excludedCards.add(new Card("Rope", CardType.WEAPON));
+		excludedCards.add(Board.getInstance().getCard("Candlestick"));
+		excludedCards.add(Board.getInstance().getCard("Lead Pipe"));
+		excludedCards.add(Board.getInstance().getCard("Rope"));
 		
 		//Need to add default cards for ComputerPlayer to select to create a suggestion
-		excludedCards.add(new Card("Dining Room", CardType.ROOM));
-		excludedCards.add(new Card("White", CardType.PERSON));
+		excludedCards.add(Board.getInstance().getCard("Dining Room"));
+		excludedCards.add(Board.getInstance().getCard("White"));
 		
 		//Adding all of the non-excluded cards to the seenCards list
 		for (Card card : board.getDeck()) {
@@ -205,13 +205,13 @@ class GameActionTests {
 				
 		//Adding all people but three to seenCards list. Computer will have to choose one of 
 		// the three cards in its suggestion
-		excludedCards.add(new Card("Scarlett", CardType.PERSON));
-		excludedCards.add(new Card("Plum", CardType.PERSON));
-		excludedCards.add(new Card("Green", CardType.PERSON));
+		excludedCards.add(Board.getInstance().getCard("Scarlett"));
+		excludedCards.add(Board.getInstance().getCard("Plum"));
+		excludedCards.add(Board.getInstance().getCard("Green"));
 		
 		//Need to add default cards for ComputerPlayer to select to create a suggestion
-		excludedCards.add(new Card("Dining Room", CardType.ROOM));
-		excludedCards.add(new Card("Candlestick", CardType.WEAPON));
+		excludedCards.add(Board.getInstance().getCard("Dining Room"));
+		excludedCards.add(Board.getInstance().getCard("Candlestick"));
 		
 		for (Card card : board.getDeck()) {
 			if (!excludedCards.contains(card)) {
@@ -254,9 +254,9 @@ class GameActionTests {
 		ComputerPlayer player = new ComputerPlayer();
 				
 		// Exclude one weapon, person and room from player's seenCards
-		excludedCards.add(new Card("Rope", CardType.WEAPON));
-		excludedCards.add(new Card("White", CardType.PERSON));
-		excludedCards.add(new Card("Sauna", CardType.PERSON));
+		excludedCards.add(Board.getInstance().getCard("Rope"));
+		excludedCards.add(Board.getInstance().getCard("White"));
+		excludedCards.add(Board.getInstance().getCard("Sauna"));
 		
 		for (Card card : board.getDeck()) {
 			if (!excludedCards.contains(card)) {
@@ -271,7 +271,7 @@ class GameActionTests {
 		//Make sure computer selected the correct weapon, person and room
 		assertEquals("Rope", player.getSuggestion().getWeapon());
 		assertEquals("White", player.getSuggestion().getPerson());
-		assertEquals("Sauna", player.getSuggestion().getPerson());
+		assertEquals("Sauna", player.getSuggestion().getRoom());
 	}
 	
 	//Will test disproving an accusation with only one card from suggestion

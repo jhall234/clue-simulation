@@ -549,6 +549,15 @@ public class Board {
 	public void setPlayerNames(ArrayList<String> playerNames) {
 		this.playerNames = playerNames;
 	}
+	
+	public Card getCard(String cardName) {
+		for (Card card : deck) {
+			if (card.getCardName().equals(cardName)) {
+				return card;
+			}
+		}
+		return null;
+	}
 
 	public static void main(String[] args) throws FileNotFoundException {
 //		Board board = Board.getInstance();
