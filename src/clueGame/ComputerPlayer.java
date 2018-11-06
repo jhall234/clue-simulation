@@ -47,30 +47,30 @@ public class ComputerPlayer extends Player {
 		Set<String> seenPlayers = new HashSet<String>();
 		Set<String> seenWeapons = new HashSet<String>();
 		
-//		for (Card card : this.getSeenCards()) {
-//			if (card.getCardType().equals(CardType.PERSON)) {
-//				seenPlayers.add(card.getCardName());
-//			}
-//			if (card.getCardType().equals(CardType.WEAPON)) {
-//				seenWeapons.add(card.getCardName());
-//			}
-//		}
-//		
-//		int numPlayers = Board.getInstance().getPlayers().size();
-//		int numWeapons = Board.getInstance().getWeapons().size();
-//		
-//		while (true) {
-//			playerName = Board.getInstance().getPlayers().get(new Random().nextInt(numPlayers)).getPlayerName();
-//			if (!seenPlayers.contains(playerName)) {
-//				break;
-//			}
-//		}
-//		while (true) {
-//			weaponName = Board.getInstance().getPlayers().get(new Random().nextInt(numWeapons)).getPlayerName();
-//			if (!seenWeapons.contains(weaponName)) {
-//				break;
-//			}
-//		}
+		for (Card card : this.getSeenCards()) {
+			if (card.getCardType().equals(CardType.PERSON)) {
+				seenPlayers.add(card.getCardName());
+			}
+			if (card.getCardType().equals(CardType.WEAPON)) {
+				seenWeapons.add(card.getCardName());
+			}
+		}
+		
+		int numPlayers = Board.getInstance().getPlayers().size();
+		int numWeapons = Board.getInstance().getWeapons().size();
+		
+		while (true) {
+			playerName = Board.getInstance().getPlayers().get(new Random().nextInt(numPlayers)).getPlayerName();
+			if (!seenPlayers.contains(playerName)) {
+				break;
+			}
+		}
+		while (true) {
+			weaponName = Board.getInstance().getPlayers().get(new Random().nextInt(numWeapons)).getPlayerName();
+			if (!seenWeapons.contains(weaponName)) {
+				break;
+			}
+		}
 		
 		return new Solution(playerName, room, weaponName);
 	}
