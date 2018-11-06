@@ -42,17 +42,16 @@ public class ComputerPlayer extends Player {
 	}
 	
 	public void createSuggestion(String room) {
-	
 		ArrayList<String> unseenPlayers = new ArrayList<>();
 		ArrayList<String> unseenWeapons = new ArrayList<>();
 		
 		for (String playerName : Board.getInstance().getPlayerNames()) {
-			if (!getSeenCards().contains(playerName)) {
+			if (!(getSeenCards().contains(playerName))) {
 					unseenPlayers.add(playerName);
 			}
 		}
 		for (String weaponName : Board.getInstance().getWeapons()) {
-			if (!getSeenCards().contains(weaponName)) {
+			if (!(getSeenCards().contains(weaponName))) {
 					unseenWeapons.add(weaponName);				
 			}
 		}
@@ -60,7 +59,6 @@ public class ComputerPlayer extends Player {
 		int randomNum1 = rand.nextInt(unseenPlayers.size());
 		int randomNum2 = rand.nextInt(unseenWeapons.size());
 
-		
 		suggestion = new Solution(unseenPlayers.get(randomNum1), room, unseenWeapons.get(randomNum2));
 	}
 	
