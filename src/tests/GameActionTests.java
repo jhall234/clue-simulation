@@ -348,29 +348,29 @@ class GameActionTests {
 		player_0.setMyCards(myCards);
 		myCards.clear();
 		
-		board.getPlayer("Plum");
+		Player player_1 = board.getPlayer("Plum");
 		myCards.add(plumCard);
-		player_0.setMyCards(myCards);
+		player_1.setMyCards(myCards);
 		myCards.clear();
 		
-		board.getPlayer("Peacock");
+		Player player_2 = board.getPlayer("Peacock");
 		myCards.add(ropeCard);
-		player_0.setMyCards(myCards);
+		player_2.setMyCards(myCards);
 		myCards.clear();
 		
-		board.getPlayer("Green");
+		Player player_3 = board.getPlayer("Green");
 		myCards.add(dumbbellCard);
-		player_0.setMyCards(myCards);
+		player_3.setMyCards(myCards);
 		myCards.clear();
 		
-		board.getPlayer("Mustard");
+		Player player_4 = board.getPlayer("Mustard");
 		myCards.add(diningRoomCard);
-		player_0.setMyCards(myCards);
+		player_4.setMyCards(myCards);
 		myCards.clear();
 		
-		board.getPlayer("White");
+		Player player_5 = board.getPlayer("White");
 		myCards.add(saunaCard);
-		player_0.setMyCards(myCards);
+		player_5.setMyCards(myCards);
 		myCards.clear();
 		
 		//no one has any of the cards - return null

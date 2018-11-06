@@ -344,9 +344,21 @@ public class Board {
 	 * @return Card that corresponds to the accusation
 	 */
 	public Card handleSuggestion(Player suggester, Solution suggestion) {
-		
-		Card default_card = new Card();
-		return default_card;
+		int startIndex = players.indexOf(suggester) + 1;
+		Card disprovingClue;
+		//Loop over every player once, if player is accuser, they can't answer 
+		for (int playersQuestioned = 0; playersQuestioned< players.size(); playersQuestioned++) {
+			startIndex = startIndex % players.size();
+			Player disprover = players.get(startIndex);
+			if (!disprover.equals(suggester)) {
+					disprovingClue = disprover.disproveSuggestion(suggestion);
+					if (disprovingClue != null) {
+						return disprovingClue;
+					}
+			}
+			startIndex++;
+		}
+		return null;
 	}
 	
 	public boolean checkAccusation(Solution Accusation) {
