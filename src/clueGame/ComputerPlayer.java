@@ -42,10 +42,10 @@ public class ComputerPlayer extends Player {
 	}
 	
 	public Solution createSuggestion(String room) {
-		String playerName = "";
-		String weaponName = "";
-		Set<String> seenPlayers = new HashSet<String>();
-		Set<String> seenWeapons = new HashSet<String>();
+//		String playerName = "";
+//		String weaponName = "";
+		ArrayList<String> seenPlayers = new ArrayList<String>();
+		ArrayList<String> seenWeapons = new ArrayList<String>();
 		
 		for (Card card : this.getSeenCards()) {
 			if (card.getCardType().equals(CardType.PERSON)) {
@@ -56,23 +56,25 @@ public class ComputerPlayer extends Player {
 			}
 		}
 		
-		int numPlayers = Board.getInstance().getPlayers().size();
-		int numWeapons = Board.getInstance().getWeapons().size();
+//		int numPlayers = Board.getInstance().getPlayers().size();
+//		int numWeapons = Board.getInstance().getWeapons().size();
 		
-		while (true) {
-			playerName = Board.getInstance().getPlayers().get(new Random().nextInt(numPlayers)).getPlayerName();
-			if (!seenPlayers.contains(playerName)) {
-				break;
+		ArrayList<String> unseenPlayers = new ArrayList<String>();
+		ArrayList<String> unseenWeapons = new ArrayList<String>();
+		
+		for (Player player : Board.getInstance().getPlayers()) {
+			if (!seenPlayers.contains(player.getPlayerName())) {
+				unseenPlayers.add(player.getPlayerName());
 			}
 		}
-		while (true) {
-			weaponName = Board.getInstance().getPlayers().get(new Random().nextInt(numWeapons)).getPlayerName();
-			if (!seenWeapons.contains(weaponName)) {
-				break;
+		for (String weapon : Board.getInstance().getWeapons()) {
+			if (!seenWeapons.contains(weapon)) {
+				unseenWeapons.add(weapon);
 			}
 		}
 		
-		return new Solution(playerName, room, weaponName);
+		
+		return new Solution(unseenPlayers.get(new Random().nextInt(unseenPlayers.size())), room, unseenWeapons.get(new Random().nextInt(unseenWeapons.size())));
 	}
 	
 	public Solution getSuggestion() {
