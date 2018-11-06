@@ -41,38 +41,33 @@ public class ComputerPlayer extends Player {
 		
 	}
 	
-	public Solution createSuggestion(String room) {
+	public void createSuggestion(String room) {
 		String playerName = "";
 		String weaponName = "";
-		Set<String> seenPlayers = new HashSet<String>();
-		Set<String> seenWeapons = new HashSet<String>();
+		ArrayList<String> unseenPlayers = new ArrayList<>();
+		ArrayList<String> unseenWeapons = new ArrayList<>();
 		
-//		for (Card card : this.getSeenCards()) {
-//			if (card.getCardType().equals(CardType.PERSON)) {
-//				seenPlayers.add(card.getCardName());
-//			}
-//			if (card.getCardType().equals(CardType.WEAPON)) {
-//				seenWeapons.add(card.getCardName());
-//			}
-//		}
-//		
-//		int numPlayers = Board.getInstance().getPlayers().size();
-//		int numWeapons = Board.getInstance().getWeapons().size();
-//		
-//		while (true) {
-//			playerName = Board.getInstance().getPlayers().get(new Random().nextInt(numPlayers)).getPlayerName();
-//			if (!seenPlayers.contains(playerName)) {
-//				break;
-//			}
-//		}
-//		while (true) {
-//			weaponName = Board.getInstance().getPlayers().get(new Random().nextInt(numWeapons)).getPlayerName();
-//			if (!seenWeapons.contains(weaponName)) {
-//				break;
-//			}
-//		}
+		for (String name : Board.getInstance().getPlayerNames()) {
+			for (Card c : getSeenCards()) {
+				if (!c.getCardName().equals(name)) {
+					unseenPlayers.add(name);
+				}
+			}
+		}
+		for (String name : Board.getInstance().getWeapons()) {
+			for(Card c : getSeenCards()) {
+				if (!c.getCardName().equals(name)) {
+					unseenWeapons.add(name);
+				}
+			}
+			
+		}
+		Random rand = new Random();
+		int randomNum1 = rand.nextInt(unseenPlayers.size());
+		int randomNum2 = rand.nextInt(unseenWeapons.size());
+
 		
-		return new Solution(playerName, room, weaponName);
+		suggestion = new Solution(unseenPlayers.get(randomNum1), room, unseenWeapons.get(randomNum2));
 	}
 	
 	public Solution getSuggestion() {

@@ -1,54 +1,399 @@
-* added new PlayerConfig and WeaponsConfig files to previous tests. Entire test suite runs!
-* dealDeck tests working, Now all tests in GameSetUpTests pass
-* testLoadDeck passing all tests
-* refactoring GameSetuptests
-* removed print statement
-* Got first load people test to work!!!
-* Added paramaterized constructor to Player
-* Failing Tests for player initialization created
-* Failing tests created for dealing Cards
-* Created failing tests for loading the deck
-* more changes
-* Changes made to get ready for writing tests
-* added @beforeclass to gameSetupTests and refactored Board.java
-* Added ClueWeapons.txt config file
-* Added CluePlayers.txt config file to initialize the players
-* All stubs almost complete
-*   Merge branch 'master' of https://github.com/jhall234/ClueGame
-|\  
-| * Added Solution class
-| * Update src/clueGame/CardType.java
-| * Added Player, ComputerPlayer and Human Player classes
-* | Card stubs updated
-* | Finished Card stubs
-* | Board object and method stubs created
-|/  
-* gameSetupTests created
-* refactored calcAdjacencies() for readability
-* removed superfluous comments in main used for testing on Board.java
-* Removed all if statements from boolean functions in BoardCell.java
-* Removed functionality to print out number of rows and columns to the console. Does not add to the user experience. Also remove commented old commented out versions of functions
-* Removed unused/duplicate code in loadBoardConfig method in Board.java
-* removed empty if statement in loadRoomConfig by negating statement
-* Removed unnessecary line variable in loadRoomConfig method in Board.java
-* Removed old commented out calcTargets function in Board.java
-* all tests working still
-* all tests working
-* fixed more tests in boardadjtargettests.java
-* 6/11 tests working on BoardAdjTargetTests.java
-* added author names to BoardAdjTargetTests
-* Made sure new test met class requirements
-* added white squares to .xlsx for door direction test
-* Created Failing BoardAdjTargetTests
-* all working tests
-* Passed all initialization and exception tests
-* working on passing exception tests.
-* Passing Tests
-* Final commit: added a text file to explain our tests.
-* added javadoc and inline comments
-* All tests are failing yay.
-* Finished skeleton classes. Beginning JUnit tests.
-* Start of assignment 13A-1
-* all tests working
-* failing tests comlete
-* initial commit
+commit 6f59562db7d0578d060caa7b4cdf8300b10b4799
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Mon Nov 5 23:04:40 2018 -0700
+
+    merged a bunch of stough
+
+commit 11dd633204277c0e745d99e8684eb27325bd1ac4
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Nov 5 22:41:42 2018 -0700
+
+    handleSuggestion and disproveSuggestion test are now working
+
+commit d35e3f879475921bfe4bfab67bd73cad0578af2d
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Nov 5 21:50:12 2018 -0700
+
+    All tests for disproveSuggestion working
+
+commit e5628432316fc064f905fb06e389706bcbe17665
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Nov 5 15:00:03 2018 -0700
+
+    Added failing/no-error tests for handleAccusation - BoardActionTests
+
+commit ed37b185d311ad01800292231deed24d5ff3b971
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Nov 4 21:48:45 2018 -0700
+
+    Added failing/no-error tests for disproveSuggestion method for Player - GameActionTests
+
+commit af2cb7e8ff1c0976a19e2127453e6af038e9af85
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Nov 4 21:10:37 2018 -0700
+
+    Added failing/no-error test for creating a suggestion in GameActionTests
+
+commit 577f6b532d2ea3c4fb1154960a403433d57d14c6
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Nov 4 12:14:51 2018 -0700
+
+    Added failing/no-error checkAcusation tests to GameActionTests
+
+commit 517aab276b0580089e84daea5f38b931b2dba5a7
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Nov 4 11:30:29 2018 -0700
+
+    Test Selecting a Room, all test fail, no errors - in GameActionTests
+
+commit 0c5a1e23abcc9560e2594f4462111bf0a25322b6
+Merge: f202f43 1e9b5de
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Thu Nov 1 15:20:34 2018 -0600
+
+    Merge branch 'master' of https://github.com/jhall234/ClueGame
+
+commit f202f43d6654c02f1f44ba193ff49f2908d1f962
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Thu Nov 1 15:18:08 2018 -0600
+
+    added constructors to HumanPlayer and ComputerPlayer
+
+commit 1e9b5de3afc7deb61faeb351f94013c17e8a2ed4
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Thu Nov 1 15:10:40 2018 -0600
+
+    added getters and setters for just visited in computer player
+
+commit d1414f487d91385fe885bdcb98b7b5fbace2922b
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Thu Nov 1 14:20:25 2018 -0600
+
+    added gameActionsTests
+
+commit 41ec1fe09b17a3ee7535ceb83bd779628fa30e20
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Oct 31 21:45:02 2018 -0600
+
+    Update gitlog.txt
+
+commit b5480c543693d09d07fb7824194f227ca269fc48
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Oct 31 21:40:22 2018 -0600
+
+    added new PlayerConfig and WeaponsConfig files to previous tests. Entire test suite runs!
+
+commit 18b757ea3083af97d4fd56b3029144a4ae4161a2
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Oct 31 21:33:14 2018 -0600
+
+    dealDeck tests working, Now all tests in GameSetUpTests pass
+
+commit 80d6bb43318fa1e344850d9697c7975ed701a32b
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Oct 31 20:22:23 2018 -0600
+
+    testLoadDeck passing all tests
+
+commit fa8808d30f7f911f70a1ad167b7aa9872483826d
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Oct 31 20:02:19 2018 -0600
+
+    refactoring GameSetuptests
+
+commit 72a6f545cbd50a180b0ddc3376c1825883bcce69
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Oct 31 15:39:30 2018 -0600
+
+    removed print statement
+
+commit d8110ecc3b0467961558a679d28ddf3f84217a52
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Oct 31 15:38:14 2018 -0600
+
+    Got first load people test to work!!!
+
+commit 4bbabfde27d837f570576c64db269385a737f4c2
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Oct 31 13:44:18 2018 -0600
+
+    Added paramaterized constructor to Player
+
+commit 40270a61fb2f57439abc2c850c12c852b04f3f61
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Oct 31 13:10:53 2018 -0600
+
+    Failing Tests for player initialization created
+
+commit 895df0ee5599ab8d78a108c7fcbddce77303e3ac
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Oct 31 12:09:58 2018 -0600
+
+    Failing tests created for dealing Cards
+
+commit 2b926db8f0850b2e633b0f5acc576bfc41d6204f
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Oct 30 22:49:46 2018 -0600
+
+    Created failing tests for loading the deck
+
+commit 81e430206c5f182f1a183d82d623349721ac5a06
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Oct 30 22:07:45 2018 -0600
+
+    more changes
+
+commit 668b1ab0acfb60632b1976a93bc4d9ac09726af1
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Oct 30 22:07:08 2018 -0600
+
+    Changes made to get ready for writing tests
+
+commit cdbb21c729086622ab9ab5c1c0b43e5421f6ee9b
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Oct 30 21:39:11 2018 -0600
+
+    added @beforeclass to gameSetupTests and refactored Board.java
+
+commit 65c5b720f6fed1bcc5d32f18316cf4fa48e1a9e4
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Oct 30 21:16:04 2018 -0600
+
+    Added ClueWeapons.txt config file
+
+commit e1bcd42a1a4e65655e3b2949f5ebeb244647a343
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Oct 30 21:04:50 2018 -0600
+
+    Added CluePlayers.txt config file to initialize the players
+
+commit 8537cf5bae40ee24650cf66ae1a5a12223c48fa7
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Tue Oct 30 14:56:36 2018 -0600
+
+    All stubs almost complete
+
+commit 1e9ce3d1a4a480fd70209e02a3615aa49fb694a7
+Merge: b2410c8 1eecef7
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Tue Oct 30 14:52:05 2018 -0600
+
+    Merge branch 'master' of https://github.com/jhall234/ClueGame
+
+commit 1eecef7b2e7c96444c9b9b05cfa7437a245ae7f4
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Oct 30 14:51:44 2018 -0600
+
+    Added Solution class
+
+commit b2410c8a2d41241f3d5aa88bc93f0eefc4c86a10
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Tue Oct 30 14:49:13 2018 -0600
+
+    Card stubs updated
+
+commit bc452fb672c2ebb3caadaee5fc54647f1cdfd3e8
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Tue Oct 30 14:48:44 2018 -0600
+
+    Finished Card stubs
+
+commit dd2747c6d851a8c700f58adf23377d247818255e
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Oct 30 14:45:04 2018 -0600
+
+    Update src/clueGame/CardType.java
+    
+    Added CardType enum
+
+commit 2c1ceee9ede41f0d17a392ca40a5ce00dca50d36
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Oct 30 14:43:09 2018 -0600
+
+    Added Player, ComputerPlayer and Human Player classes
+
+commit 74765b92ec07dc5dd6a1cee4ee9d4487cf4ab700
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Tue Oct 30 14:37:10 2018 -0600
+
+    Board object and method stubs created
+
+commit b98f7ebb4d89eb5028b885951d5d7d87e0c2f80e
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Tue Oct 30 14:19:41 2018 -0600
+
+    gameSetupTests created
+
+commit 26b9fb9f69b631632fd9ab7d2f2f1d85ac4cf6ca
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Mon Oct 29 21:48:08 2018 -0600
+
+    refactored calcAdjacencies() for readability
+
+commit 6d41a318886fc94f90dbd2eadc89585dcf8b52c4
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Mon Oct 29 21:32:03 2018 -0600
+
+    removed superfluous comments in main used for testing on Board.java
+
+commit af9fd8b64cea6ebe51ab1ff39b46787887dc7d5d
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Oct 29 15:12:40 2018 -0600
+
+    Removed all if statements from boolean functions in BoardCell.java
+
+commit 7bfd2ba96a6222061b8d7791a50fc0402d8d0296
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Oct 29 15:04:10 2018 -0600
+
+    Removed functionality to print out number of rows and columns to the console. Does not add to the user experience. Also remove commented old commented out versions of functions
+
+commit 68846b1629e9f389f8b0a0e2c1ddf995f0061e0c
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Oct 29 14:49:38 2018 -0600
+
+    Removed unused/duplicate code in loadBoardConfig method in Board.java
+    
+    Removes temp variable for holding next line and merged it with the variable file_row
+
+commit 4432dfa0f222346052df379cc8bcf467fb46dc76
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Oct 29 14:21:08 2018 -0600
+
+    removed empty if statement in loadRoomConfig by negating statement
+    
+    had empty if statement. Removed by negating the if statment and placing the corresponding else statement's code in the if statement
+
+commit 8c3ade3f5964f84c6cc45414a9450a3a0432fdab
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Oct 29 14:16:58 2018 -0600
+
+    Removed unnessecary line variable in loadRoomConfig method in Board.java
+
+commit b7ecbc97fc34224dbf923e48305bcd5ba2fc95c1
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Oct 29 12:46:38 2018 -0600
+
+    Removed old commented out calcTargets function in Board.java
+    
+    Removed old duplicate function that was commented out on line106 in Board.java
+
+commit e157240321a55a9891ae77561c7b909435f97145
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Mon Oct 22 21:50:33 2018 -0600
+
+    all tests working still
+
+commit 3a2bf786a1a1dcdc5e381b88c15625509a2c230d
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Mon Oct 22 21:50:08 2018 -0600
+
+    all tests working
+
+commit 7dd678a832862d6db2d43ac2f7f6c14421fcd790
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Oct 22 15:27:22 2018 -0600
+
+    fixed more tests in boardadjtargettests.java
+
+commit fb99a6b47b97ff7f35399ea541933f6959bdeea7
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Oct 22 14:55:38 2018 -0600
+
+    6/11 tests working on BoardAdjTargetTests.java
+
+commit 9b569452b1777679b5c2edd17b016f140287f9a9
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Oct 21 20:09:58 2018 -0600
+
+    added author names to BoardAdjTargetTests
+
+commit a9c1cbb023d2b1f5194012800c6b1c0e430ae565
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Oct 21 20:07:45 2018 -0600
+
+    Made sure new test met class requirements
+
+commit fd90ee726d0106227667f905a4ef0a193b986dcb
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Oct 21 19:51:53 2018 -0600
+
+    added white squares to .xlsx for door direction test
+
+commit 37120cb84c2d50e003a47863f5e8d8ad6c72644c
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Oct 21 19:44:15 2018 -0600
+
+    Created Failing BoardAdjTargetTests
+
+commit 1a8fcfd98349b90c15c32d0b76a5f7b8fdbf4d9f
+Author: Josh Hallinan <JoshHallinan234@gmail.com>
+Date:   Thu Oct 11 00:25:01 2018 -0600
+
+    all working tests
+
+commit 83d7758d27730d775f54965fff98922b4a82454f
+Author: Josh Hallinan <JoshHallinan234@gmail.com>
+Date:   Wed Oct 10 22:38:08 2018 -0600
+
+    Passed all initialization and exception tests
+
+commit 07c3c0e04c4a064d70633eefeb2985fc5ff6bbe8
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Tue Oct 9 16:43:37 2018 -0600
+
+    working on passing exception tests.
+
+commit 0bd39a6310da5446a1c01f5d3c6eca814b2d3883
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Tue Oct 9 15:45:15 2018 -0600
+
+    Passing Tests
+
+commit a84fb8d17ffa59e09cefb27ec674144c80f7131c
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Sat Oct 6 19:18:42 2018 -0600
+
+    Final commit: added a text file to explain our tests.
+
+commit 2386de7b56f847345d5287a5743cb12d0fd03f35
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Sat Oct 6 19:11:38 2018 -0600
+
+    added javadoc and inline comments
+
+commit 04163eeeba9513c6090b975f2ef8658ecf19e578
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Sat Oct 6 18:53:43 2018 -0600
+
+    All tests are failing yay.
+
+commit 09544123dfae0724c01ec1469e669af975f42bb5
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Sat Oct 6 17:47:33 2018 -0600
+
+    Finished skeleton classes. Beginning JUnit tests.
+
+commit 86dc4f5ad13eae823cff7529b405b54e665cb699
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Sat Oct 6 17:11:48 2018 -0600
+
+    Start of assignment 13A-1
+
+commit c28be45608838bb6b0bc84314f26d08df4a4db17
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Fri Oct 5 12:31:16 2018 -0600
+
+    all tests working
+
+commit 0cae185a823dbd4dfa8e7562c86165dcf9d2c018
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Thu Oct 4 14:34:14 2018 -0600
+
+    failing tests comlete
+
+commit 2a343c13b1db153e1be873cc9fcb431174251fca
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Tue Oct 2 14:12:01 2018 -0600
+
+    initial commit

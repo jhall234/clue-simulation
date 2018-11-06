@@ -27,6 +27,7 @@ public class Board {
 	private Solution solution;
 	private ArrayList<Card> deck;
 	private ArrayList<Player> players;
+	private ArrayList<String> playerNames;
 	private ArrayList<String> rooms;
 	private ArrayList<String> weapons;
 
@@ -44,6 +45,7 @@ public class Board {
 		this.players = new ArrayList<>(6);
 		this.rooms = new ArrayList<String>();
 		this.weapons = new ArrayList<String>();
+		this.playerNames = new ArrayList<>();
 	}
 
 	/**
@@ -186,10 +188,12 @@ public class Board {
 				case "computer":
 					playerType = PlayerType.COMPUTER;
 					players.add(new ComputerPlayer(playerName, red, green, blue, playerType, row, column));
+					playerNames.add(playerName);
 					break;
 				case "human":
 					playerType = PlayerType.HUMAN;
 					players.add(new HumanPlayer(playerName, red, green, blue, playerType, row, column));
+					playerNames.add(playerName);
 					break;
 				default:
 					throw new BadConfigFormatException("5th element of each line must be either 'computer' or 'human'");
@@ -536,6 +540,14 @@ public class Board {
 
 	public void setWeapons(ArrayList<String> weapons) {
 		this.weapons = weapons;
+	}
+	
+	public ArrayList<String> getPlayerNames() {
+		return playerNames;
+	}
+
+	public void setPlayerNames(ArrayList<String> playerNames) {
+		this.playerNames = playerNames;
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
