@@ -10,7 +10,7 @@ public class Player {
 	private Color color;
 	private PlayerType playerType;
 	private ArrayList<Card> myCards;
-	private ArrayList<Card> seenCards;
+	private ArrayList<String> seenCards;
 	
 	/**
 	 * Default constructor for Player
@@ -112,7 +112,7 @@ public class Player {
 	 * Getter for the list of cards seen by the player
 	 * @return
 	 */
-	public ArrayList<Card> getSeenCards() {
+	public ArrayList<String> getSeenCards() {
 		return seenCards;
 	}
 	
@@ -120,7 +120,7 @@ public class Player {
 	 * Setter for the seenCards variable 
 	 * @param seenCards
 	 */
-	public void setSeenCards(ArrayList<Card> seenCards) {
+	public void setSeenCards(ArrayList<String> seenCards) {
 		this.seenCards = seenCards;
 	}
 	

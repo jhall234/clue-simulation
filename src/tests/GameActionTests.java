@@ -142,7 +142,7 @@ class GameActionTests {
 	// Will test creating a suggestion of weapons from multiple values 
 	@Test
 	void createRadomWeaponSuggestion() {
-		ArrayList<Card> seenCards = new ArrayList<>();
+		ArrayList<String> seenCards = new ArrayList<>();
 		HashSet<Card> excludedCards = new HashSet<>();
 		ComputerPlayer player = new ComputerPlayer();
 		boolean chooseCandlestick = false;
@@ -162,7 +162,7 @@ class GameActionTests {
 		//Adding all of the non-excluded cards to the seenCards list
 		for (Card card : board.getDeck()) {
 			if (!excludedCards.contains(card)) {
-				seenCards.add(card);
+				seenCards.add(card.getCardName());
 			}
 		}
 		
@@ -196,7 +196,7 @@ class GameActionTests {
 	// Will test creating a suggestion of people from multiple values 
 	@Test
 	void createRandomPersonSuggestion() {
-		ArrayList<Card> seenCards = new ArrayList<>();
+		ArrayList<String> seenCards = new ArrayList<>();
 		HashSet<Card> excludedCards = new HashSet<>();
 		ComputerPlayer player = new ComputerPlayer();
 		boolean chooseScarlett = false;
@@ -215,7 +215,7 @@ class GameActionTests {
 		
 		for (Card card : board.getDeck()) {
 			if (!excludedCards.contains(card)) {
-				seenCards.add(card);
+				seenCards.add(card.getCardName());
 			}
 		}
 		
@@ -249,7 +249,7 @@ class GameActionTests {
 	// Will test suggestion creation when there is only one option for each category
 	@Test
 	void checkSuggestionOneItem() {
-		ArrayList<Card> seenCards = new ArrayList<>();
+		ArrayList<String> seenCards = new ArrayList<>();
 		HashSet<Card> excludedCards = new HashSet<>();
 		ComputerPlayer player = new ComputerPlayer();
 				
@@ -260,7 +260,7 @@ class GameActionTests {
 		
 		for (Card card : board.getDeck()) {
 			if (!excludedCards.contains(card)) {
-				seenCards.add(card);
+				seenCards.add(card.getCardName());
 			}
 		}
 		

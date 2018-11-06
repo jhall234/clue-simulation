@@ -42,25 +42,19 @@ public class ComputerPlayer extends Player {
 	}
 	
 	public void createSuggestion(String room) {
-		String playerName = "";
-		String weaponName = "";
+	
 		ArrayList<String> unseenPlayers = new ArrayList<>();
 		ArrayList<String> unseenWeapons = new ArrayList<>();
 		
-		for (String name : Board.getInstance().getPlayerNames()) {
-			for (Card c : getSeenCards()) {
-				if (!c.getCardName().equals(name)) {
-					unseenPlayers.add(name);
-				}
+		for (String playerName : Board.getInstance().getPlayerNames()) {
+			if (!getSeenCards().contains(playerName)) {
+					unseenPlayers.add(playerName);
 			}
 		}
-		for (String name : Board.getInstance().getWeapons()) {
-			for(Card c : getSeenCards()) {
-				if (!c.getCardName().equals(name)) {
-					unseenWeapons.add(name);
-				}
+		for (String weaponName : Board.getInstance().getWeapons()) {
+			if (!getSeenCards().contains(weaponName)) {
+					unseenWeapons.add(weaponName);				
 			}
-			
 		}
 		Random rand = new Random();
 		int randomNum1 = rand.nextInt(unseenPlayers.size());
