@@ -17,16 +17,62 @@ public class ComputerPlayer extends Player {
 	}
 	
 	public BoardCell pickLocation(Set<BoardCell> targets) {
-		BoardCell board_cell = new BoardCell();
-		return board_cell;
+		ArrayList<BoardCell> walkways = new ArrayList<BoardCell>();
+		ArrayList<BoardCell> doors = new ArrayList<BoardCell>();
+		
+		for (BoardCell cell : targets) {
+			if (cell.getDoorDirection().equals(DoorDirection.NONE) || cell.equals(this.justVisitedRoom)) {
+				walkways.add(cell);
+			}
+			else {
+				doors.add(cell);
+			}
+		}
+		
+		if (doors.size() > 0) {
+			return doors.get(new Random().nextInt(doors.size()));
+		}
+		else {
+			return walkways.get(new Random().nextInt(walkways.size()));
+		}
 	}
 	
 	public void makeAccusation() {
 		
 	}
 	
-	public void createSuggestion() {		
-
+	public Solution createSuggestion(String room) {
+		String playerName = "";
+		String weaponName = "";
+		Set<String> seenPlayers = new HashSet<String>();
+		Set<String> seenWeapons = new HashSet<String>();
+		
+//		for (Card card : this.getSeenCards()) {
+//			if (card.getCardType().equals(CardType.PERSON)) {
+//				seenPlayers.add(card.getCardName());
+//			}
+//			if (card.getCardType().equals(CardType.WEAPON)) {
+//				seenWeapons.add(card.getCardName());
+//			}
+//		}
+//		
+//		int numPlayers = Board.getInstance().getPlayers().size();
+//		int numWeapons = Board.getInstance().getWeapons().size();
+//		
+//		while (true) {
+//			playerName = Board.getInstance().getPlayers().get(new Random().nextInt(numPlayers)).getPlayerName();
+//			if (!seenPlayers.contains(playerName)) {
+//				break;
+//			}
+//		}
+//		while (true) {
+//			weaponName = Board.getInstance().getPlayers().get(new Random().nextInt(numWeapons)).getPlayerName();
+//			if (!seenWeapons.contains(weaponName)) {
+//				break;
+//			}
+//		}
+		
+		return new Solution(playerName, room, weaponName);
 	}
 	
 	public Solution getSuggestion() {

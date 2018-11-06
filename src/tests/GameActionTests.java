@@ -48,7 +48,7 @@ class GameActionTests {
 		
 		// player should select the room that is not stored in the Just VisitedRoom variable
 		BoardCell correctRoom = board.getCellAt(19, 17);
-		BoardCell justVisitedRoom = new BoardCell(20,15);
+		BoardCell justVisitedRoom = board.getCellAt(20,15);
 		
 		// run multiple times to make sure computer didn't get lucky
 		for (int i = 0; i < 25; i++) {
@@ -99,7 +99,7 @@ class GameActionTests {
 		boolean cell_2_14 = false;
 		boolean cell_2_16 = false;
 		boolean cell_3_17 = false;
-		BoardCell justVisitedRoom = new BoardCell(2,14);
+		BoardCell justVisitedRoom = board.getCellAt(2,14);
 		
 		// Run random selection a large number of times
 		for (int i=0; i<100; i++) {
@@ -172,7 +172,7 @@ class GameActionTests {
 		
 		// test random selection multiple times 
 		for (int i = 0; i < 100; i++) {
-			player.createSuggestion();
+			player.createSuggestion("Dining Room");
 			if (player.getSuggestion().getWeapon().equals("Candlestick")) {
 				chooseCandlestick = true;				
 			}	
@@ -225,7 +225,7 @@ class GameActionTests {
 		
 		// test random selection multiple times 
 		for (int i = 0; i < 100; i++) {
-			player.createSuggestion();
+			player.createSuggestion("Dining Room");
 			if (player.getSuggestion().getPerson().equals("Scarlett")) {
 				chooseScarlett= true;				
 			}	
@@ -267,7 +267,7 @@ class GameActionTests {
 		// Set both player's seen lists 
 		player.setSeenCards(seenCards);
 		
-		player.createSuggestion();
+		player.createSuggestion("Sauna");
 		//Make sure computer selected the correct weapon, person and room
 		assertEquals("Rope", player.getSuggestion().getWeapon());
 		assertEquals("White", player.getSuggestion().getPerson());

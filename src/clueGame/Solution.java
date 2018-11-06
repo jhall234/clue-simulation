@@ -16,6 +16,10 @@ public class Solution {
 		this.room = room;
 		this.weapon = weapon;
 	}
+	
+	public boolean isEqual(Solution solution) {
+		return this.person.equals(solution.getPerson()) && this.room.equals(solution.getRoom()) && this.weapon.equals(solution.getWeapon());
+	}
 
 	public String getPerson() {
 		return person;

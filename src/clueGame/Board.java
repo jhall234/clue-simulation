@@ -361,8 +361,8 @@ public class Board {
 		return null;
 	}
 	
-	public boolean checkAccusation(Solution Accusation) {
-		return false;
+	public boolean checkAccusation(Solution accusation) {
+		return this.solution.isEqual(accusation);
 	}
 
 	/**
