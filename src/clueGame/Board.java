@@ -27,6 +27,8 @@ public class Board {
 	private Solution solution;
 	private ArrayList<Card> deck;
 	private ArrayList<Player> players;
+	private ArrayList<String> rooms;
+	private ArrayList<String> weapons;
 
 	/**
 	 * Constructor
@@ -40,6 +42,8 @@ public class Board {
 		this.solution = new Solution();
 		this.deck= new ArrayList<Card>();
 		this.players = new ArrayList<>(6);
+		this.rooms = new ArrayList<String>();
+		this.weapons = new ArrayList<String>();
 	}
 
 	/**
@@ -84,6 +88,7 @@ public class Board {
 			this.legend.put(list[0].charAt(0), list[1]); // value could be: list[1] + " " + list[2] to include if it's a card or other
 			if (list[2].equals("Card")) {
 				deck.add(new Card(list[1], CardType.ROOM)); // add room card to the deck
+				rooms.add(list[1]); //add name to list of rooms
 			}
 		}
 		in.close();
@@ -207,6 +212,7 @@ public class Board {
 		while (in.hasNext()) {
 			String weapon_name = in.nextLine();
 			deck.add(new Card(weapon_name, CardType.WEAPON));
+			weapons.add(weapon_name); // add weapon to list of weapon names
 		}
 		in.close();
 	}
@@ -338,6 +344,7 @@ public class Board {
 	 * @return Card that corresponds to the accusation
 	 */
 	public Card handleSuggestion(Player suggester, Solution suggestion) {
+		
 		Card default_card = new Card();
 		return default_card;
 	}
@@ -501,6 +508,22 @@ public class Board {
 
 	public void setSolution(Solution solution) {
 		this.solution = solution;
+	}	
+
+	public ArrayList<String> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(ArrayList<String> rooms) {
+		this.rooms = rooms;
+	}
+
+	public ArrayList<String> getWeapons() {
+		return weapons;
+	}
+
+	public void setWeapons(ArrayList<String> weapons) {
+		this.weapons = weapons;
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {

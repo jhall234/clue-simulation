@@ -172,14 +172,14 @@ class GameActionTests {
 		
 		// test random selection multiple times 
 		for (int i = 0; i < 100; i++) {
-			Solution s = player.createSuggestion();
-			if (s.getWeapon().equals("Candlestick")) {
+			player.createSuggestion();
+			if (player.getSuggestion().getWeapon().equals("Candlestick")) {
 				chooseCandlestick = true;				
 			}	
-			else if (s.getWeapon().equals("Lead Pipe")) {
+			else if (player.getSuggestion().getWeapon().equals("Lead Pipe")) {
 				chooseLeadPipe = true;
 			}
-			else if (s.getWeapon().equals("Rope")) {
+			else if (player.getSuggestion().getWeapon().equals("Rope")) {
 				chooseRope = true;
 			}
 			else {
@@ -225,14 +225,14 @@ class GameActionTests {
 		
 		// test random selection multiple times 
 		for (int i = 0; i < 100; i++) {
-			Solution s = player.createSuggestion();
-			if (s.getPerson().equals("Scarlett")) {
+			player.createSuggestion();
+			if (player.getSuggestion().getPerson().equals("Scarlett")) {
 				chooseScarlett= true;				
 			}	
-			else if (s.getPerson().equals("Plum")) {
+			else if (player.getSuggestion().getPerson().equals("Plum")) {
 				choosePlum = true;
 			}
-			else if (s.getPerson().equals("Green")) {
+			else if (player.getSuggestion().getPerson().equals("Green")) {
 				chooseGreen = true;
 			}			
 			else {
@@ -267,10 +267,11 @@ class GameActionTests {
 		// Set both player's seen lists 
 		player.setSeenCards(seenCards);
 		
+		player.createSuggestion();
 		//Make sure computer selected the correct weapon, person and room
-		assertEquals("Rope", player.createSuggestion().getWeapon());
-		assertEquals("White", player.createSuggestion().getPerson());
-		assertEquals("Sauna", player.createSuggestion().getPerson());
+		assertEquals("Rope", player.getSuggestion().getWeapon());
+		assertEquals("White", player.getSuggestion().getPerson());
+		assertEquals("Sauna", player.getSuggestion().getPerson());
 	}
 	
 	//Will test disproving an accusation with only one card from suggestion

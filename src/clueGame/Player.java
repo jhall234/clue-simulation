@@ -45,8 +45,27 @@ public class Player {
 	 * @return Card 
 	 */
 	public Card disproveSuggestion(Solution suggestion) {
-		Card card = new Card();
-		return card;
+		ArrayList<Card> cardsThatMatch = new ArrayList<Card>(); 
+		for (Card c : myCards) {
+			if (c.getCardName().equals(suggestion.person)) {
+				cardsThatMatch.add(c);	
+			}
+			else if (c.getCardName().equals(suggestion.room)) {
+				cardsThatMatch.add(c);
+			}
+			else if (c.getCardName().equals(suggestion.weapon)) {
+				cardsThatMatch.add(c);
+			}
+		}
+		
+		if (cardsThatMatch.isEmpty()) {
+			return null;
+		}
+		else {
+			Random rand = new Random();
+			int ranom_num = rand.nextInt(cardsThatMatch.size());
+			return cardsThatMatch.get(ranom_num);
+		}
 	}
 	
 	public int getRow() {
