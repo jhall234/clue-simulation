@@ -48,7 +48,7 @@ public class ControlGUI extends JPanel {
 		turnPanel.add(textTurnPanel);
 		
 		//Create buttons 
-		JButton nextPlayer = new JButton("NextPlayer");
+		JButton nextPlayer = new JButton("Next Player");
 		JButton makeAccusation = new JButton("Make Accusation");
 		
 		//Add all of the elements to the panel
