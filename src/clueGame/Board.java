@@ -5,10 +5,16 @@
 
 package clueGame;
 
+import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.*;
 import java.util.*;
 
-public class Board {
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Board extends JPanel {
 	private BoardCell[][] board;
 	private HashSet<BoardCell> targets;
 	private HashSet<BoardCell> visited;
@@ -558,17 +564,20 @@ public class Board {
 		}
 		return null;
 	}
+	/**
+	 * Will be responsible for drawing all of the board cells on to the JFrame
+	 */
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D)g;
+		for (int row = 0; row < numRows; row++) {
+			for (int column = 0; column < numColumns; column++) {
+				board[row][column].draw(g2);
+			}
+		}
+	}
 
 	public static void main(String[] args) throws FileNotFoundException {
-//		Board board = Board.getInstance();
-//		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt", "ClueWeapons.txt", "CluePlayers.txt");
-//		try {
-//			board.initialize();
-//		}
-//		catch (BadConfigFormatException e) {
-//			System.out.println(e.toString());
-//		}
-//		Player p = board.getPlayer("Scarlett");
-//		System.out.println(p.getPlayerName());
+		
 	}	
 }

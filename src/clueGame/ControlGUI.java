@@ -23,13 +23,13 @@ public class ControlGUI extends JPanel {
 	{
 		// Create a layout with 2 rows
 		setLayout(new GridLayout(2,0));
-		JPanel panel = createButtonRow();
+		JPanel panel = CreateButtonRow();
 		add(panel);
 		panel = createTurnInfoPanel();
 		add(panel);
 	}
 
-	private JPanel createButtonRow() {
+	private JPanel CreateButtonRow() {
 		JPanel parentPanel = new JPanel();
 		// Use a grid layout, 1 row, 2 elements (label, text)
 		parentPanel.setLayout(new GridLayout(1,2));
@@ -105,10 +105,13 @@ public class ControlGUI extends JPanel {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("GUI Control");
-		frame.setSize(800, 225);	
+		
 		// Create the JPanel and add it to the JFrame
 		ControlGUI gui = new ControlGUI();
 		frame.add(gui, BorderLayout.CENTER);
+		
+		//Make JFrame the size of the JPanels that we added to it
+		frame.pack();
 		// Now let's view it
 		frame.setVisible(true);
 	}

@@ -5,15 +5,22 @@
 
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.*;
 
 public class BoardCell {
 	private int row;
 	private int column;
 	private HashSet<BoardCell> adjacencies;
-
 	private Character initial;
 	private DoorDirection direction;
+	private int x;
+	private int y;
+	private static final int WIDTH = 28;
+	private static final int HEIGHT = 28;
+	
 
 	/**
 	 * Default Constructor
@@ -37,6 +44,8 @@ public class BoardCell {
 		this.adjacencies = new HashSet<BoardCell>();
 		this.initial = 'Z';
 		this.direction = DoorDirection.NONE;
+		this.x = column*WIDTH;
+		this.y = row*HEIGHT;
 	}
 
 	/**
@@ -149,5 +158,21 @@ public class BoardCell {
 	@Override
 	public String toString() {
 		return "row: " + Integer.toString(this.row) + ", column: " + Integer.toString(this.column); 
+	}
+	
+	/**
+	 * Will handle drawing a single board cell
+	 * @param g
+	 */
+	public void draw(Graphics2D g) {
+		
+		//Fill square
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(x, y, WIDTH, HEIGHT);
+		
+		//Outline Square
+		g.setColor(Color.BLACK);
+		g.drawRect(x, y, WIDTH, HEIGHT);
+		
 	}
 }
