@@ -31,6 +31,8 @@ public class ClueGame extends JFrame {
 	}
 	public static void main(String[] args) {
 		ClueGame window = new ClueGame();
+		window.setTitle("Clue Game");
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 	}
 }
