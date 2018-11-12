@@ -45,5 +45,6 @@ public class Card {
 	 */
 	public CardType getCardType() {
 		return this.cardType;
-	}
+	}	
+	
 }

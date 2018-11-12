@@ -203,11 +203,9 @@ public class Board extends JPanel {
 					break;
 				case "human":
 					playerType = PlayerType.HUMAN;
-					HumanPlayer humanPlayer = new HumanPlayer(playerName, red, green, blue, playerType, row, column);
-					players.add(humanPlayer);
-					user = humanPlayer;
-					playerNames.add(playerName);
-					
+					user = new HumanPlayer(playerName, red, green, blue, playerType, row, column);
+					players.add(user);					
+					playerNames.add(playerName);					
 					break;
 				default:
 					throw new BadConfigFormatException("5th element of each line must be either 'computer' or 'human'");
@@ -637,7 +635,7 @@ public class Board extends JPanel {
 	 * Getter for the list of Human Players 
 	 * @return
 	 */
-	public HumanPlayer getUser() {
+	public Player getUser() {
 		return user;
 	}
 

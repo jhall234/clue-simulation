@@ -29,7 +29,7 @@ public class ClueGame extends JFrame {
 	    }
 	    userName = board.getUser().getPlayerName();
 	    control = new ControlGUI();
-	    cards = new MyCards();
+	    cards = new MyCards(board.getUser().getMyCards());
 	    
 	    add(board, BorderLayout.CENTER);	
 	    add(control, BorderLayout.SOUTH);
