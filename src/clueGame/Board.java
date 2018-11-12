@@ -155,6 +155,9 @@ public class Board extends JPanel {
 					case 'R':
 						board[row][col].setDoorDirection(DoorDirection.RIGHT);
 						break;
+					case 'N':
+						board[row][col].setDrawRoomName(true);
+						break;
 					}
 				}
 				else {
@@ -575,6 +578,10 @@ public class Board extends JPanel {
 				board[row][column].draw(g2);
 			}
 		}
+	}
+	
+	public String getRoomName(char roomLetter) {
+		return legend.get(Character.valueOf(roomLetter));
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {

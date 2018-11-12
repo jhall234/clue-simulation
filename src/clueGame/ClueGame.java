@@ -3,6 +3,7 @@ package clueGame;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class ClueGame extends JFrame {
 	private Board board;
@@ -22,11 +23,12 @@ public class ClueGame extends JFrame {
 	    }
 	    control = new ControlGUI();
 	    cards = new MyCards();
+	    
 	    add(board, BorderLayout.CENTER);	
 	    add(control, BorderLayout.SOUTH);
 	    add(cards, BorderLayout.EAST);
 	    //set size of the window
-	  	setSize(800,800);
+	  	setSize(850,850);
 	    
 	}
 	public static void main(String[] args) {
@@ -34,5 +36,9 @@ public class ClueGame extends JFrame {
 		window.setTitle("Clue Game");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
+
 	}
+	
+	
+	
 }

@@ -18,8 +18,9 @@ public class BoardCell {
 	private DoorDirection direction;
 	private int x;
 	private int y;
-	private static final int WIDTH = 28;
-	private static final int HEIGHT = 28;
+	private static final int WIDTH = 26;
+	private static final int HEIGHT = 26;
+	private boolean drawRoomName = false;
 	
 
 	/**
@@ -160,19 +161,55 @@ public class BoardCell {
 		return "row: " + Integer.toString(this.row) + ", column: " + Integer.toString(this.column); 
 	}
 	
+	public void setDrawRoomName(boolean drawRoomName) {
+		this.drawRoomName = drawRoomName;
+	}
+
 	/**
 	 * Will handle drawing a single board cell
 	 * @param g
 	 */
 	public void draw(Graphics2D g) {
 		
-		//Fill square
-		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(x, y, WIDTH, HEIGHT);
+		if (this.isRoom()) {
+		//Fill square with grey
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillRect(x, y, WIDTH, HEIGHT);
+			switch (getDoorDirection()) {
+				case UP:
+					//draw a blue line ontop of the box
+					break;
+				case DOWN:
+					//draw a blue line on the bottom of the box
+					break;
+				case LEFT:
+					//draw a blue line on the left of the box
+					break;
+				case RIGHT:
+					//draw a blue line on the left of the box
+					break;
+				case NONE:
+					if (drawRoomName) {	
+						g.setColor(Color.BLUE);
+						//NOTE: y distance is decremented by 3 px to allow room for chars w/ descenders 
+					    g.drawString(Board.getInstance().getRoomName(initial), x, y-3); 
+					}
+				    break;
+			}
+			//g.setBackground(Color.BLUE);
+			
+		}
+		else {
+			//Fill square with yellow
+			g.setColor(Color.YELLOW);
+			g.fillRect(x, y, WIDTH, HEIGHT);
+			//Outline Square
+			g.setColor(Color.BLACK);
+			g.drawRect(x, y, WIDTH, HEIGHT);
+		}
 		
-		//Outline Square
-		g.setColor(Color.BLACK);
-		g.drawRect(x, y, WIDTH, HEIGHT);
+		
+		
 		
 	}
 }
