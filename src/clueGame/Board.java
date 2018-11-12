@@ -36,6 +36,7 @@ public class Board extends JPanel {
 	private ArrayList<String> playerNames;
 	private ArrayList<String> rooms;
 	private ArrayList<String> weapons;
+	private HumanPlayer user;
 
 	/**
 	 * Constructor
@@ -52,6 +53,7 @@ public class Board extends JPanel {
 		this.rooms = new ArrayList<String>();
 		this.weapons = new ArrayList<String>();
 		this.playerNames = new ArrayList<>();
+		
 	}
 
 	/**
@@ -201,8 +203,11 @@ public class Board extends JPanel {
 					break;
 				case "human":
 					playerType = PlayerType.HUMAN;
-					players.add(new HumanPlayer(playerName, red, green, blue, playerType, row, column));
+					HumanPlayer humanPlayer = new HumanPlayer(playerName, red, green, blue, playerType, row, column);
+					players.add(humanPlayer);
+					user = humanPlayer;
 					playerNames.add(playerName);
+					
 					break;
 				default:
 					throw new BadConfigFormatException("5th element of each line must be either 'computer' or 'human'");
@@ -626,6 +631,14 @@ public class Board extends JPanel {
 	 */
 	public String getRoomName(char roomLetter) {
 		return legend.get(Character.valueOf(roomLetter));
+	}
+	
+	/**
+	 * Getter for the list of Human Players 
+	 * @return
+	 */
+	public HumanPlayer getUser() {
+		return user;
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {

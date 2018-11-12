@@ -3,6 +3,7 @@ package clueGame;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ClueGame extends JFrame {
@@ -13,6 +14,7 @@ public class ClueGame extends JFrame {
 	private String roomConfigFile = "ClueLegend.txt";
 	private String weaponConfigFile = "ClueWeapons.txt" ; // Weapon file
 	private String playerConfigFile = "CluePlayers.txt"; // Player file
+	private String userName;
 	
 	/**
 	 * Default constructor for the ClueGame class. Creates all necessary functionality for the game
@@ -25,6 +27,7 @@ public class ClueGame extends JFrame {
 	    } catch (Exception e) {
 	      System.out.println("Invalid config files, try again.");
 	    }
+	    userName = board.getUser().getPlayerName();
 	    control = new ControlGUI();
 	    cards = new MyCards();
 	    
@@ -33,13 +36,23 @@ public class ClueGame extends JFrame {
 	    add(cards, BorderLayout.EAST);
 	    //set size of the window
 	  	setSize(850,850);
-	    
+	  	
+	  	//Display splash screen
+	  	
+			    
 	}
+	
+	public String getUserName() {
+		return userName;
+	}
+
 	public static void main(String[] args) {
 		ClueGame window = new ClueGame();
 		window.setTitle("Clue Game");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
+		
+		JOptionPane.showMessageDialog(window,"You are " + window.getUserName() + ". Press ok to continue", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 
 	}
 	
