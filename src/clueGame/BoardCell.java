@@ -5,9 +5,11 @@
 
 package clueGame;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.util.*;
 
 public class BoardCell {
@@ -175,18 +177,32 @@ public class BoardCell {
 		//Fill square with grey
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(x, y, WIDTH, HEIGHT);
+			Stroke defaultStroke = g.getStroke();
 			switch (getDoorDirection()) {
+				//NOTE: All numbers added in the drawLine() methods are used for alignment purposes 
 				case UP:
-					//draw a blue line ontop of the box
+					g.setColor(Color.BLUE);
+					g.setStroke(new BasicStroke(4));
+					g.drawLine(x+1, y+2, x+WIDTH, y+2);
+					g.setStroke(defaultStroke);
 					break;
 				case DOWN:
-					//draw a blue line on the bottom of the box
+					g.setColor(Color.BLUE);
+					g.setStroke(new BasicStroke(4));
+					g.drawLine(x+2, y+HEIGHT-2, x+WIDTH, y+HEIGHT-2);
+					g.setStroke(defaultStroke);
 					break;
 				case LEFT:
-					//draw a blue line on the left of the box
+					g.setColor(Color.BLUE);
+					g.setStroke(new BasicStroke(4));
+					g.drawLine(x+2, y+2, x+2, y+HEIGHT);
+					g.setStroke(defaultStroke);
 					break;
 				case RIGHT:
-					//draw a blue line on the left of the box
+					g.setColor(Color.BLUE);
+					g.setStroke(new BasicStroke(4));
+					g.drawLine(x+WIDTH-2, y+2, x+WIDTH-2, y+HEIGHT);
+					g.setStroke(defaultStroke);
 					break;
 				case NONE:
 					if (drawRoomName) {	
