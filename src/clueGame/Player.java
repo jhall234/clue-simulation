@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.*;
 
 public class Player {
@@ -11,6 +12,7 @@ public class Player {
 	private PlayerType playerType;
 	private ArrayList<Card> myCards;
 	private ArrayList<String> seenCards;
+	private static final int PIECE_DIAMETER = 26; 
 	
 	/**
 	 * Default constructor for Player
@@ -122,6 +124,15 @@ public class Player {
 	 */
 	public void setSeenCards(ArrayList<String> seenCards) {
 		this.seenCards = seenCards;
+	}
+	
+	public void draw(Graphics2D g) {
+		int x = BoardCell.getWidth() * column;
+		int y = BoardCell.getHeight() * row;
+		g.setColor(color);
+		g.fillOval(x, y, PIECE_DIAMETER, PIECE_DIAMETER);
+		g.setColor(Color.BLACK);
+		g.drawOval(x, y, PIECE_DIAMETER, PIECE_DIAMETER);
 	}
 	
 }	

@@ -211,9 +211,7 @@ public class BoardCell {
 					    g.drawString(Board.getInstance().getRoomName(initial), x, y-3); 
 					}
 				    break;
-			}
-			//g.setBackground(Color.BLUE);
-			
+			}			
 		}
 		else {
 			//Fill square with yellow
@@ -227,5 +225,13 @@ public class BoardCell {
 		
 		
 		
+	}
+
+	public static int getWidth() {
+		return WIDTH;
+	}
+
+	public static int getHeight() {
+		return HEIGHT;
 	}
 }

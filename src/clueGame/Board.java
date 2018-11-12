@@ -578,6 +578,9 @@ public class Board extends JPanel {
 				board[row][column].draw(g2);
 			}
 		}
+		for (Player p : players) {
+			p.draw(g2);
+		}
 	}
 	
 	public String getRoomName(char roomLetter) {
