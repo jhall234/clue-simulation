@@ -505,7 +505,10 @@ public class Board extends JPanel {
 		return deck;
 	}
 	
-	
+	/**
+	 * Getter for array list of players 
+	 * @return
+	 */
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
@@ -526,39 +529,72 @@ public class Board extends JPanel {
 		return default_player;		
 	}
 	
-
+	/**
+	 * Getter for the solution
+	 * @return
+	 */
 	public Solution getSolution() {
 		return solution;
 	}
-
+	/**
+	 * Setter for the borad's solution 
+	 * @param solution
+	 */
 	public void setSolution(Solution solution) {
 		this.solution = solution;
 	}	
-
+	/**
+	 * Getter for list of rooms
+	 * @param weapons
+	 */
 	public ArrayList<String> getRooms() {
 		return rooms;
 	}
-
+	/**
+	 * Setter for list of rooms 
+	 * @param weapons
+	 */
 	public void setRooms(ArrayList<String> rooms) {
 		this.rooms = rooms;
 	}
-
+	
+	/**
+	 * Getter for list of weapons
+	 * @return
+	 */
 	public ArrayList<String> getWeapons() {
 		return weapons;
 	}
-
+	
+	/**
+	 * Setter for list of weapons 
+	 * @param weapons
+	 */
 	public void setWeapons(ArrayList<String> weapons) {
 		this.weapons = weapons;
 	}
 	
+	/**
+	 * Getter for playerNames.
+	 * @return ArrayList<> playerNames
+	 */
 	public ArrayList<String> getPlayerNames() {
 		return playerNames;
 	}
 
+	/**
+	 * Setter for playerNames. Sets the array list of player names
+	 * @param playerNames
+	 */
 	public void setPlayerNames(ArrayList<String> playerNames) {
 		this.playerNames = playerNames;
 	}
 	
+	/**
+	 * Getter for Card. Returns Card in deck corresponding to a String cardName
+	 * @param cardName
+	 * @return
+	 */
 	public Card getCard(String cardName) {
 		for (Card card : deck) {
 			if (card.getCardName().equals(cardName)) {
@@ -583,6 +619,11 @@ public class Board extends JPanel {
 		}
 	}
 	
+	/**
+	 * Getter for String RoomName. Returns Room Name if passed the starting character of the room 
+	 * @param roomLetter
+	 * @return roomName
+	 */
 	public String getRoomName(char roomLetter) {
 		return legend.get(Character.valueOf(roomLetter));
 	}

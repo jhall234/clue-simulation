@@ -163,13 +163,17 @@ public class BoardCell {
 		return "row: " + Integer.toString(this.row) + ", column: " + Integer.toString(this.column); 
 	}
 	
+	/**
+	 * Setter for boolean DrawRoomName
+	 * @param drawRoomName
+	 */
 	public void setDrawRoomName(boolean drawRoomName) {
 		this.drawRoomName = drawRoomName;
 	}
 
 	/**
-	 * Will handle drawing a single board cell
-	 * @param g
+	 * Will handle drawing a single board cell. Can draw, a room(not doorway), doorway and walkway pieces 
+	 * @param g (Graphics2D object)
 	 */
 	public void draw(Graphics2D g) {
 		
@@ -215,22 +219,26 @@ public class BoardCell {
 		}
 		else {
 			//Fill square with yellow
-			g.setColor(Color.YELLOW);
+			g.setColor(new Color(255, 234, 168));
 			g.fillRect(x, y, WIDTH, HEIGHT);
 			//Outline Square
 			g.setColor(Color.BLACK);
 			g.drawRect(x, y, WIDTH, HEIGHT);
-		}
-		
-		
-		
-		
+		}		
 	}
-
+	
+	/**
+	 * Returns the set constant for board width
+	 * @return WIDTH
+	 */
 	public static int getWidth() {
 		return WIDTH;
 	}
-
+	
+	/**
+	 * Retuens the set constant for board height
+	 * @return HEIGHT
+	 */
 	public static int getHeight() {
 		return HEIGHT;
 	}

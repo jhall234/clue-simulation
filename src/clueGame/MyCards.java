@@ -10,6 +10,9 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 public class MyCards extends JPanel{
+	/**
+	 * Default constructor will create panels for the three types of cards 
+	 */
 	public MyCards() {
 		//Create layout with 4 rows
 		setLayout(new GridLayout(0,1));
@@ -24,7 +27,11 @@ public class MyCards extends JPanel{
 		add(weapons);
 		
 	}
-	
+	/**
+	 * Creates panel for each card type
+	 * @param type
+	 * @return
+	 */
 	private JPanel CreateCardPanel(String type) {
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(new EtchedBorder(), type));

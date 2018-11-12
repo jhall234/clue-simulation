@@ -13,6 +13,10 @@ public class ClueGame extends JFrame {
 	private String roomConfigFile = "ClueLegend.txt";
 	private String weaponConfigFile = "ClueWeapons.txt" ; // Weapon file
 	private String playerConfigFile = "CluePlayers.txt"; // Player file
+	
+	/**
+	 * Default constructor for the ClueGame class. Creates all necessary functionality for the game
+	 */
 	public ClueGame() {
 		board = Board.getInstance();
 	    board.setConfigFiles(boardConfigFile, roomConfigFile, weaponConfigFile, playerConfigFile);

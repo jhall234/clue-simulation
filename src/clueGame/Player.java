@@ -70,26 +70,48 @@ public class Player {
 		}
 	}
 	
+	/**
+	 * Getter for row
+	 * @return
+	 */
 	public int getRow() {
 		return row;
 	}
-
+	
+	/**
+	 * Setter for row
+	 * @param row
+	 */
 	public void setRow(int row) {
 		this.row = row;
 	}
-
+	
+	/**
+	 * Getter for column
+	 * @return
+	 */
 	public int getColumn() {
 		return column;
 	}
-
+	
+	/**
+	 * Setter for column
+	 * @param column
+	 */
 	public void setColumn(int column) {
 		this.column = column;
 	}
-
+	/**
+	 * Getter for playerName
+	 * @return
+	 */
 	public String getPlayerName() {
 		return playerName;
 	}
-
+	/**
+	 * Getter for player's color
+	 * @return
+	 */
 	public Color getColor() {
 		return color;
 	}
@@ -126,6 +148,10 @@ public class Player {
 		this.seenCards = seenCards;
 	}
 	
+	/**
+	 * This method will handle drawing all of the players on the game boards as circles
+	 * @param g
+	 */
 	public void draw(Graphics2D g) {
 		int x = BoardCell.getWidth() * column;
 		int y = BoardCell.getHeight() * row;
