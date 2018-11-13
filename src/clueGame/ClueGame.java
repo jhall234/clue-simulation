@@ -2,11 +2,17 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+import javax.swing.AbstractAction;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -128,8 +134,8 @@ public class ClueGame extends JFrame {
 		return panel;
 	}
 	
-	private JPanel makeDetectiveNotes() {
-		JPanel panel = new JPanel();
+	private void makeDetectiveNotes() {
+		JDialog panel = new JDialog();
 //		panel.setSize(512,1024);
 		panel.setLayout(new GridLayout(3,2));
 		
@@ -142,17 +148,32 @@ public class ClueGame extends JFrame {
 		panel.add(makeDetectiveCheckBox(CardType.WEAPON));
 		panel.add(makeDetectiveDropDown(CardType.WEAPON));
 		
-		return panel;
+		panel.pack();
+		panel.setVisible(true);
+		
+//		JOptionPane.showOptionDialog(null, panel, "Detective Notes", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
 	}
 
 	public static void main(String[] args) {
 		ClueGame window = new ClueGame();
 		window.setTitle("Clue Game");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		JMenuBar menuBar = new JMenuBar();
+		JMenu file = new JMenu("File");
+		JMenuItem detectiveMenu = new JMenuItem(new AbstractAction("Detective Notes") {
+			public void actionPerformed(ActionEvent ae) {
+				window.makeDetectiveNotes();
+			}
+		});
+		
+		file.add(detectiveMenu);
+		menuBar.add(file);
+		window.setJMenuBar(menuBar);
+		
 		window.setVisible(true);
 		
 		JOptionPane.showMessageDialog(window,"You are " + window.getUserName() + ". Press ok to continue", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
-		JOptionPane.showOptionDialog(null, window.makeDetectiveNotes(), "Detective Notes", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
 	}
 	
 	
