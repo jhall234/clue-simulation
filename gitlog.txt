@@ -1,3 +1,120 @@
+commit 488b2702443cff42da74d6b1cd3fc63d4b9296c2
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Mon Nov 12 21:17:28 2018 -0700
+
+    Now the detective notes are actually finished. Added a file menu.
+
+commit 25c73be47fcd74138b82abccec3336054dd4ce0c
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Mon Nov 12 20:31:43 2018 -0700
+
+    Detective Notes Completed
+
+commit ded900b85224bea39f7f36fea75bf2f3e1876ee4
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Nov 12 16:04:54 2018 -0700
+
+    ClueGame now displays player's cards in the my card field!
+
+commit 375f62d9a313577391b30e3dad6b267a327595cf
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Nov 12 15:22:17 2018 -0700
+
+    ClueGame displays splash screen with player name at the begining of the game
+
+commit d0a99c1b121046fcc12a9df948ad8067015fe707
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Nov 11 22:41:02 2018 -0700
+
+    Updated walkway color to more appealing color than YELLOW :) Also updated JavaDoc
+
+commit 8e2618598a4e00f73db372147120e82b4dd311fb
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Nov 11 22:20:10 2018 -0700
+
+    All Players Have GUI GamePieces Drawn!
+
+commit ad8b72bdc29c35bec6f3734d655120e34fa1e091
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Nov 11 22:04:52 2018 -0700
+
+    All doors have GUI lines to represent door direction
+
+commit 78a1c1c98b112dd790d620ec6df9ec60b9a651eb
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Nov 11 21:41:04 2018 -0700
+
+    All board cells are colored and rooms are labeled
+
+commit b35377eb9540cbb7208174a2083cdacb2a575c56
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Nov 11 10:52:53 2018 -0700
+
+    added title to game window and defaultclose operation
+
+commit 0aab608ca33564ba587d2aba420799c3832c43c2
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sun Nov 11 10:47:48 2018 -0700
+
+    Created Good Framework to start drawing the board
+    
+    Note- Now can run ClueGame.java to see the whole GUI environment
+
+commit 782f6e665bca233fad2605aa108822dfb8597a6d
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Nov 7 06:25:35 2018 -0700
+
+    ControlGUI ready to submit
+
+commit bd3c2a8570b7dc10ba4a9cea4c52eef48253be58
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Nov 6 15:48:02 2018 -0700
+
+    ControlGUI is working
+
+commit c5c9744359d5e2f50d31ca5a1a6301c619396bfd
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Tue Nov 6 14:38:40 2018 -0700
+
+    GUI Example
+
+commit bc63239737bd252fdff2a18116d177fc94514ef7
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Nov 6 14:30:03 2018 -0700
+
+    All tests passing in GameActionTests
+
+commit 3dfd268bfb14204aae2f3c814546347664f4a7ba
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Nov 6 14:08:11 2018 -0700
+
+    Push changes 11-6-18
+
+commit 92e7599fa3a1ce2a515e3d0496f0a9a6db2ca522
+Merge: 639aca3 674ac03
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Tue Nov 6 00:01:29 2018 -0700
+
+    Merge branch 'master' of https://github.com/jhall234/ClueGame
+
+commit 639aca3dc2ef517a387739645d96511bda0c723e
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Nov 5 23:59:52 2018 -0700
+
+    Updated code
+
+commit 674ac03affbf94aa2caa6b6c032345b24a03f349
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Mon Nov 5 23:20:50 2018 -0700
+
+    made alterations
+
+commit 2ff6a9c593054bbb9dfe0d40be914679b7ac39d7
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Mon Nov 5 23:07:29 2018 -0700
+
+    sigh
+
 commit 6f59562db7d0578d060caa7b4cdf8300b10b4799
 Author: Carl Schader <cschader@factorearth.com>
 Date:   Mon Nov 5 23:04:40 2018 -0700

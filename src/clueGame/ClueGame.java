@@ -166,8 +166,13 @@ public class ClueGame extends JFrame {
 				window.makeDetectiveNotes();
 			}
 		});
-		
+		JMenuItem exit = new JMenuItem(new AbstractAction("Exit") {
+			public void actionPerformed(ActionEvent ae) {
+				System.exit(0);
+			}
+		});
 		file.add(detectiveMenu);
+		file.add(exit);
 		menuBar.add(file);
 		window.setJMenuBar(menuBar);
 		
