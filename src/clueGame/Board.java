@@ -37,6 +37,9 @@ public class Board extends JPanel {
 	private ArrayList<String> rooms;
 	private ArrayList<String> weapons;
 	private HumanPlayer user;
+	
+	private Player currentPlayer;
+	private boolean userHasSelectedTarget;
 
 	/**
 	 * Constructor
@@ -79,6 +82,9 @@ public class Board extends JPanel {
 		this.loadPlayerConfig();
 		this.loadWeaponConfig();
 		this.dealCards();
+		
+		this.currentPlayer = user;
+		this.userHasSelectedTarget = false;
 	}
 
 	/**
@@ -637,6 +643,14 @@ public class Board extends JPanel {
 	 */
 	public Player getUser() {
 		return user;
+	}
+	
+	/**
+	 * Getter for the player who's turn it is. 
+	 * @return
+	 */
+	public Player getCurrentPlayer() {
+		return this.currentPlayer;
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
