@@ -1,3 +1,9 @@
+commit b434362b2161746b9c6ad57647c76864b008e009
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Nov 12 22:04:55 2018 -0700
+
+    Added exit functionality
+
 commit 488b2702443cff42da74d6b1cd3fc63d4b9296c2
 Author: Carl Schader <cschader@factorearth.com>
 Date:   Mon Nov 12 21:17:28 2018 -0700

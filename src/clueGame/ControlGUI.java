@@ -2,6 +2,8 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -27,6 +29,8 @@ public class ControlGUI extends JPanel {
 		add(panel);
 		panel = createTurnInfoPanel();
 		add(panel);
+		
+		//add a 
 	}
 
 	private JPanel CreateButtonRow() {
@@ -49,6 +53,17 @@ public class ControlGUI extends JPanel {
 		
 		//Create buttons 
 		JButton nextPlayer = new JButton("Next Player");
+		nextPlayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//call the board to give the next player a turn
+				Board board = Board.getInstance();
+				//increment the next player
+				int playerIndex = board.getPlayers().indexOf(board.getCurrentPlayer());
+				playerIndex++;
+				board.movePlayer();
+			}
+			
+		});
 		JButton makeAccusation = new JButton("Make Accusation");
 		
 		//Add all of the elements to the panel
