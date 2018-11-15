@@ -60,6 +60,7 @@ public class ControlGUI extends JPanel {
 				//increment the next player
 				int playerIndex = board.getPlayers().indexOf(board.getCurrentPlayer());
 				playerIndex++;
+				board.setCurrentPlayer(board.getPlayers().get(playerIndex));
 				board.movePlayer();
 			}
 			
