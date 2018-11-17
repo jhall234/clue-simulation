@@ -70,6 +70,20 @@ public class Player {
 		}
 	}
 	
+//TODO: Create move function that moves player
+	/**
+	 * This method will handle drawing all of the players on the game boards as circles
+	 * @param g
+	 */
+	public void draw(Graphics2D g) {
+		int x = BoardCell.getWidth() * column;
+		int y = BoardCell.getHeight() * row;
+		g.setColor(color);
+		g.fillOval(x, y, PIECE_DIAMETER, PIECE_DIAMETER);
+		g.setColor(Color.BLACK);
+		g.drawOval(x, y, PIECE_DIAMETER, PIECE_DIAMETER);
+	}
+	
 	/**
 	 * Getter for row
 	 * @return
@@ -146,19 +160,6 @@ public class Player {
 	 */
 	public void setSeenCards(ArrayList<String> seenCards) {
 		this.seenCards = seenCards;
-	}
-	
-	/**
-	 * This method will handle drawing all of the players on the game boards as circles
-	 * @param g
-	 */
-	public void draw(Graphics2D g) {
-		int x = BoardCell.getWidth() * column;
-		int y = BoardCell.getHeight() * row;
-		g.setColor(color);
-		g.fillOval(x, y, PIECE_DIAMETER, PIECE_DIAMETER);
-		g.setColor(Color.BLACK);
-		g.drawOval(x, y, PIECE_DIAMETER, PIECE_DIAMETER);
 	}
 	
 }	

@@ -55,16 +55,12 @@ public class ControlGUI extends JPanel {
 		JButton nextPlayer = new JButton("Next Player");
 		nextPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//call the board to give the next player a turn
-				Board board = Board.getInstance();
-				//increment the next player
-				int playerIndex = board.getPlayers().indexOf(board.getCurrentPlayer());
-				playerIndex++;
-				board.setCurrentPlayer(board.getPlayers().get(playerIndex));
+				// Call the board & give the next player a turn
+				Board board = Board.getInstance();					
 				board.movePlayer();
-			}
-			
+			}			
 		});
+		
 		JButton makeAccusation = new JButton("Make Accusation");
 		
 		//Add all of the elements to the panel

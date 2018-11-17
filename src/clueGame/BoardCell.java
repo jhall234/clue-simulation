@@ -13,18 +13,19 @@ import java.awt.Stroke;
 import java.util.*;
 
 public class BoardCell {
+	private static final int WIDTH = 26;
+	private static final int HEIGHT = 26;
+	
 	private int row;
 	private int column;
 	private HashSet<BoardCell> adjacencies;
 	private Character initial;
-	private DoorDirection direction;
+	private DoorDirection doorDirection;
 	private int x;
-	private int y;
-	private static final int WIDTH = 26;
-	private static final int HEIGHT = 26;
+	private int y;	
 	private boolean drawRoomName = false;
+	private boolean highlightTarget = false;
 	
-
 	/**
 	 * Default Constructor
 	 */
@@ -33,7 +34,7 @@ public class BoardCell {
 		this.column = 0;
 		this.adjacencies = new HashSet<>();
 		this.initial = 'Z';
-		this.direction = DoorDirection.NONE;
+		this.doorDirection = DoorDirection.NONE;
 	}
 
 	/**
@@ -46,7 +47,7 @@ public class BoardCell {
 		this.column = column;
 		this.adjacencies = new HashSet<BoardCell>();
 		this.initial = 'Z';
-		this.direction = DoorDirection.NONE;
+		this.doorDirection = DoorDirection.NONE;
 		this.x = column*WIDTH;
 		this.y = row*HEIGHT;
 	}
@@ -72,87 +73,7 @@ public class BoardCell {
 	 * @return boolean
 	 */
 	public boolean isDoorway() {
-		return (this.direction != DoorDirection.NONE);
-	}
-
-	/**
-	 * getter for the list of adjacencies
-	 * @return adjacencies
-	 */
-	public HashSet<BoardCell> getAdjacencies() {
-		return this.adjacencies;
-	}
-
-	/**
-	 * getter for the row number
-	 * @return row
-	 */
-	public int getRow() {
-		return this.row;
-	}
-
-	/**
-	 * getter for the column number
-	 * @return column
-	 */
-	public int getColumn() {
-		return this.column;
-	}
-	
-	/**
-	 * getter for the door direction
-	 * @return direction
-	 */
-	public DoorDirection getDoorDirection() {
-		return this.direction;
-	}
-	
-	/**
-	 * getter for the cell initial
-	 * @return initial
-	 */
-	public char getInitial() {
-		return this.initial;
-	}
-	
-	/**
-	 * getter for the cell initial
-	 * 
-	 */
-	public void setInitial(Character initial) {
-		this.initial = initial;
-	}
-	
-	/**
-	 * getter for the cell doorDirection
-	 *
-	 */
-	public void setDoorDirection(DoorDirection doorDirection) {
-		this.direction = doorDirection;
-	}
-
-	/**
-	 * setter for the row number
-	 * @param row
-	 */
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	/**
-	 * setter for the column number
-	 * @param column
-	 */
-	public void setColumn(int column) {
-		this.column = column;
-	}
-
-	/**
-	 * setter for adjacency list
-	 * @param adjacencies
-	 */
-	public void setAdjacency(HashSet<BoardCell> adjacencies) {
-		this.adjacencies = adjacencies;
+		return (this.doorDirection != DoorDirection.NONE);
 	}
 
 	/**
@@ -161,14 +82,6 @@ public class BoardCell {
 	@Override
 	public String toString() {
 		return "row: " + Integer.toString(this.row) + ", column: " + Integer.toString(this.column); 
-	}
-	
-	/**
-	 * Setter for boolean DrawRoomName
-	 * @param drawRoomName
-	 */
-	public void setDrawRoomName(boolean drawRoomName) {
-		this.drawRoomName = drawRoomName;
 	}
 
 	/**
@@ -218,14 +131,24 @@ public class BoardCell {
 			}			
 		}
 		else {
-			//Fill square with yellow
-			g.setColor(new Color(255, 234, 168));
+			if (highlightTarget) {
+				// Color green to highlight valid target
+				g.setColor(new Color(104, 255, 107));
+			}
+			else {
+				//Fill square with yellow
+				g.setColor(new Color(255, 234, 168));
+			}
+			
+			// Fill with selected color and outline
 			g.fillRect(x, y, WIDTH, HEIGHT);
 			//Outline Square
 			g.setColor(Color.BLACK);
 			g.drawRect(x, y, WIDTH, HEIGHT);
 		}		
 	}
+
+//************************ Instance Variable Getters & Setters **********************
 	
 	/**
 	 * Returns the set constant for board width
@@ -242,4 +165,103 @@ public class BoardCell {
 	public static int getHeight() {
 		return HEIGHT;
 	}
+
+	/**
+	 * getter for the row number
+	 * @return row
+	 */
+	public int getRow() {
+		return this.row;
+	}
+
+	/**
+	 * setter for the row number
+	 * @param row
+	 */
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	/**
+	 * getter for the column number
+	 * @return column
+	 */
+	public int getColumn() {
+		return this.column;
+	}
+	
+	/**
+	 * setter for the column number
+	 * @param column
+	 */
+	public void setColumn(int column) {
+		this.column = column;
+	}
+
+	/**
+	 * getter for the list of adjacencies
+	 * @return adjacencies
+	 */
+	public HashSet<BoardCell> getAdjacencies() {
+		return this.adjacencies;
+	}
+
+	/**
+	 * setter for adjacency list
+	 * @param adjacencies
+	 */
+	public void setAdjacency(HashSet<BoardCell> adjacencies) {
+		this.adjacencies = adjacencies;
+	}
+
+	/**
+	 * getter for the cell initial
+	 * @return initial
+	 */
+	public char getInitial() {
+		return this.initial;
+	}
+	
+	/**
+	 * getter for the cell initial
+	 * 
+	 */
+	public void setInitial(Character initial) {
+		this.initial = initial;
+	}
+
+	/**
+	 * getter for the door direction
+	 * @return direction
+	 */
+	public DoorDirection getDoorDirection() {
+		return this.doorDirection;
+	}
+	
+	/**
+	 * setter for the cell doorDirection
+	 *
+	 */
+	public void setDoorDirection(DoorDirection doorDirection) {
+		this.doorDirection = doorDirection;
+	}
+
+	/**
+	 * Setter for boolean DrawRoomName
+	 * @param drawRoomName
+	 */
+	public void setDrawRoomName(boolean drawRoomName) {
+		this.drawRoomName = drawRoomName;
+	}
+
+	
+	/**
+	 * Setter for highlightTarget
+	 * @param highlightTarget
+	 */
+	public void setHighlightTarget(boolean highlightTarget) {
+		this.highlightTarget = highlightTarget;
+	}
+	
+	
 }

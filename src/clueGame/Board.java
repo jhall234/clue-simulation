@@ -15,29 +15,30 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Board extends JPanel {
-	private BoardCell[][] board;
-	private HashSet<BoardCell> targets;
-	private HashSet<BoardCell> visited;
-	private int numRows;
-	private int numColumns;
-
 	public static final int MAX_BOARD_SIZE = 50;
 	public static final int NUM_PLAYERS = 6;
-	private HashMap<Character, String> legend;
+	
 	private String boardConfigFile;	// Board Layout 
 	private String roomConfigFile;	// Legend file
 	private String weaponConfigFile; // Weapon file
 	private String playerConfigFile; // Player file
+	
 	private static Board theInstance = new Board(50,50);
 	
+	private BoardCell[][] board;
+	private HashSet<BoardCell> targets;
+	private HashSet<BoardCell> visited;
+	private int numRows;
+	private int numColumns;	
+	private HashMap<Character, String> legend;	
 	private Solution solution;
 	private ArrayList<Card> deck;
 	private ArrayList<Player> players;
 	private ArrayList<String> playerNames;
 	private ArrayList<String> rooms;
 	private ArrayList<String> weapons;
-	private HumanPlayer user;
 	
+	private HumanPlayer user;
 	private Player currentPlayer;
 	private boolean userHasSelectedTarget;
 
@@ -302,6 +303,19 @@ public class Board extends JPanel {
 			}
 		}			
 	}
+	
+	/**
+	 * public method to generate HashSet of targets given a path length and cell
+	 * @param startCell
+	 * @param pathLength
+	 */
+	public void calcTargets(int row, int column, int pathLength) {
+		this.visited.clear();
+		this.targets.clear();
+		this.visited.add(board[row][column]);
+		this.findAllTargets(board[row][column], pathLength);	
+	}
+	
 	/**
 	 * assigns the adjacency cell sets
 	 */
@@ -356,6 +370,43 @@ public class Board extends JPanel {
 			}
 		}
 	}
+	
+	/**
+	 * recursive function used inside calcTargets
+	 * @param startCell
+	 * @param pathLength
+	 */
+	private void findAllTargets(BoardCell startCell, int pathLength) {
+		for (BoardCell cell : this.getAdjList(startCell.getRow(), startCell.getColumn())) {
+			if (this.visited.contains(cell)) {
+				continue;
+			}
+			
+
+			this.visited.add(cell);
+			if (pathLength == 1) {
+				this.targets.add(cell);
+			}
+			else if (cell.isDoorway()) {
+				this.targets.add(cell);
+			}
+			else {
+				this.findAllTargets(cell, pathLength - 1);
+			}
+
+			this.visited.remove(cell);
+		}
+	}
+	
+	/**
+	 * getter for the adjacent set for a specific cell
+	 * @param row
+	 * @param column
+	 * @return
+	 */
+	public Set<BoardCell> getAdjList(int row, int column) {
+		return board[row][column].getAdjacencies();
+	}
 
 	public void selectAnswer() {
 		
@@ -388,138 +439,69 @@ public class Board extends JPanel {
 	}
 
 	/**
-	 * public method to call to assign the targets given a path length and cell
-	 * @param startCell
-	 * @param pathLength
+	 * Will handle giving the next player a turn. Turn involves moving player, and if in room, creating suggestion
 	 */
-	public void calcTargets(int row, int column, int pathLength) {
-		this.visited.clear();
-		this.targets.clear();
-		this.visited.add(board[row][column]);
-		this.findAllTargets(board[row][column], pathLength);	
+	public void movePlayer() {
+		int playerIndex = players.indexOf(currentPlayer);
+		playerIndex = (playerIndex+1) % players.size();
+		currentPlayer = players.get(playerIndex);
+		
+		//roll the dice
+		Random rand = new Random();
+		int diceRoll = rand.nextInt(players.size());
+		
+		//calculate targets
+		calcTargets(currentPlayer.getRow(), currentPlayer.getColumn(), diceRoll);
+		
+		
+		//TODO : Display Dice Roll on GUI
+		
+		if (currentPlayer instanceof HumanPlayer) {
+			// need to draw the adjacency squares
+			for (BoardCell c : targets) {
+				c.setHighlightTarget(true);
+			}
+			repaint();
+		
+			// need to make sure player selects valid square to travel to 
+		}
+		// Move the player
+		//currentPlayer.move()
+		// Turn the highlighting off
+		for (BoardCell c : targets) {
+			c.setHighlightTarget(false);
+		}
+		repaint();
 	}
-
 	
-
 	/**
-	 * recursive function used inside calcTargets
-	 * @param startCell
-	 * @param pathLength
+	 * Will be responsible for drawing all of the board cells on to the JFrame
 	 */
-	private void findAllTargets(BoardCell startCell, int pathLength) {
-		for (BoardCell cell : this.getAdjList(startCell.getRow(), startCell.getColumn())) {
-			if (this.visited.contains(cell)) {
-				continue;
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D)g;
+		for (int row = 0; row < numRows; row++) {
+			for (int column = 0; column < numColumns; column++) {
+				board[row][column].draw(g2);
 			}
-			
-
-			this.visited.add(cell);
-			if (pathLength == 1) {
-				this.targets.add(cell);
-			}
-			else if (cell.isDoorway()) {
-				this.targets.add(cell);
-			}
-			else {
-				this.findAllTargets(cell, pathLength - 1);
-			}
-
-			this.visited.remove(cell);
+		}
+		for (Player p : players) {
+			p.draw(g2);
 		}
 	}
-
-	
 	
 	/**
-	 * gets the list of targets
-	 * @return targets
-	 */
-	public HashSet<BoardCell> getTargets() {
-		return this.targets;
-	}
-
-	/**
-	 * gets a particular cell
-	 * @param row
-	 * @param column
-	 * @return board[row][column]
-	 */
-	public BoardCell getCellAt(int row, int column) {
-		return this.board[row][column];
-	}
-
-	/**
-	 * gets the entire board of cells
-	 * @return board
-	 */
-	public BoardCell[][] getBoard() {
-		return this.board;
-	}
-	
-	/**
-	 * sets the entire board of cells
-	 * 
-	 */
-	public void setBoard(BoardCell[][] board) {
-		this.board = board;
-	}
-
-	/**
-	 * gets the singleton board
-	 * @return theInstance
-	 */
-	public static Board getInstance() {
-		return theInstance;
-	}
-
-	/**
-	 * gets the legend map
-	 * @return legend
-	 */
-	public HashMap<Character, String> getLegend() {
-		return this.legend;
-	}
-
-	/**
-	 * gets the number of rows
-	 * @return numRows
-	 */
-	public int getNumRows() {
-		return this.numRows;
-	}
-
-	/**
-	 * gets the number of columns numColumns
-	 * @return numColumns
-	 */
-	public int getNumColumns() {
-		return this.numColumns;
-	}
-	
-	/**
-	 * getter for the adjacent set for a specific cell
-	 * @param row
-	 * @param column
+	 * Getter for Card. Returns Card in deck corresponding to a String cardName
+	 * @param cardName
 	 * @return
 	 */
-	public Set<BoardCell> getAdjList(int row, int column) {
-		return board[row][column].getAdjacencies();
-	}
-	
-	/**
-	 * returns the deck of cards available in the game
-	 * @return ArrayList of type Card 
-	 */
-	public ArrayList<Card> getDeck() {
-		return deck;
-	}
-	
-	/**
-	 * Getter for array list of players 
-	 * @return
-	 */
-	public ArrayList<Player> getPlayers() {
-		return players;
+	public Card getCard(String cardName) {
+		for (Card card : deck) {
+			if (card.getCardName().equals(cardName)) {
+				return card;
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -539,19 +521,131 @@ public class Board extends JPanel {
 	}
 	
 	/**
+	 * Getter for String RoomName. Returns Room Name if passed the starting character of the room 
+	 * @param roomLetter
+	 * @return roomName
+	 */
+	public String getRoomName(char roomLetter) {
+		return legend.get(Character.valueOf(roomLetter));
+	}
+	
+	/**
+	 * gets a particular cell
+	 * @param row
+	 * @param column
+	 * @return board[row][column]
+	 */
+	public BoardCell getCellAt(int row, int column) {
+		return this.board[row][column];
+	}
+	
+	
+	//******************** INSTANCE VARAIBLE GETTERS & SETTERS ***********************
+	
+	/**
+	 * gets the singleton board
+	 * @return theInstance
+	 */
+	public static Board getInstance() {
+		return theInstance;
+	}
+
+	/**
+	 * gets the entire board of cells
+	 * @return board
+	 */
+	public BoardCell[][] getBoard() {
+		return this.board;
+	}
+	
+	/**
+	 * sets the entire board of cells
+	 * 
+	 */
+	public void setBoard(BoardCell[][] board) {
+		this.board = board;
+	}
+
+	/**
+	 * gets the list of targets
+	 * @return targets
+	 */
+	public HashSet<BoardCell> getTargets() {
+		return this.targets;
+	}
+
+	/**
+	 * gets the number of rows
+	 * @return numRows
+	 */
+	public int getNumRows() {
+		return this.numRows;
+	}
+
+	/**
+	 * gets the number of columns numColumns
+	 * @return numColumns
+	 */
+	public int getNumColumns() {
+		return this.numColumns;
+	}
+		
+	/**
+	 * gets the legend map
+	 * @return legend
+	 */
+	public HashMap<Character, String> getLegend() {
+		return this.legend;
+	}
+
+	/**
 	 * Getter for the solution
 	 * @return
 	 */
 	public Solution getSolution() {
 		return solution;
 	}
+	
 	/**
-	 * Setter for the borad's solution 
+	 * Setter for the board's solution 
 	 * @param solution
 	 */
 	public void setSolution(Solution solution) {
 		this.solution = solution;
 	}	
+		
+	/**
+	 * returns the deck of cards available in the game
+	 * @return ArrayList of type Card 
+	 */
+	public ArrayList<Card> getDeck() {
+		return deck;
+	}
+	
+	/**
+	 * Getter for array list of players 
+	 * @return
+	 */
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+		
+	/**
+	 * Getter for playerNames.
+	 * @return ArrayList<> playerNames
+	 */
+	public ArrayList<String> getPlayerNames() {
+		return playerNames;
+	}
+
+	/**
+	 * Setter for playerNames. Sets the array list of player names
+	 * @param playerNames
+	 */
+	public void setPlayerNames(ArrayList<String> playerNames) {
+		this.playerNames = playerNames;
+	}
+	
 	/**
 	 * Getter for list of rooms
 	 * @param weapons
@@ -559,6 +653,7 @@ public class Board extends JPanel {
 	public ArrayList<String> getRooms() {
 		return rooms;
 	}
+	
 	/**
 	 * Setter for list of rooms 
 	 * @param weapons
@@ -584,60 +679,6 @@ public class Board extends JPanel {
 	}
 	
 	/**
-	 * Getter for playerNames.
-	 * @return ArrayList<> playerNames
-	 */
-	public ArrayList<String> getPlayerNames() {
-		return playerNames;
-	}
-
-	/**
-	 * Setter for playerNames. Sets the array list of player names
-	 * @param playerNames
-	 */
-	public void setPlayerNames(ArrayList<String> playerNames) {
-		this.playerNames = playerNames;
-	}
-	
-	/**
-	 * Getter for Card. Returns Card in deck corresponding to a String cardName
-	 * @param cardName
-	 * @return
-	 */
-	public Card getCard(String cardName) {
-		for (Card card : deck) {
-			if (card.getCardName().equals(cardName)) {
-				return card;
-			}
-		}
-		return null;
-	}
-	/**
-	 * Will be responsible for drawing all of the board cells on to the JFrame
-	 */
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-		for (int row = 0; row < numRows; row++) {
-			for (int column = 0; column < numColumns; column++) {
-				board[row][column].draw(g2);
-			}
-		}
-		for (Player p : players) {
-			p.draw(g2);
-		}
-	}
-	
-	/**
-	 * Getter for String RoomName. Returns Room Name if passed the starting character of the room 
-	 * @param roomLetter
-	 * @return roomName
-	 */
-	public String getRoomName(char roomLetter) {
-		return legend.get(Character.valueOf(roomLetter));
-	}
-	
-	/**
 	 * Getter for the list of Human Players 
 	 * @return
 	 */
@@ -653,7 +694,13 @@ public class Board extends JPanel {
 		return this.currentPlayer;
 	}
 
+	public void setCurrentPlayer(Player player) {
+		this.currentPlayer = player; 
+		
+	}
+	
+	
 	public static void main(String[] args) throws FileNotFoundException {
 		
-	}	
+	}
 }
