@@ -16,6 +16,15 @@ public class HumanPlayer extends Player {
 		return board_cell;
 	}
 	
+	/**
+	 * Will move human player to specified target
+	 */
+	@Override
+	public void makeMove(BoardCell target) {
+		setColumn(target.getColumn());
+		setRow(target.getRow());
+		
+	}
 	public void makeAccusation() {
 		
 	}
@@ -23,4 +32,6 @@ public class HumanPlayer extends Player {
 	public void createSuggestion() {
 		
 	}
+
+	
 }

@@ -8,13 +8,16 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.*;
 import java.util.*;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements MouseListener {
 	public static final int MAX_BOARD_SIZE = 50;
 	public static final int NUM_PLAYERS = 6;
 	
@@ -40,7 +43,7 @@ public class Board extends JPanel {
 	
 	private HumanPlayer user;
 	private Player currentPlayer;
-	private boolean userHasSelectedTarget;
+	private boolean userNeedsToSelectTarget = false;
 
 	/**
 	 * Constructor
@@ -78,14 +81,18 @@ public class Board extends JPanel {
 	 * initialize the Board
 	 */
 	public void initialize() throws FileNotFoundException, BadConfigFormatException{
-		this.loadRoomConfig();
-		this.loadBoardConfig();
-		this.loadPlayerConfig();
-		this.loadWeaponConfig();
-		this.dealCards();
+		loadRoomConfig();
+		loadBoardConfig();
+		loadPlayerConfig();
+		loadWeaponConfig();
+		dealCards();
 		
-		this.currentPlayer = user;
-		this.userHasSelectedTarget = false;
+		//get player in line right before user so player has 1st turn
+		currentPlayer = players.get(players.indexOf(user)-1);
+		userNeedsToSelectTarget = false;
+		addMouseListener(this);
+		//start the user's first turn
+		movePlayer();
 	}
 
 	/**
@@ -442,36 +449,42 @@ public class Board extends JPanel {
 	 * Will handle giving the next player a turn. Turn involves moving player, and if in room, creating suggestion
 	 */
 	public void movePlayer() {
+		//If user in middle of turn do not move next player
+		if (userNeedsToSelectTarget) {
+			//TODO : Display alert that user needs to select a location to move to
+			return;
+		}
 		int playerIndex = players.indexOf(currentPlayer);
 		playerIndex = (playerIndex+1) % players.size();
 		currentPlayer = players.get(playerIndex);
 		
 		//roll the dice
 		Random rand = new Random();
-		int diceRoll = rand.nextInt(players.size());
+		//NOTE: need to add 1 so that dice roll is not 0 range:[1,6] 
+		int diceRoll = rand.nextInt(5) + 1;
 		
 		//calculate targets
 		calcTargets(currentPlayer.getRow(), currentPlayer.getColumn(), diceRoll);
 		
-		
-		//TODO : Display Dice Roll on GUI
-		
+		//TODO : Display Dice Roll on ControlPanelGUI
+		//TODO : Display Current Player on ControlPanelGUI
+				 
 		if (currentPlayer instanceof HumanPlayer) {
+			//initialize so program waits for user to move
+			userNeedsToSelectTarget = true;
 			// need to draw the adjacency squares
 			for (BoardCell c : targets) {
-				c.setHighlightTarget(true);
-			}
-			repaint();
-		
-			// need to make sure player selects valid square to travel to 
+				c.setHighlightTarget(true);								
+			}			
+			//NOTE: MouseClicked will handle moving the player if they are humanPlayer
 		}
-		// Move the player
-		//currentPlayer.move()
-		// Turn the highlighting off
-		for (BoardCell c : targets) {
-			c.setHighlightTarget(false);
+		else {
+			BoardCell target = ((ComputerPlayer)currentPlayer).pickLocation(targets);
+			// Move the player
+			currentPlayer.makeMove(target);
 		}
 		repaint();
+		
 	}
 	
 	/**
@@ -516,7 +529,7 @@ public class Board extends JPanel {
 			}
 		}
 		//If not in array list, return a blank player
-		Player default_player = new Player();
+		Player default_player = new ComputerPlayer();
 		return default_player;		
 	}
 	
@@ -538,6 +551,46 @@ public class Board extends JPanel {
 	public BoardCell getCellAt(int row, int column) {
 		return this.board[row][column];
 	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		//If not in middle of user turn, then skip selection
+		if (!userNeedsToSelectTarget) {
+			return;
+		}
+		
+		//Figure out what row and column user clicked
+		int column = e.getX() / BoardCell.getWidth();
+		int row = e.getY() / BoardCell.getHeight();
+				
+		//Make sure that clicked cell is a valid target
+		if (targets.contains(getCellAt(row,column))) {
+			currentPlayer.makeMove(getCellAt(row,column));
+			//reset userHasSelectedTarget and remove target highlights
+			userNeedsToSelectTarget = false;
+			for (BoardCell c : targets) {
+				c.setHighlightTarget(false);								
+			}	
+		}
+		else {
+			//TODO: Show alert to player that that is invalid selection
+		}
+		
+		repaint();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
 	
 	
 	//******************** INSTANCE VARAIBLE GETTERS & SETTERS ***********************
@@ -703,4 +756,6 @@ public class Board extends JPanel {
 	public static void main(String[] args) throws FileNotFoundException {
 		
 	}
+
+	
 }

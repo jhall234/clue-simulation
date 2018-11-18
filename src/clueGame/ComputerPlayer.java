@@ -37,6 +37,16 @@ public class ComputerPlayer extends Player {
 		}
 	}
 	
+	/**
+	 * Will automatically move player to specified target since its computer player
+	 */
+	@Override
+	public void makeMove(BoardCell target) {
+		setColumn(target.getColumn());
+		setRow(target.getRow());
+		
+	}
+	
 	public void makeAccusation() {
 		
 	}
@@ -77,4 +87,6 @@ public class ComputerPlayer extends Player {
 	public BoardCell getJustVisitedRoom() {
 		return this.justVisitedRoom;
 	}
+
+	
 }

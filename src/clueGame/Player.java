@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.*;
 
-public class Player {
+public abstract class Player {
 	private String playerName;
 	private int row;
 	private int column;
@@ -70,7 +70,12 @@ public class Player {
 		}
 	}
 	
-//TODO: Create move function that moves player
+	/**
+	 * Will move the player to the specified target
+	 * @param target
+	 */
+	public abstract void makeMove(BoardCell target);
+	
 	/**
 	 * This method will handle drawing all of the players on the game boards as circles
 	 * @param g
