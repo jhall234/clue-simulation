@@ -30,7 +30,10 @@ public class ControlGUI extends JPanel {
 		panel = createTurnInfoPanel();
 		add(panel);
 		
-		//add a 
+		// player One's turn
+		Board board = Board.getInstance();
+		rollText.setText(Integer.toString(board.getLastDiceRoll()));
+		name.setText(board.getCurrentPlayer().getPlayerName());
 	}
 
 	private JPanel CreateButtonRow() {
@@ -58,6 +61,8 @@ public class ControlGUI extends JPanel {
 				// Call the board & give the next player a turn
 				Board board = Board.getInstance();					
 				board.movePlayer();
+				rollText.setText(Integer.toString(board.getLastDiceRoll()));
+				name.setText(board.getCurrentPlayer().getPlayerName());
 			}			
 		});
 		

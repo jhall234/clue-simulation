@@ -44,6 +44,7 @@ public class Board extends JPanel implements MouseListener {
 	private HumanPlayer user;
 	private Player currentPlayer;
 	private boolean userNeedsToSelectTarget = false;
+	private int lastDiceRoll;
 
 	/**
 	 * Constructor
@@ -451,7 +452,8 @@ public class Board extends JPanel implements MouseListener {
 	public void movePlayer() {
 		//If user in middle of turn do not move next player
 		if (userNeedsToSelectTarget) {
-			//TODO : Display alert that user needs to select a location to move to
+			// DONE
+			JOptionPane.showMessageDialog(null, "You must select a highlighted location to move.");
 			return;
 		}
 		int playerIndex = players.indexOf(currentPlayer);
@@ -462,12 +464,13 @@ public class Board extends JPanel implements MouseListener {
 		Random rand = new Random();
 		//NOTE: need to add 1 so that dice roll is not 0 range:[1,6] 
 		int diceRoll = rand.nextInt(5) + 1;
+		this.lastDiceRoll = diceRoll;
 		
 		//calculate targets
 		calcTargets(currentPlayer.getRow(), currentPlayer.getColumn(), diceRoll);
 		
-		//TODO : Display Dice Roll on ControlPanelGUI
-		//TODO : Display Current Player on ControlPanelGUI
+		//DONE : Display roll text
+		//DONE : Display Current Player on ControlPanelGUI
 				 
 		if (currentPlayer instanceof HumanPlayer) {
 			//initialize so program waits for user to move
@@ -484,7 +487,6 @@ public class Board extends JPanel implements MouseListener {
 			currentPlayer.makeMove(target);
 		}
 		repaint();
-		
 	}
 	
 	/**
@@ -574,7 +576,8 @@ public class Board extends JPanel implements MouseListener {
 			}	
 		}
 		else {
-			//TODO: Show alert to player that that is invalid selection
+			//DONE: Show alert to player that that is invalid selection
+			JOptionPane.showMessageDialog(null, "Invalid cell selected.");
 		}
 		
 		repaint();
@@ -750,6 +753,10 @@ public class Board extends JPanel implements MouseListener {
 	public void setCurrentPlayer(Player player) {
 		this.currentPlayer = player; 
 		
+	}
+	
+	public int getLastDiceRoll() {
+		return this.lastDiceRoll;
 	}
 	
 	
