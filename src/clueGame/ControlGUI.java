@@ -34,6 +34,7 @@ public class ControlGUI extends JPanel {
 		Board board = Board.getInstance();
 		rollText.setText(Integer.toString(board.getLastDiceRoll()));
 		name.setText(board.getCurrentPlayer().getPlayerName());
+		guessText.setText(board.getLastSuggestion());
 	}
 
 	private JPanel CreateButtonRow() {
@@ -62,6 +63,7 @@ public class ControlGUI extends JPanel {
 				Board board = Board.getInstance();					
 				board.movePlayer();
 				rollText.setText(Integer.toString(board.getLastDiceRoll()));
+				guessText.setText(board.getLastSuggestion());
 				name.setText(board.getCurrentPlayer().getPlayerName());
 			}			
 		});

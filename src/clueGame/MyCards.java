@@ -59,7 +59,7 @@ public class MyCards extends JPanel{
 		String playerConfigFile = "CluePlayers.txt"; // Player file
 		Board board = Board.getInstance();
 		try {
-			board.setConfigFiles(boardConfigFile, roomConfigFile, weaponConfigFile, playerConfigFile);
+			board.setConfigFiles(boardConfigFile, roomConfigFile);
 			board.initialize();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

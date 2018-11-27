@@ -5,10 +5,11 @@ import java.util.*;
 public class ComputerPlayer extends Player {
 	private BoardCell justVisitedRoom;
 	private Solution suggestion;
-	
+	private boolean shouldAccuse;
 	public ComputerPlayer() {
 		super();
 		this.suggestion = new Solution();
+		shouldAccuse = false;
 	}
 	
 	public ComputerPlayer(String playerName, int red, int green, int blue, PlayerType playerType, int row, int column) {
@@ -42,13 +43,43 @@ public class ComputerPlayer extends Player {
 	 */
 	@Override
 	public void makeMove(BoardCell target) {
+		if (shouldAccuse) {
+			makeAccusation();
+		}
 		setColumn(target.getColumn());
 		setRow(target.getRow());
-		
+		//if player is inside a room, generate suggestion
+		if (target.isRoom()) {
+			char roomChar = target.getInitial();
+			createSuggestion(Board.getInstance().getRoomName(roomChar));
+			makeSuggestion();
+		}
+	}
+	
+	public void makeSuggestion() {
+		Card cardShown = Board.getInstance().handleSuggestion(this, suggestion);
+		if (cardShown == null) {
+			//search if player has room card that they are in, if not set a boolean to make accusation next turn
+			boolean hasRoomCard = false;
+			for (String s: getSeenCards()) {
+				if (s.equals(suggestion.getRoom())){
+					hasRoomCard = true;
+				}
+			}
+			if (!hasRoomCard) {
+				shouldAccuse = true;
+			}		
+		}
 	}
 	
 	public void makeAccusation() {
-		
+		if (Board.getInstance().checkAccusation(suggestion)) {
+			//Player has won
+			System.exit(0);
+		}
+		else {
+			//Player has incorrectly guessed
+		}
 	}
 	
 	public void createSuggestion(String room) {

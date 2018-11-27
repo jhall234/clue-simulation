@@ -23,17 +23,13 @@ public class CTest_BoardAdjTargetTests {
 	// then do all the tests. 
 	private static Board board;
 	@BeforeClass
-	public static void setUp() {
+	public static void setUp() throws FileNotFoundException, BadConfigFormatException {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
 		// set the file names to use my config files
-		board.setConfigFiles("CTest_ClueLayout.csv", "CTest_ClueLegend.txt", "ClueWeapons.txt", "CluePlayers.txt");		
+		board.setConfigFiles("CTest_ClueLayout.csv", "CTest_ClueLegend.txt");		
 		// Initialize will load BOTH config files 
-		try {
-			board.initialize();
-		} catch (FileNotFoundException | BadConfigFormatException e) {
-			e.toString();
-		}
+		board.initialize();
 	}
 
 	// Ensure that player does not move around within room
@@ -283,9 +279,6 @@ public class CTest_BoardAdjTargetTests {
 	public void testTargetsIntoRoomShortcut() 
 	{
 		board.calcTargets(12, 7, 3);
-		for (BoardCell cell : board.getTargets()) {
-			System.out.println(cell.toString());
-		}
 		Set<BoardCell> targets= board.getTargets();
 		assertEquals(12, targets.size());
 		// directly up and down

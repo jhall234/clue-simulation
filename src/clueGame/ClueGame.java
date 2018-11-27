@@ -33,7 +33,7 @@ public class ClueGame extends JFrame {
 	 */
 	public ClueGame() {
 		board = Board.getInstance();
-	    board.setConfigFiles(boardConfigFile, roomConfigFile, weaponConfigFile, playerConfigFile);
+	    board.setConfigFiles(boardConfigFile, roomConfigFile);
 	    try {
 	      board.initialize();
 	    } catch (Exception e) {
@@ -51,6 +51,8 @@ public class ClueGame extends JFrame {
 	  	
 	  	//Display splash screen
 	  	
+	  	//initialize the first players turn
+	  	board.movePlayer();
 			    
 	}
 	

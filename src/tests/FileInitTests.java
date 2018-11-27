@@ -27,7 +27,7 @@ class FileInitTests {
 //	Setup and initialize the board
 	@BeforeAll
 	public static void setUp() throws FileNotFoundException, BadConfigFormatException {
-		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt", "ClueWeapons.txt", "CluePlayers.txt");
+		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");
 		board.initialize();
 	}
 	

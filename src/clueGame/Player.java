@@ -19,7 +19,7 @@ public abstract class Player {
 	 */
 	public Player() {
 		this.myCards = new ArrayList<>();
-		this.seenCards = new ArrayList<>();
+		this.seenCards = new ArrayList<>();		
 	}
 	
 	/**

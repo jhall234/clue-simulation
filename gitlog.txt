@@ -1,3 +1,51 @@
+commit b6a597594be0141e37d4c90c0d4a81959b8fa960
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Mon Nov 19 19:32:12 2018 -0700
+
+    All messages alerts finished and control gui roll and player displayed.
+
+commit 5f5af8b192d4ca1063af597ef30076aa84f8c9c0
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Sat Nov 17 23:25:12 2018 -0700
+
+    All Players moving on board, user can select target with click
+
+commit bbdcdb19d1bae51259e67156aa15aaa0892b781a
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Fri Nov 16 22:58:30 2018 -0700
+
+    Painting higlighted cells complete. Also added lots of refactioring order of functions listed
+
+commit 4104ea26982295864086adfabb81eeb22ce48694
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Thu Nov 15 17:38:43 2018 -0700
+
+    .gitignore fix
+
+commit c76d8495bf6d9634fc6e7873cec24e669fab45bd
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Thu Nov 15 17:31:55 2018 -0700
+
+    Create .gitignore
+
+commit 2245e95579096cd5fc7bb44a34eada15804e6618
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Thu Nov 15 15:02:32 2018 -0700
+
+    Update ControlGUI.java
+
+commit 6403e04899838e7095432e5a32e091ea9b68cd05
+Author: Carl Schader <cschader@factorearth.com>
+Date:   Thu Nov 15 14:58:19 2018 -0700
+
+    getCurrentPlayer
+
+commit e63bf7c76b640f35f195c2547bcf654bb8121a45
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Thu Nov 15 14:55:55 2018 -0700
+
+    added mouse listener to ControlGUI NextPlayer button
+
 commit b434362b2161746b9c6ad57647c76864b008e009
 Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
 Date:   Mon Nov 12 22:04:55 2018 -0700

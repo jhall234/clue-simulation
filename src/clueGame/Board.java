@@ -1,5 +1,5 @@
 /**
- * @author Carl Schader
+  * @author Carl Schader
  * @author Josh Hallinan
  */
 
@@ -45,6 +45,7 @@ public class Board extends JPanel implements MouseListener {
 	private Player currentPlayer;
 	private boolean userNeedsToSelectTarget = false;
 	private int lastDiceRoll;
+	private String lastSuggestion;
 
 	/**
 	 * Constructor
@@ -61,6 +62,7 @@ public class Board extends JPanel implements MouseListener {
 		this.rooms = new ArrayList<String>();
 		this.weapons = new ArrayList<String>();
 		this.playerNames = new ArrayList<>();
+		this.lastSuggestion = "";
 		
 	}
 
@@ -71,11 +73,11 @@ public class Board extends JPanel implements MouseListener {
 	 * @param weaponConfigFile
 	 * @param playerConfigFile
 	 */
-	public void setConfigFiles(String boardConfigFile, String roomConfigFile, String weaponConfigFile, String playerConfigFile) {
+	public void setConfigFiles(String boardConfigFile, String roomConfigFile) {
 		this.boardConfigFile = boardConfigFile;
 		this.roomConfigFile = roomConfigFile;
-		this.weaponConfigFile = weaponConfigFile;
-		this.playerConfigFile = playerConfigFile;
+		this.weaponConfigFile = "ClueWeapons.txt";
+		this.playerConfigFile = "CluePlayers.txt";
 	}
 	
 	/**
@@ -93,7 +95,7 @@ public class Board extends JPanel implements MouseListener {
 		userNeedsToSelectTarget = false;
 		addMouseListener(this);
 		//start the user's first turn
-		movePlayer();
+		//
 	}
 
 	/**
@@ -293,6 +295,9 @@ public class Board extends JPanel implements MouseListener {
 					ArrayList<Card> new_list = player.getMyCards();
 					new_list.add(random_card);
 					player.setMyCards(new_list);
+					ArrayList<String> seenCards = player.getSeenCards();
+					seenCards.add(random_card.getCardName());
+					player.setSeenCards(seenCards);					
 					already_seen.add(random_card);
 					cards_dealt++;
 				}				
@@ -425,6 +430,8 @@ public class Board extends JPanel implements MouseListener {
 	 * @return Card that corresponds to the accusation
 	 */
 	public Card handleSuggestion(Player suggester, Solution suggestion) {
+		//update boards stored guess
+		lastSuggestion = suggestion.getPerson()+", "+suggestion.getRoom()+", "+suggestion.getWeapon(); 
 		int startIndex = players.indexOf(suggester) + 1;
 		Card disprovingClue;
 		//Loop over every player once, if player is accuser, they can't answer 
@@ -456,6 +463,7 @@ public class Board extends JPanel implements MouseListener {
 			JOptionPane.showMessageDialog(null, "You must select a highlighted location to move.");
 			return;
 		}
+		lastSuggestion = ""; //Clear out suggestion in case next player can't make it into a room
 		int playerIndex = players.indexOf(currentPlayer);
 		playerIndex = (playerIndex+1) % players.size();
 		currentPlayer = players.get(playerIndex);
@@ -759,7 +767,14 @@ public class Board extends JPanel implements MouseListener {
 		return this.lastDiceRoll;
 	}
 	
-	
+	public String getLastSuggestion() {
+		return lastSuggestion;
+	}
+
+	public void setLastSuggestion(String lastSuggestion) {
+		this.lastSuggestion = lastSuggestion;
+	}
+
 	public static void main(String[] args) throws FileNotFoundException {
 		
 	}
