@@ -485,9 +485,13 @@ public class Board extends JPanel implements MouseListener {
 	            System.exit(0);
 	        }
 	        else {
-		    	JOptionPane.showMessageDialog(null, "Incorrect. You LOSE!");
-		    	System.exit(0);
+		    	JOptionPane.showMessageDialog(null, "Incorrect Guess");		    	
 	        }
+	        userNeedsToSelectTarget = false;
+			for (BoardCell c : targets) {
+				c.setHighlightTarget(false);								
+			}	
+			repaint();
 	    }	    
 	    return playerWon;
 	}
