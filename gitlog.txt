@@ -1,3 +1,33 @@
+commit 381b37e62a0bf183efc2159cb0b6a8786b9f7d55
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Nov 28 14:22:10 2018 -0700
+
+    if human incorrectly guesses, game does not end
+
+commit 4367b184017fab1b9a868864c34cb314a157a61c
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Nov 28 14:12:39 2018 -0700
+
+    added extra credit file
+
+commit 549ad0a0e9c503ae1f0a591ef0f8b379910cd075
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Wed Nov 28 14:06:31 2018 -0700
+
+    Clue Game is Working and ready to sumbit upon aproval
+
+commit 7719beb3d29540273a21b413375dd0b5bb9bcb1d
+Author: mcollins12 <mcollins12#github.com>
+Date:   Tue Nov 27 15:23:58 2018 -0700
+
+    Added HumanGuess dialouge
+
+commit e80666e0264aa05dd8f13ccdd448f329fd73f42c
+Author: Joshua Hallinan <jhallinan@mymail.mines.edu>
+Date:   Mon Nov 26 22:23:10 2018 -0700
+
+    Computer Players are all making suggestions when in room and gui displaye the suggestion
+
 commit b6a597594be0141e37d4c90c0d4a81959b8fa960
 Author: Carl Schader <cschader@factorearth.com>
 Date:   Mon Nov 19 19:32:12 2018 -0700
