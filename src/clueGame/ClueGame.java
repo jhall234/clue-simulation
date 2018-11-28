@@ -41,6 +41,7 @@ public class ClueGame extends JFrame {
 	    }
 	    userName = board.getUser().getPlayerName();
 	    control = new ControlGUI();
+	    board.setControlGUI(control);
 	    cards = new MyCards(board.getUser().getMyCards());
 	    
 	    add(board, BorderLayout.CENTER);	
@@ -56,10 +57,19 @@ public class ClueGame extends JFrame {
 			    
 	}
 	
+	/**
+	 * Will return the human players name
+	 * @return
+	 */
 	public String getUserName() {
 		return userName;
 	}
 	
+	/**
+	 * Will create a checkbox for the DetectiveNotes dialog
+	 * @param cardType
+	 * @return
+	 */
 	private JPanel makeDetectiveCheckBox(CardType cardType) {
 		JPanel panel = new JPanel();
 //		panel.setSize(256,256);
@@ -95,6 +105,11 @@ public class ClueGame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Will create a dropdown for the DetectiveNotes dialog
+	 * @param cardType
+	 * @return
+	 */
 	private JPanel makeDetectiveDropDown(CardType cardType) {
 		JPanel panel = new JPanel();
 //		panel.setSize(256,256);
@@ -136,6 +151,9 @@ public class ClueGame extends JFrame {
 		return panel;
 	}
 	
+	/**
+	 * Function that will create the entire detective notes dialog
+	 */
 	private void makeDetectiveNotes() {
 		JDialog panel = new JDialog();
 //		panel.setSize(512,1024);

@@ -91,8 +91,16 @@ public class BoardCell {
 	public void draw(Graphics2D g) {
 		
 		if (this.isRoom()) {
-		//Fill square with grey
-			g.setColor(Color.LIGHT_GRAY);
+			if (highlightTarget) {
+				// Color green to highlight valid target
+				g.setColor(new Color(104, 255, 107));
+			}
+			
+			else {
+				//Fill square with grey
+				g.setColor(Color.LIGHT_GRAY);
+			}
+			
 			g.fillRect(x, y, WIDTH, HEIGHT);
 			Stroke defaultStroke = g.getStroke();
 			switch (getDoorDirection()) {

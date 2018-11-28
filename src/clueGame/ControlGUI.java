@@ -16,7 +16,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 public class ControlGUI extends JPanel {
-	private JTextField name;
+	private JTextField player;
 	private JTextField rollText;
 	private JTextField guessText;
 	private JTextField responseText;
@@ -29,14 +29,13 @@ public class ControlGUI extends JPanel {
 		add(panel);
 		panel = createTurnInfoPanel();
 		add(panel);
-		
-		// player One's turn
-		Board board = Board.getInstance();
-		rollText.setText(Integer.toString(board.getLastDiceRoll()));
-		name.setText(board.getCurrentPlayer().getPlayerName());
-		guessText.setText(board.getLastSuggestion());
-	}
 
+	}
+	
+	/**
+	 * Creates row of the GUI that contains the next player and make accusation buttons
+	 * @return
+	 */
 	private JPanel CreateButtonRow() {
 		JPanel parentPanel = new JPanel();
 		// Use a grid layout, 1 row, 2 elements (label, text)
@@ -47,10 +46,10 @@ public class ControlGUI extends JPanel {
 		turnPanel.setLayout(new GridLayout(3,0));
 		JLabel turnLabel = new JLabel("Whose turn?", SwingConstants.CENTER);
 		
-		name = new JTextField(20);
-		name.setEditable(false);
+		player = new JTextField(20);
+		player.setEditable(false);
 		JPanel textTurnPanel = new JPanel();
-		textTurnPanel.add(name);
+		textTurnPanel.add(player);
 		
 		turnPanel.add(turnLabel);
 		turnPanel.add(textTurnPanel);
@@ -59,16 +58,24 @@ public class ControlGUI extends JPanel {
 		JButton nextPlayer = new JButton("Next Player");
 		nextPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				guessText.setText(" ");
+				responseText.setText(" ");
 				// Call the board & give the next player a turn
 				Board board = Board.getInstance();					
 				board.movePlayer();
-				rollText.setText(Integer.toString(board.getLastDiceRoll()));
-				guessText.setText(board.getLastSuggestion());
-				name.setText(board.getCurrentPlayer().getPlayerName());
+				
 			}			
 		});
 		
 		JButton makeAccusation = new JButton("Make Accusation");
+		makeAccusation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Board board = Board.getInstance();
+				board.makeAccusation();
+				
+				
+			}			
+		});
 		
 		//Add all of the elements to the panel
 		parentPanel.add(turnPanel);
@@ -77,6 +84,10 @@ public class ControlGUI extends JPanel {
 		return parentPanel;
 	}
 
+	/**
+	 * Creates the row of the GUI that displays info about roll, current player, guess, and response
+	 * @return
+	 */
 	private JPanel createTurnInfoPanel() {
 		// no layout specified, so this is flow
 		JPanel parentPanel = new JPanel();
@@ -117,6 +128,54 @@ public class ControlGUI extends JPanel {
 		parentPanel.add(responsePanel);
 		
 		return parentPanel;
+	}
+	
+	/**
+	 * Getter for player text field
+	 * @return
+	 */
+	public JTextField getPlayer() {
+		return player;
+	}
+
+	/**
+	 * Setter for player text field
+	 * @param name
+	 */
+	public void setPlayer(String name) {
+		this.player.setText(name);
+	}
+
+	/**
+	 * getter for dice roll value
+	 * @return
+	 */
+	public JTextField getRollText() {
+		return rollText;
+	}
+
+	/**
+	 * setter for dice roll value
+	 * @param roll
+	 */
+	public void setRollText(String roll) {
+		rollText.setText(roll);
+	}
+
+	/**
+	 * setter for guess text value 
+	 * @param guess
+	 */
+	public void setGuessText(String guess) {
+		guessText.setText(guess);
+	}
+	
+	/**
+	 * setter for response text value
+	 * @param response
+	 */
+	public void setResponseText(String response) {
+		responseText.setText(response);
 	}
 
 	public static void main(String[] args) {

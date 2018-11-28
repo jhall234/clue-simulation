@@ -2,6 +2,8 @@ package clueGame;
 
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 public class ComputerPlayer extends Player {
 	private BoardCell justVisitedRoom;
 	private Solution suggestion;
@@ -17,6 +19,11 @@ public class ComputerPlayer extends Player {
 		this.suggestion = new Solution();
 	}
 	
+	/**
+	 * Will select a location for ComputerPlayer to travel to, choosing a room if possible
+	 * @param targets
+	 * @return
+	 */
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		ArrayList<BoardCell> walkways = new ArrayList<BoardCell>();
 		ArrayList<BoardCell> doors = new ArrayList<BoardCell>();
@@ -50,12 +57,16 @@ public class ComputerPlayer extends Player {
 		setRow(target.getRow());
 		//if player is inside a room, generate suggestion
 		if (target.isRoom()) {
+			justVisitedRoom = target;
 			char roomChar = target.getInitial();
 			createSuggestion(Board.getInstance().getRoomName(roomChar));
 			makeSuggestion();
 		}
 	}
 	
+	/**
+	 * Will send a suggestion to Board, and decide if player should make accusation next turn 
+	 */
 	public void makeSuggestion() {
 		Card cardShown = Board.getInstance().handleSuggestion(this, suggestion);
 		if (cardShown == null) {
@@ -72,16 +83,24 @@ public class ComputerPlayer extends Player {
 		}
 	}
 	
+	/**
+	 * Handles seeing if the computer won when it makes an accusation
+	 */
 	public void makeAccusation() {
 		if (Board.getInstance().checkAccusation(suggestion)) {
 			//Player has won
+			JOptionPane.showMessageDialog(null, this.getPlayerName()+" just won with guess: "+suggestion.person+", "+suggestion.room+", "+suggestion.weapon+"  Game Over");
 			System.exit(0);
 		}
 		else {
 			//Player has incorrectly guessed
+			JOptionPane.showMessageDialog(null, this.getPlayerName()+" incorrectly guessed: "+suggestion.person+", "+suggestion.room+", "+suggestion.weapon);
 		}
 	}
 	
+	/**
+	 * Will generate a suggestion for player based on seen cards 
+	 */
 	public void createSuggestion(String room) {
 		ArrayList<String> unseenPlayers = new ArrayList<>();
 		ArrayList<String> unseenWeapons = new ArrayList<>();
@@ -100,21 +119,37 @@ public class ComputerPlayer extends Player {
 		int randomNum1 = rand.nextInt(unseenPlayers.size());
 		int randomNum2 = rand.nextInt(unseenWeapons.size());
 
-		suggestion = new Solution(unseenPlayers.get(randomNum1), room, unseenWeapons.get(randomNum2));
+		suggestion = new Solution(unseenPlayers.get(randomNum1), room, unseenWeapons.get(randomNum2));		
 	}
 	
+	/**
+	 * getter for suggestion variable
+	 * @return
+	 */
 	public Solution getSuggestion() {
 		return suggestion;
 	}
-
+	
+	/**
+	 * setter for suggestion variable
+	 * @param suggestion
+	 */
 	public void setSuggestion(Solution suggestion) {
 		this.suggestion = suggestion;
 	}
-
+	
+	/**
+	 * setter for justVisistedRoom boolean
+	 * @param justVisitedRoom
+	 */
 	public void setJustVisitedRoom(BoardCell justVisitedRoom) {
 		this.justVisitedRoom = justVisitedRoom;
 	}
 	
+	/**
+	 * getter for justVisistedRoom boolean
+	 * @return
+	 */
 	public BoardCell getJustVisitedRoom() {
 		return this.justVisitedRoom;
 	}

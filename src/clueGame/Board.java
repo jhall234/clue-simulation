@@ -43,9 +43,9 @@ public class Board extends JPanel implements MouseListener {
 	
 	private HumanPlayer user;
 	private Player currentPlayer;
-	private boolean userNeedsToSelectTarget = false;
-	private int lastDiceRoll;
-	private String lastSuggestion;
+	private boolean userNeedsToSelectTarget;
+	
+	private ControlGUI controlGUI;
 
 	/**
 	 * Constructor
@@ -62,7 +62,7 @@ public class Board extends JPanel implements MouseListener {
 		this.rooms = new ArrayList<String>();
 		this.weapons = new ArrayList<String>();
 		this.playerNames = new ArrayList<>();
-		this.lastSuggestion = "";
+		
 		
 	}
 
@@ -420,10 +420,6 @@ public class Board extends JPanel implements MouseListener {
 	public Set<BoardCell> getAdjList(int row, int column) {
 		return board[row][column].getAdjacencies();
 	}
-
-	public void selectAnswer() {
-		
-	}
 	
 	/**
 	 * Will get one of the players to reveal a card to the accuser
@@ -431,7 +427,17 @@ public class Board extends JPanel implements MouseListener {
 	 */
 	public Card handleSuggestion(Player suggester, Solution suggestion) {
 		//update boards stored guess
-		lastSuggestion = suggestion.getPerson()+", "+suggestion.getRoom()+", "+suggestion.getWeapon(); 
+		String guess = suggestion.getPerson()+", "+suggestion.getRoom()+", "+suggestion.getWeapon();
+		controlGUI.setGuessText(guess);
+		//move the player that is in the suggestion to that room 
+		int rowLocation = suggester.getRow();
+		int colLocation = suggester.getColumn();
+		Player accusedPlayer = getPlayer(suggestion.getPerson());
+		accusedPlayer.setRow(rowLocation);
+		accusedPlayer.setColumn(colLocation);
+		accusedPlayer.setAccused(true);		
+		repaint();
+		
 		int startIndex = players.indexOf(suggester) + 1;
 		Card disprovingClue;
 		//Loop over every player once, if player is accuser, they can't answer 
@@ -440,8 +446,18 @@ public class Board extends JPanel implements MouseListener {
 			Player disprover = players.get(startIndex);
 			if (!disprover.equals(suggester)) {
 					disprovingClue = disprover.disproveSuggestion(suggestion);
-					if (disprovingClue != null) {
+					if (disprovingClue != null) {						
+						for (Player p : players) {
+							ArrayList<String> cards = p.getSeenCards();
+							cards.add(disprovingClue.getCardName());
+							p.setSeenCards(cards);
+						}
+						//set response on GUI and update all computerPlayer's seen cards
+						controlGUI.setResponseText(disprovingClue.getCardName());
 						return disprovingClue;
+					}
+					else {
+						controlGUI.setResponseText("Nobody has a clue");
 					}
 			}
 			startIndex++;
@@ -449,6 +465,38 @@ public class Board extends JPanel implements MouseListener {
 		return null;
 	}
 	
+	/**
+	 * Function handles when the Make Accusation button is pressed. Only can make accusation if its your turn
+	 * @return
+	 */
+	public boolean makeAccusation() {
+		if (currentPlayer != user) {
+			JOptionPane.showMessageDialog(null, "You can only make an accusation on your turn");
+		    return false;
+		}
+		HumanGuessDialog prompt = new HumanGuessDialog("accusation");
+		boolean playerWon = false;
+		prompt.setVisible(true);
+	    if (prompt.isSubmitted()) {
+	    	Solution accusation = prompt.getSelectedSolution();
+	        playerWon = checkAccusation(accusation);
+	        if (playerWon) {
+	        	JOptionPane.showMessageDialog(null, "You guessed correctly. You WIN");	            
+	            System.exit(0);
+	        }
+	        else {
+		    	JOptionPane.showMessageDialog(null, "Incorrect. You LOSE!");
+		    	System.exit(0);
+	        }
+	    }	    
+	    return playerWon;
+	}
+	
+	/**
+	 * Returns true if the accusation is the real answer
+	 * @param accusation
+	 * @return
+	 */
 	public boolean checkAccusation(Solution accusation) {
 		return this.solution.isEqual(accusation);
 	}
@@ -459,40 +507,39 @@ public class Board extends JPanel implements MouseListener {
 	public void movePlayer() {
 		//If user in middle of turn do not move next player
 		if (userNeedsToSelectTarget) {
-			// DONE
 			JOptionPane.showMessageDialog(null, "You must select a highlighted location to move.");
 			return;
-		}
-		lastSuggestion = ""; //Clear out suggestion in case next player can't make it into a room
+		}		
+
 		int playerIndex = players.indexOf(currentPlayer);
 		playerIndex = (playerIndex+1) % players.size();
 		currentPlayer = players.get(playerIndex);
-		
-		//roll the dice
+		controlGUI.setPlayer(currentPlayer.getPlayerName());
+				
+		// Roll the dice
 		Random rand = new Random();
-		//NOTE: need to add 1 so that dice roll is not 0 range:[1,6] 
+		
+		// Need to add 1 so that dice roll is not 0 range:[1,6] 
 		int diceRoll = rand.nextInt(5) + 1;
-		this.lastDiceRoll = diceRoll;
+		controlGUI.setRollText(Integer.toString(diceRoll)); 
 		
-		//calculate targets
+		// Calculate targets
 		calcTargets(currentPlayer.getRow(), currentPlayer.getColumn(), diceRoll);
-		
-		//DONE : Display roll text
-		//DONE : Display Current Player on ControlPanelGUI
-				 
+					 
 		if (currentPlayer instanceof HumanPlayer) {
-			//initialize so program waits for user to move
+			// Initialize so program waits for user to move
 			userNeedsToSelectTarget = true;
 			// need to draw the adjacency squares
 			for (BoardCell c : targets) {
 				c.setHighlightTarget(true);								
 			}			
-			//NOTE: MouseClicked will handle moving the player if they are humanPlayer
+			// MouseClicked will handle moving the player if they are humanPlayer
 		}
 		else {
 			BoardCell target = ((ComputerPlayer)currentPlayer).pickLocation(targets);
 			// Move the player
 			currentPlayer.makeMove(target);
+			currentPlayer.setAccused(false);
 		}
 		repaint();
 	}
@@ -562,6 +609,9 @@ public class Board extends JPanel implements MouseListener {
 		return this.board[row][column];
 	}
 	
+	/**
+	 * Handles when mouse is clicked on a board cell. Ensures that player must select a valid board cell to travel to 
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
@@ -577,18 +627,30 @@ public class Board extends JPanel implements MouseListener {
 		//Make sure that clicked cell is a valid target
 		if (targets.contains(getCellAt(row,column))) {
 			currentPlayer.makeMove(getCellAt(row,column));
+			currentPlayer.setAccused(false);
 			//reset userHasSelectedTarget and remove target highlights
 			userNeedsToSelectTarget = false;
 			for (BoardCell c : targets) {
 				c.setHighlightTarget(false);								
 			}	
+			repaint();
+			
+			if (getCellAt(row, column).isRoom()) {
+				String roomName = legend.get(getCellAt(row, column).getInitial());
+				HumanGuessDialog popUp = new HumanGuessDialog(roomName);
+				popUp.setVisible(true);
+				
+				if (popUp.isSubmitted()) {
+					handleSuggestion(user, popUp.getSelectedSolution());					
+				}
+			}			
 		}
 		else {
 			//DONE: Show alert to player that that is invalid selection
 			JOptionPane.showMessageDialog(null, "Invalid cell selected.");
 		}
 		
-		repaint();
+		
 	}
 
 	@Override
@@ -757,22 +819,22 @@ public class Board extends JPanel implements MouseListener {
 	public Player getCurrentPlayer() {
 		return this.currentPlayer;
 	}
-
+	
+	/**
+	 * setter for the current player variable
+	 * @param player
+	 */
 	public void setCurrentPlayer(Player player) {
 		this.currentPlayer = player; 
 		
 	}
 	
-	public int getLastDiceRoll() {
-		return this.lastDiceRoll;
-	}
-	
-	public String getLastSuggestion() {
-		return lastSuggestion;
-	}
-
-	public void setLastSuggestion(String lastSuggestion) {
-		this.lastSuggestion = lastSuggestion;
+	/**
+	 * setter for the controlGUI variable
+	 * @param controlGUI
+	 */
+	public void setControlGUI(ControlGUI controlGUI) {
+		this.controlGUI = controlGUI;
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {

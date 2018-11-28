@@ -11,6 +11,11 @@ public class HumanPlayer extends Player {
 		super(playerName, red, green, blue, playerType, row, column);
 	}
 	
+	/**
+	 * Will handle picking the location to move to next
+	 * @param targets
+	 * @return
+	 */
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		BoardCell board_cell = new BoardCell();
 		return board_cell;
@@ -28,10 +33,5 @@ public class HumanPlayer extends Player {
 	public void makeAccusation() {
 		
 	}
-	
-	public void createSuggestion() {
-		
-	}
-
 	
 }

@@ -12,7 +12,8 @@ public abstract class Player {
 	private PlayerType playerType;
 	private ArrayList<Card> myCards;
 	private ArrayList<String> seenCards;
-	private static final int PIECE_DIAMETER = 26; 
+	private static final int PIECE_DIAMETER = 26;
+	private boolean accused;
 	
 	/**
 	 * Default constructor for Player
@@ -80,13 +81,42 @@ public abstract class Player {
 	 * This method will handle drawing all of the players on the game boards as circles
 	 * @param g
 	 */
-	public void draw(Graphics2D g) {
-		int x = BoardCell.getWidth() * column;
-		int y = BoardCell.getHeight() * row;
-		g.setColor(color);
-		g.fillOval(x, y, PIECE_DIAMETER, PIECE_DIAMETER);
-		g.setColor(Color.BLACK);
-		g.drawOval(x, y, PIECE_DIAMETER, PIECE_DIAMETER);
+	public void draw(Graphics2D g) {		
+			int x;
+			int y;
+			if (accused) {
+				switch (Board.getInstance().getCellAt(row, column).getDoorDirection()) {
+				case DOWN:
+					x = BoardCell.getWidth() * column;
+					y = BoardCell.getHeight() * (row-1);
+					break;
+				case UP:
+					x = BoardCell.getWidth() * column;
+					y = BoardCell.getHeight() * (row+1);
+					break;
+				case LEFT:
+					x = BoardCell.getWidth() * (column+1);
+					y = BoardCell.getHeight() * row;
+					break;
+				case RIGHT:
+					x = BoardCell.getWidth() * (column-1);
+					y = BoardCell.getHeight() * row;
+					break;
+				default:
+					x = BoardCell.getWidth() * column;
+					y = BoardCell.getHeight() * row;
+					break;
+				}
+				
+			}
+			else {
+				x = BoardCell.getWidth() * column;
+				y = BoardCell.getHeight() * row;				
+			}
+			g.setColor(color);
+			g.fillOval(x, y, PIECE_DIAMETER, PIECE_DIAMETER);
+			g.setColor(Color.BLACK);
+			g.drawOval(x, y, PIECE_DIAMETER, PIECE_DIAMETER);
 	}
 	
 	/**
@@ -165,6 +195,22 @@ public abstract class Player {
 	 */
 	public void setSeenCards(ArrayList<String> seenCards) {
 		this.seenCards = seenCards;
+	}
+	
+	/**
+	 * Returns if player has been included in a suggestion
+	 * @return
+	 */
+	public boolean isAccused() {
+		return accused;
+	}
+	
+	/**
+	 * setter to include a player in a suggestion
+	 * @param accused
+	 */
+	public void setAccused(boolean accused) {
+		this.accused = accused;
 	}
 	
 }	
