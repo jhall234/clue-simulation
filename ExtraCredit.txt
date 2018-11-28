@@ -1,0 +1,7 @@
+For extra credit, we added functionality to display players separately if they are in the same room. 
+This would occur if a player makes an accusation, thus moving the accused player in the same room. 
+With our changes the players are drawn on different squares.
+
+We dont know if this also counts, but all of the player's colors can be customized with
+RBG values located in the CluePlayer.txt file. The colors used now more accurately portray 
+the color-based names of the clue players.
