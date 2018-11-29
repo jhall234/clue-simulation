@@ -27,6 +27,8 @@ class GameActionTests {
 	public static void setUp() throws FileNotFoundException, BadConfigFormatException {
 		board.setConfigFiles("ClueLayout.csv", "ClueLegend.txt");
 		board.initialize();
+		ControlGUI control  = new ControlGUI();
+		board.setControlGUI(control);
 	}
 	
 	@BeforeClass
